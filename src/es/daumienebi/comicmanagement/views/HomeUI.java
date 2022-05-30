@@ -72,6 +72,7 @@ public class HomeUI {
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeUI.class.getResource("/resources/logo_book.png")));
 		frame.setBounds(100, 100, 1300,800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(frame);
 		
 		//JPanel mainPanel = new JPanel();
 		ImageIcon img = new ImageIcon(HomeUI.class.getResource("/resources/background5.jpg"));
