@@ -200,18 +200,6 @@ public class HomeUI {
 		menuComicManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
 		menuComics.add(menuComicManagement);
 		
-		menuAutors = new JMenu("Estado");
-		menuAutors.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-		menuBar.add(menuAutors);
-		
-		mntmNewMenuItem = new JMenuItem("A\u00F1adir Estado");
-		mntmNewMenuItem.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-plus-math-24.png")));
-		menuAutors.add(mntmNewMenuItem);
-		
-		mntmNewMenuItem_1 = new JMenuItem("Gestionar Estado");
-		mntmNewMenuItem_1.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
-		menuAutors.add(mntmNewMenuItem_1);
-		
 		menuReports = new JMenu("Informes");
 		menuReports.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuReports);
@@ -233,12 +221,15 @@ public class HomeUI {
 		menuSettings.add(mnNewMenu_1);
 		
 		mntmNewMenuItem_3 = new JMenuItem("Ingl\u00E9s");
+		mntmNewMenuItem_3.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/gb_icon.jpg")));
 		mnNewMenu_1.add(mntmNewMenuItem_3);
 		
 		mntmNewMenuItem_4 = new JMenuItem("Espa\u00F1ol");
+		mntmNewMenuItem_4.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/esp_icon.jpg")));
 		mnNewMenu_1.add(mntmNewMenuItem_4);
 		
 		mntmNewMenuItem_5 = new JMenuItem("Gallego");
+		mntmNewMenuItem_5.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/2560px-Flag_of_Galicia.svg (2).png")));
 		mnNewMenu_1.add(mntmNewMenuItem_5);
 		
 		menuHelp = new JMenu("Ayuda");

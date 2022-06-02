@@ -19,7 +19,6 @@ public class SplashScreenUI {
 				if(i == 10) {
 					SplashScreenUtil.lblDetail.setText("Starting app...");
 				}
-				
 				if(i == 50) {
 					SplashScreenUtil.lblDetail.setText("Loading app properties...");
 				}
@@ -35,8 +34,7 @@ public class SplashScreenUI {
 					//mainScreen.disableMenus();
 					mainScreen.frame.setLocationRelativeTo(mainScreen.frame);					
 					splash.dispose();
-					mainScreen.frame.setVisible(true);
-					
+					mainScreen.frame.setVisible(true);			
 				}
 			}
 		}catch (Exception e) {
