@@ -99,13 +99,9 @@ public class HomeUI {
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeUI.class.getResource("/resources/logo.png")));
 		frame.setBounds(100, 100, 1300,800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-<<<<<<< HEAD
 		frame.setLocationRelativeTo(frame); //to center the JFrame to the center of the screen
 		setBackgroundImage();
-=======
 		frame.setLocationRelativeTo(frame);
->>>>>>> df2cb1b03aea170189d9ce760856d0e643de3d2d
-		
 		mainPanel.setBackground(Color.WHITE);
 		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 		mainPanel.setLayout(new BorderLayout(0, 0));
