@@ -14,6 +14,7 @@ import javax.swing.Timer;
 import javax.swing.JPanel;
 
 import es.daumienebi.comicmanagement.controllers.HomeUIController;
+import es.daumienebi.comicmanagement.services.impl.ComicService;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -66,6 +67,7 @@ public class HomeUI {
 	private JMenuItem mntmNewMenuItem_4;
 	private JMenuItem mntmNewMenuItem_5;
 	
+	ComicService comicService = new ComicService();
 	
 	
 	/**
@@ -173,6 +175,11 @@ public class HomeUI {
 		menuBar.add(menuConnection);
 		
 		mntmNewMenuItem_2 = new JMenuItem("Añadir conexión");
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comicService.getUser();
+			}
+		});
 		mntmNewMenuItem_2.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-add-database-24.png")));
 		menuConnection.add(mntmNewMenuItem_2);
 		
@@ -197,6 +204,14 @@ public class HomeUI {
 		menuComics.add(menuAddComic);
 		
 		menuComicManagement = new JMenuItem("Gestionar Comics");
+		menuComicManagement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ComicManagementUI ui = new ComicManagementUI();
+				ui.setLocationRelativeTo(frame);
+				ui.setModal(true);
+				ui.setVisible(true);
+			}
+		});
 		menuComicManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
 		menuComics.add(menuComicManagement);
 		
