@@ -62,7 +62,7 @@ public class HomeUI {
 	private JMenuItem mntmNewMenuItem;
 	private JMenuItem mntmNewMenuItem_1;
 	private JMenuItem mntmNewMenuItem_2;
-	private JMenu mnNewMenu_1;
+	private JMenu menuSelectLanguage;
 	private JMenuItem mntmNewMenuItem_3;
 	private JMenuItem mntmNewMenuItem_4;
 	private JMenuItem mntmNewMenuItem_5;
@@ -188,10 +188,26 @@ public class HomeUI {
 		menuBar.add(menuCollections);
 		
 		menuAddCollection = new JMenuItem("Añadir Collección");
+		menuAddCollection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewCollectionUI ui = new NewCollectionUI();
+				ui.setModal(true);
+				ui.setLocationRelativeTo(frame);
+				ui.setVisible(true);
+			}
+		});
 		menuAddCollection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-plus-math-24.png")));
 		menuCollections.add(menuAddCollection);
 		
 		menuCollectionManagement = new JMenuItem("Gestionar Colecciones");
+		menuCollectionManagement.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CollectionManagementUI ui = new CollectionManagementUI();
+				ui.setModal(true);
+				ui.setLocationRelativeTo(frame);
+				ui.setVisible(true);
+			}
+		});
 		menuCollectionManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
 		menuCollections.add(menuCollectionManagement);
 		
@@ -200,6 +216,14 @@ public class HomeUI {
 		menuBar.add(menuComics);
 		
 		menuAddComic = new JMenuItem("Añadir Comic");
+		menuAddComic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NewComicUI ui = new NewComicUI();
+				ui.setModal(true);
+				ui.setLocationRelativeTo(frame);
+				ui.setVisible(true);
+			}
+		});
 		menuAddComic.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-plus-math-24.png")));
 		menuComics.add(menuAddComic);
 		
@@ -231,21 +255,21 @@ public class HomeUI {
 		menuSettings.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuSettings);
 		
-		mnNewMenu_1 = new JMenu("Seleccionar Idioma");
-		mnNewMenu_1.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-translation-24.png")));
-		menuSettings.add(mnNewMenu_1);
+		menuSelectLanguage = new JMenu("Seleccionar Idioma");
+		menuSelectLanguage.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-translation-24.png")));
+		menuSettings.add(menuSelectLanguage);
 		
 		mntmNewMenuItem_3 = new JMenuItem("Ingl\u00E9s");
 		mntmNewMenuItem_3.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/gb_icon.jpg")));
-		mnNewMenu_1.add(mntmNewMenuItem_3);
+		menuSelectLanguage.add(mntmNewMenuItem_3);
 		
 		mntmNewMenuItem_4 = new JMenuItem("Espa\u00F1ol");
 		mntmNewMenuItem_4.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/esp_icon.jpg")));
-		mnNewMenu_1.add(mntmNewMenuItem_4);
+		menuSelectLanguage.add(mntmNewMenuItem_4);
 		
 		mntmNewMenuItem_5 = new JMenuItem("Gallego");
 		mntmNewMenuItem_5.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/2560px-Flag_of_Galicia.svg (2).png")));
-		mnNewMenu_1.add(mntmNewMenuItem_5);
+		menuSelectLanguage.add(mntmNewMenuItem_5);
 		
 		menuHelp = new JMenu("Ayuda");
 		menuHelp.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));

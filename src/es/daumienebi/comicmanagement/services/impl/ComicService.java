@@ -7,6 +7,7 @@ import org.apache.http.util.EntityUtils;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import es.daumienebi.comicmanagement.models.*;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.HttpClientUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 /**
@@ -15,7 +16,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * A Java class that represents the implementation of IComicService
  */
 public class ComicService {
-
+	private static String SERVER = Configuration.server;
+	
 	public User getUser() {
 		
 		
@@ -24,7 +26,7 @@ public class ComicService {
 	}
 	
 	public ArrayList<User> getAllUsers(){
-		String url = "http://localhost:8081/users";
+		String url = SERVER + "/users";
 		ArrayList<User> users = new ArrayList<User>();
 		try {
 			HttpEntity entity = HttpClientUtil.get(url);
