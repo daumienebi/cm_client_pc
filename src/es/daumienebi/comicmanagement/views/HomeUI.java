@@ -28,7 +28,6 @@ import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.UIManager;
-
 public class HomeUI {
 
 	private JMenuItem menuOptionExit;
@@ -219,7 +218,8 @@ public class HomeUI {
 		menuAddComic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NewComicUI ui = new NewComicUI();
-				ui.setModal(true);
+				ui.isAlwaysOnTop();
+				//ui.setModal(true);
 				ui.setLocationRelativeTo(frame);
 				ui.setVisible(true);
 			}
