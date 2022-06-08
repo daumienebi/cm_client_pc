@@ -9,8 +9,9 @@ import java.awt.Font;
  */
 public class Constants {
 
-	public static Dimension newComicMinimumSize = new Dimension(800,580);
+	public static Dimension newComicMinimumSize = new Dimension(830,580);
 	public static Dimension configUIMinimunSize = new Dimension(470,580);
 	public static Font mainFont = new Font("Comic Sans Ms",1,13);
 	public static Dimension newCollectionMinimumSize = new Dimension(400,400);
+	public static Dimension comicManagementMinimumSize = new Dimension(700,500);
 }

@@ -30,6 +30,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class NewComicUI extends JDialog {
 	
@@ -105,27 +107,25 @@ public class NewComicUI extends JDialog {
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(5)
+					.addGap(1)
 					.addComponent(btnComicPoster)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnAddComicPoster)
 					.addContainerGap(30, Short.MAX_VALUE))
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(5)
-					.addComponent(btnComicPoster)
-					.addGap(58))
-				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGap(226)
-					.addComponent(btnAddComicPoster)
-					.addContainerGap(259, Short.MAX_VALUE))
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(226)
+							.addComponent(btnAddComicPoster))
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(21)
+							.addComponent(btnComicPoster)))
+					.addContainerGap(22, Short.MAX_VALUE))
 		);
 		panel_2.setLayout(gl_panel_2);
-		
-		JPanel panel_3 = new JPanel();
-		getContentPane().add(panel_3, BorderLayout.EAST);
 		
 		dataPanel = new JPanel();
 		getContentPane().add(dataPanel, BorderLayout.CENTER);
@@ -159,32 +159,43 @@ public class NewComicUI extends JDialog {
 		txtComicNumber.setColumns(10);
 		
 		JComboBox cmbState = new JComboBox();
+		
+		JButton btnNewButton = new JButton("Limpiar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GroupLayout gl_dataPanel = new GroupLayout(dataPanel);
 		gl_dataPanel.setHorizontalGroup(
-			gl_dataPanel.createParallelGroup(Alignment.LEADING)
+			gl_dataPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_dataPanel.createSequentialGroup()
-					.addGap(20)
-					.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_dataPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_dataPanel.createSequentialGroup()
+							.addGap(20)
 							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNewLabel)
-								.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblCollection, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
-							.addGap(39))
-						.addGroup(gl_dataPanel.createSequentialGroup()
-							.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_dataPanel.createSequentialGroup()
-							.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(txtComicNumber, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-								.addComponent(txtDay, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-							.addGap(28)
-							.addComponent(txtMonth, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-							.addGap(33)
-							.addComponent(txtYear, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
-						.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
-						.addComponent(cmbState, 0, 303, Short.MAX_VALUE))
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNewLabel)
+										.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+										.addComponent(lblCollection, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+									.addGap(39))
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(txtComicNumber, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+										.addComponent(txtDay, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+									.addGap(28)
+									.addComponent(txtMonth, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addGap(33)
+									.addComponent(txtYear, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+								.addComponent(cmbState, 0, 308, Short.MAX_VALUE))))
 					.addGap(0))
 		);
 		gl_dataPanel.setVerticalGroup(
@@ -208,7 +219,9 @@ public class NewComicUI extends JDialog {
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1_1_1))
-					.addContainerGap(181, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+					.addGap(31))
 		);
 		dataPanel.setLayout(gl_dataPanel);
 		

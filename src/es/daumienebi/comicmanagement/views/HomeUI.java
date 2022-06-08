@@ -9,6 +9,11 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.Timer;
 
 import javax.swing.JPanel;
@@ -57,6 +62,8 @@ public class HomeUI {
 	public static JMenu menuHelp;
 	public static JMenuItem menuHelpContents;
 	public static JMenuItem menuTecnicalManual;
+	
+	
 	private JMenu menuBasicReports;
 	private JMenuItem menuPersonalizedReports;
 	private JMenuItem mntmNewMenuItem;
@@ -66,6 +73,7 @@ public class HomeUI {
 	private JMenuItem mntmNewMenuItem_3;
 	private JMenuItem mntmNewMenuItem_4;
 	private JMenuItem mntmNewMenuItem_5;
+	private boolean comicMngOpen = true;
 	
 	ComicService comicService = new ComicService();
 	
@@ -236,12 +244,51 @@ public class HomeUI {
 		menuComics.add(menuAddComic);
 		
 		menuComicManagement = new JMenuItem("Gestionar Comics");
+		/**
+		menuComicManagement.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				if(comicMngOpen) {
+					ComicManagementUI ui = new ComicManagementUI();
+					ui.setLocationRelativeTo(frame);
+					ui.setMinimumSize(Constants.comicManagementMinimumSize);
+					ui.setVisible(true);
+					comicMngOpen = true;
+					ui.addWindowListener(new WindowAdapter() {
+			            public void windowClosing(WindowEvent windowEvent) {
+			            	comicMngOpen = true;
+			              ui.setEnabled(false);
+			            }
+			          });
+				}else {
+					JOptionPane.showMessageDialog(menuOptionExit, this, "La ventana ya esta abierta", imgPos);
+				}
+				comicMngOpen = false;
+			}
+		});
+		*/
 		menuComicManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ComicManagementUI ui = new ComicManagementUI();
-				ui.setLocationRelativeTo(frame);
-				ui.setModal(true);
-				ui.setVisible(true);
+				
+				if(comicMngOpen) {
+					ComicManagementUI ui = new ComicManagementUI();
+					ui.setLocationRelativeTo(frame);
+					ui.setMinimumSize(Constants.comicManagementMinimumSize);
+					ui.setVisible(true);
+					comicMngOpen = true;
+					ui.addWindowListener(new WindowAdapter() {
+			            public void windowClosing(WindowEvent windowEvent) {
+			            	comicMngOpen = true;
+			              ui.setEnabled(false);
+			            }
+			          });
+				}else {
+					JOptionPane.showMessageDialog(menuOptionExit, this, "La ventana ya esta abierta", imgPos);
+				}
+				comicMngOpen = false;
+				
 			}
 		});
 		menuComicManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
