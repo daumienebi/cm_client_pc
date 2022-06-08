@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import es.daumienebi.comicmanagement.controllers.HomeUIController;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
+import es.daumienebi.comicmanagement.utils.Constants;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -179,6 +180,7 @@ public class HomeUI {
 				ConfigUI  ui = new ConfigUI();
 				ui.setModal(true);
 				ui.setLocationRelativeTo(frame);
+				ui.setMinimumSize(Constants.configUIMinimunSize);
 				ui.setVisible(true);
 				comicService.getUser();
 			}
@@ -196,6 +198,7 @@ public class HomeUI {
 				NewCollectionUI ui = new NewCollectionUI();
 				ui.setModal(true);
 				ui.setLocationRelativeTo(frame);
+				ui.setMinimumSize(Constants.newCollectionMinimumSize);
 				ui.setVisible(true);
 			}
 		});
@@ -222,10 +225,11 @@ public class HomeUI {
 		menuAddComic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NewComicUI ui = new NewComicUI();
-				ui.isAlwaysOnTop();
-				//ui.setModal(true);
+				ui.setModal(true);
 				ui.setLocationRelativeTo(frame);
+				ui.setMinimumSize(Constants.newComicMinimumSize);
 				ui.setVisible(true);
+				
 			}
 		});
 		menuAddComic.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-plus-math-24.png")));

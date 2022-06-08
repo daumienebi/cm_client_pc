@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.swing.JDialog;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
@@ -15,7 +16,11 @@ import javax.swing.JSeparator;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+
 import java.awt.Toolkit;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.TitledBorder;
 
 public class ConfigUI extends JDialog {
 	private JTextField txtApiServer;
@@ -24,6 +29,8 @@ public class ConfigUI extends JDialog {
 	private JTextField txtFtpPass;
 	private JTextField txtComicImgServer;
 
+	public static String ConfigUI_configValues = "Config Values";
+	
 	/**
 	 * Launch the application.
 	 */
@@ -47,30 +54,23 @@ public class ConfigUI extends JDialog {
 	public ConfigUI() {
 		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ConfigUI.class.getResource("/resources/comic-icon_128.png")));
-		setBounds(100, 100, 462,581);
+		setBounds(100, 100, 470,589);
 		
 		JLabel api_icon = new JLabel("");
-		api_icon.setBounds(10, 11, 100, 100);
 		ImageIcon icon = new ImageIcon(ConfigUI.class.getResource("/resources/api_icon.png"));
 		Image img = icon.getImage();			
 		//scale the image
 		Image imgNuevo = img.getScaledInstance(100,100,  java.awt.Image.SCALE_SMOOTH );
 		icon =new ImageIcon(imgNuevo);
 		api_icon.setIcon(icon);
+		((JComponent) getContentPane()).setBorder(BorderFactory.createTitledBorder(null, ConfigUI_configValues,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18))); 
+
 		JLabel lblNewLabel_1 = new JLabel("SERVIDOR");
-		lblNewLabel_1.setBounds(10, 137, 54, 14);
-		getContentPane().setLayout(null);
-		getContentPane().add(api_icon);
-		getContentPane().add(lblNewLabel_1);
 		
 		txtApiServer = new JTextField();
-		txtApiServer.setBounds(119, 134, 312, 20);
-		getContentPane().add(txtApiServer);
 		txtApiServer.setColumns(10);
 		
 		JLabel ftpIcon = new JLabel("");
-		ftpIcon.setBounds(10, 162, 100, 100);
-		getContentPane().add(ftpIcon);
 		ImageIcon icon2 = new ImageIcon(ConfigUI.class.getResource("/resources/ftp_server_icon.png"));
 		Image img2 = icon2.getImage();			
 		//scale the image
@@ -81,73 +81,167 @@ public class ConfigUI extends JDialog {
 		
 		JLabel lblNewLabel_1_1 = new JLabel("SERVIDOR FTP");
 		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-		lblNewLabel_1_1.setBounds(10, 274, 100, 14);
-		getContentPane().add(lblNewLabel_1_1);
 		
 		txtFtpServer = new JTextField();
 		txtFtpServer.setColumns(10);
-		txtFtpServer.setBounds(119, 271, 312, 20);
-		getContentPane().add(txtFtpServer);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("USUARIO FTP");
 		lblNewLabel_1_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-		lblNewLabel_1_1_1.setBounds(10, 311, 100, 14);
-		getContentPane().add(lblNewLabel_1_1_1);
 		
 		txtFtpUser = new JTextField();
 		txtFtpUser.setColumns(10);
-		txtFtpUser.setBounds(119, 308, 312, 20);
-		getContentPane().add(txtFtpUser);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("CONTRASE\u00D1A");
 		lblNewLabel_1_1_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-		lblNewLabel_1_1_1_1.setBounds(10, 348, 100, 14);
-		getContentPane().add(lblNewLabel_1_1_1_1);
 		
 		txtFtpPass = new JTextField();
 		txtFtpPass.setColumns(10);
-		txtFtpPass.setBounds(119, 345, 312, 20);
-		getContentPane().add(txtFtpPass);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 122, 426, 9);
-		getContentPane().add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 171, 426, 9);
-		getContentPane().add(separator_1);
 		
 		JSeparator separator_1_1 = new JSeparator();
-		separator_1_1.setBounds(10, 389, 426, 9);
-		getContentPane().add(separator_1_1);
 		
 		JLabel lblNewLabel = new JLabel("SERVIDOR FTP");
-		lblNewLabel.setBounds(112, 230, 121, 14);
-		getContentPane().add(lblNewLabel);
 		
 		JLabel lblApiServer = new JLabel("SERVIDOR PRINCIPAL");
-		lblApiServer.setBounds(120, 97, 113, 14);
-		getContentPane().add(lblApiServer);
 		
 		JLabel lblComicImageServer = new JLabel("SERVIDOR IMAGENES");
-		lblComicImageServer.setBounds(112, 403, 140, 14);
-		getContentPane().add(lblComicImageServer);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("SERVER");
-		lblNewLabel_1_1_1_1_1.setBounds(10, 441, 71, 14);
-		getContentPane().add(lblNewLabel_1_1_1_1_1);
 		
 		txtComicImgServer = new JTextField();
 		txtComicImgServer.setColumns(10);
-		txtComicImgServer.setBounds(119, 438, 312, 20);
-		getContentPane().add(txtComicImgServer);
 		
 		JButton ConfigUI_SaveSettings = new JButton("Guardar");
-		ConfigUI_SaveSettings.setBounds(342, 508, 89, 23);
-		getContentPane().add(ConfigUI_SaveSettings);
 		
 		JCheckBox chkDefault = new JCheckBox("Usar valores por defecto");
-		chkDefault.setBounds(6, 508, 171, 23);
-		getContentPane().add(chkDefault);
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(api_icon)
+					.addGap(10)
+					.addComponent(lblApiServer, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+					.addGap(157))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+					.addGap(10))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(txtApiServer, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+					.addGap(15))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(ftpIcon)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(102)
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
+						.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
+					.addGap(10))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+					.addGap(9)
+					.addComponent(txtFtpServer, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+					.addGap(15))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+					.addGap(9)
+					.addComponent(txtFtpUser, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+					.addGap(15))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+					.addGap(9)
+					.addComponent(txtFtpPass, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+					.addGap(15))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(separator_1_1, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+					.addGap(10))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(112)
+					.addComponent(lblComicImageServer, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addComponent(lblNewLabel_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+					.addGap(38)
+					.addComponent(txtComicImgServer, GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+					.addGap(15))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(chkDefault, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
+					.addComponent(ConfigUI_SaveSettings, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(api_icon)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(86)
+							.addComponent(lblApiServer)))
+					.addGap(11)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
+					.addGap(3)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtApiServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_1)))
+					.addGap(8)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(ftpIcon)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(68)
+							.addComponent(lblNewLabel))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(9)
+							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)))
+					.addGap(9)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtFtpServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(17)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtFtpUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(17)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtFtpPass, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(24)
+					.addComponent(separator_1_1, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
+					.addGap(5)
+					.addComponent(lblComicImageServer)
+					.addGap(21)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_1_1_1_1_1))
+						.addComponent(txtComicImgServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(chkDefault)
+						.addComponent(ConfigUI_SaveSettings))
+					.addGap(32))
+		);
+		getContentPane().setLayout(groupLayout);
 	}
 }

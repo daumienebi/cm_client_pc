@@ -20,6 +20,7 @@ import javax.swing.UIManager;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.Panel;
 import java.awt.FlowLayout;
@@ -28,6 +29,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
 
 public class NewComicUI extends JDialog {
 	
@@ -36,20 +38,17 @@ public class NewComicUI extends JDialog {
 	public static JLabel NewComicUI_comicAdquisitionDate;
 	public static JLabel NewComicUI_comicState;
 	public static JLabel NewComicUI_comicNumber;
-	private JComboBox<String> cmbState;
-	private JTextField txtName;
-	private JTextField txtCollection;
-	private JTextField txtDate;
+	public static String NewComicUI_windowTitle = "Add New Comic";
+	public static String NewComicUI_newComic = "New Comic";
+	
 	private JButton btnComicPoster;
-	//private JTextField txtMonth;
-	//private JTextField txtYear;
 	private JTextField txtNumber;
 	private JPanel dataPanel;
-	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtName;
+	private JTextField txtDay;
+	private JTextField txtMonth;
+	private JTextField txtYear;
+	private JTextField txtComicNumber;
 	
 
 	/**
@@ -75,7 +74,7 @@ public class NewComicUI extends JDialog {
 	public NewComicUI() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewComicUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 943, 580);
-		
+		setTitle(NewComicUI_windowTitle);
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		
@@ -130,35 +129,36 @@ public class NewComicUI extends JDialog {
 		
 		dataPanel = new JPanel();
 		getContentPane().add(dataPanel, BorderLayout.CENTER);
+		dataPanel.setBorder(BorderFactory.createTitledBorder(null, NewComicUI_newComic,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18))); 
 		
 		JLabel lblNewLabel = new JLabel("NAME");
 		lblNewLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtName = new JTextField();
+		txtName.setColumns(10);
 		
 		JLabel lblCollection = new JLabel("COLLECTION");
 		lblCollection.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		txtDay = new JTextField();
+		txtDay.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("ADQUISITION DATE");
 		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		txtMonth = new JTextField();
+		txtMonth.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		txtYear = new JTextField();
+		txtYear.setColumns(10);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("NUMBER");
 		lblNewLabel_1_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		txtComicNumber = new JTextField();
+		txtComicNumber.setColumns(10);
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox cmbState = new JComboBox();
 		GroupLayout gl_dataPanel = new GroupLayout(dataPanel);
 		gl_dataPanel.setHorizontalGroup(
 			gl_dataPanel.createParallelGroup(Alignment.LEADING)
@@ -168,8 +168,8 @@ public class NewComicUI extends JDialog {
 						.addGroup(gl_dataPanel.createSequentialGroup()
 							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblNewLabel)
-								.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-								.addComponent(lblCollection, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
+								.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblCollection, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
 							.addGap(39))
 						.addGroup(gl_dataPanel.createSequentialGroup()
 							.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
@@ -177,16 +177,15 @@ public class NewComicUI extends JDialog {
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_dataPanel.createSequentialGroup()
 							.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(textField_5, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-								.addComponent(textField_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+								.addComponent(txtComicNumber, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(txtDay, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
 							.addGap(28)
-							.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+							.addComponent(txtMonth, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 							.addGap(33)
-							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
-							.addComponent(textField, Alignment.LEADING)
-							.addComponent(comboBox, Alignment.LEADING, 0, 312, Short.MAX_VALUE)))
-					.addContainerGap())
+							.addComponent(txtYear, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+						.addComponent(cmbState, 0, 303, Short.MAX_VALUE))
+					.addGap(0))
 		);
 		gl_dataPanel.setVerticalGroup(
 			gl_dataPanel.createParallelGroup(Alignment.LEADING)
@@ -194,29 +193,30 @@ public class NewComicUI extends JDialog {
 					.addGap(98)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(42)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cmbState, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCollection))
 					.addGap(43)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1_1)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtDay, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(38)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1_1_1))
-					.addContainerGap(193, Short.MAX_VALUE))
+					.addContainerGap(181, Short.MAX_VALUE))
 		);
 		dataPanel.setLayout(gl_dataPanel);
 		
 		//inicializeForm();
 
 	}
-	 
+	
+	/*
 	private void inicializeForm() {
 		NewComicUI_comicName = new JLabel("Nombre");
 		txtName = new JTextField();
@@ -247,6 +247,7 @@ public class NewComicUI extends JDialog {
 		j.setLayout(new BorderLayout());
 		j.add(dataPanel,BorderLayout.NORTH);
 		add(j);
-		*/
+		
 	}
+*/
 }
