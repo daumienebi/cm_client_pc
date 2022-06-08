@@ -176,6 +176,10 @@ public class HomeUI {
 		mntmNewMenuItem_2 = new JMenuItem("Añadir conexión");
 		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ConfigUI  ui = new ConfigUI();
+				ui.setModal(true);
+				ui.setLocationRelativeTo(frame);
+				ui.setVisible(true);
 				comicService.getUser();
 			}
 		});
