@@ -3,8 +3,9 @@ package es.daumienebi.comicmanagement.utils;
 import es.daumienebi.comicmanagement.utils.Constants.*;
 
 /**
- * @author Daumienebi Sakpa
  * Java model for the "app.properties" values and some default configuration values
+ * @author Daumienebi Sakpa
+ * 
  */
 public class Configuration {
 

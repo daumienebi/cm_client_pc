@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import es.daumienebi.comicmanagement.controllers.HomeUIController;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -100,6 +101,7 @@ public class HomeUI {
 	 */
 	public HomeUI() {
 		initialize();
+		Translator.bundle = null;
 	}
 
 	/**
