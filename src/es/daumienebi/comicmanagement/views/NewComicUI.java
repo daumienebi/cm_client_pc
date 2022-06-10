@@ -40,8 +40,8 @@ public class NewComicUI extends JDialog {
 	public static JLabel NewComicUI_comicAdquisitionDate;
 	public static JLabel NewComicUI_comicState;
 	public static JLabel NewComicUI_comicNumber;
-	public static String NewComicUI_windowTitle = "Add New Comic";
-	public static String NewComicUI_newComic = "New Comic";
+	public static String NewComicUI_windowTitle = "Añadir Nuevo Comic";
+	public static String NewComicUI_newComic = "Comic Nuevo";
 	
 	private JButton btnComicPoster;
 	private JTextField txtNumber;
@@ -51,6 +51,7 @@ public class NewComicUI extends JDialog {
 	private JTextField txtMonth;
 	private JTextField txtYear;
 	private JTextField txtComicNumber;
+	private JTextField textField;
 	
 
 	/**
@@ -131,19 +132,19 @@ public class NewComicUI extends JDialog {
 		getContentPane().add(dataPanel, BorderLayout.CENTER);
 		dataPanel.setBorder(BorderFactory.createTitledBorder(null, NewComicUI_newComic,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18))); 
 		
-		JLabel lblNewLabel = new JLabel("NAME");
+		JLabel lblNewLabel = new JLabel("NOMBRE");
 		lblNewLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtName = new JTextField();
 		txtName.setColumns(10);
 		
-		JLabel lblCollection = new JLabel("COLLECTION");
+		JLabel lblCollection = new JLabel("COLECCI\u00D3N");
 		lblCollection.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtDay = new JTextField();
 		txtDay.setColumns(10);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("ADQUISITION DATE");
+		JLabel lblNewLabel_1_1 = new JLabel("FECHA ADQUISICI\u00D3N");
 		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtMonth = new JTextField();
@@ -152,7 +153,7 @@ public class NewComicUI extends JDialog {
 		txtYear = new JTextField();
 		txtYear.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("NUMBER");
+		JLabel lblNewLabel_1_1_1 = new JLabel("NUMERO");
 		lblNewLabel_1_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtComicNumber = new JTextField();
@@ -165,6 +166,15 @@ public class NewComicUI extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
+		JLabel lblNewLabel_1 = new JLabel("ESTADO");
+		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(NewComicUI.class.getResource("/resources/icons8-search-24.png")));
 		GroupLayout gl_dataPanel = new GroupLayout(dataPanel);
 		gl_dataPanel.setHorizontalGroup(
 			gl_dataPanel.createParallelGroup(Alignment.TRAILING)
@@ -177,15 +187,19 @@ public class NewComicUI extends JDialog {
 							.addGap(20)
 							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_dataPanel.createSequentialGroup()
-									.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel)
-										.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-										.addComponent(lblCollection, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-									.addGap(39))
-								.addGroup(gl_dataPanel.createSequentialGroup()
-									.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)))
-							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+									.addComponent(lblNewLabel_1)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_dataPanel.createSequentialGroup()
+										.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+											.addComponent(lblNewLabel)
+											.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+											.addComponent(lblCollection, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+										.addGap(39))
+									.addGroup(gl_dataPanel.createSequentialGroup()
+										.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED))))
+							.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
 								.addGroup(gl_dataPanel.createSequentialGroup()
 									.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(txtComicNumber, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
@@ -194,8 +208,14 @@ public class NewComicUI extends JDialog {
 									.addComponent(txtMonth, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 									.addGap(33)
 									.addComponent(txtYear, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
-								.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-								.addComponent(cmbState, 0, 308, Short.MAX_VALUE))))
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+									.addGap(18)
+									.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(cmbState, 0, 312, Short.MAX_VALUE)))))
 					.addGap(0))
 		);
 		gl_dataPanel.setVerticalGroup(
@@ -204,10 +224,12 @@ public class NewComicUI extends JDialog {
 					.addGap(98)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(42)
-					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(cmbState, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnNewButton_1))
 						.addComponent(lblCollection))
 					.addGap(43)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
@@ -219,7 +241,11 @@ public class NewComicUI extends JDialog {
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1_1_1))
-					.addPreferredGap(ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(cmbState, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
 					.addGap(31))
 		);

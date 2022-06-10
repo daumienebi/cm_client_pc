@@ -34,6 +34,7 @@ import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.UIManager;
+import javax.swing.JToggleButton;
 public class HomeUI {
 
 	private JMenuItem menuOptionExit;
@@ -73,7 +74,7 @@ public class HomeUI {
 	private JMenuItem mntmNewMenuItem_3;
 	private JMenuItem mntmNewMenuItem_4;
 	private JMenuItem mntmNewMenuItem_5;
-	private boolean comicMngOpen = true;
+	private boolean canOpenComigMng = true;
 	
 	ComicService comicService = new ComicService();
 	
@@ -244,51 +245,26 @@ public class HomeUI {
 		menuComics.add(menuAddComic);
 		
 		menuComicManagement = new JMenuItem("Gestionar Comics");
-		/**
-		menuComicManagement.addItemListener(new ItemListener() {
-			
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
-				if(comicMngOpen) {
-					ComicManagementUI ui = new ComicManagementUI();
-					ui.setLocationRelativeTo(frame);
-					ui.setMinimumSize(Constants.comicManagementMinimumSize);
-					ui.setVisible(true);
-					comicMngOpen = true;
-					ui.addWindowListener(new WindowAdapter() {
-			            public void windowClosing(WindowEvent windowEvent) {
-			            	comicMngOpen = true;
-			              ui.setEnabled(false);
-			            }
-			          });
-				}else {
-					JOptionPane.showMessageDialog(menuOptionExit, this, "La ventana ya esta abierta", imgPos);
-				}
-				comicMngOpen = false;
-			}
-		});
-		*/
 		menuComicManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(comicMngOpen) {
+				if(canOpenComigMng) {
 					ComicManagementUI ui = new ComicManagementUI();
 					ui.setLocationRelativeTo(frame);
 					ui.setMinimumSize(Constants.comicManagementMinimumSize);
 					ui.setVisible(true);
-					comicMngOpen = true;
+					canOpenComigMng = false;
+					//Add a window listener to the opened ui to know when it is closed
 					ui.addWindowListener(new WindowAdapter() {
 			            public void windowClosing(WindowEvent windowEvent) {
-			            	comicMngOpen = true;
+			            	canOpenComigMng = true;
 			              ui.setEnabled(false);
 			            }
 			          });
 				}else {
-					JOptionPane.showMessageDialog(menuOptionExit, this, "La ventana ya esta abierta", imgPos);
+					JOptionPane.showMessageDialog(null, "La ventana de gestión de comics ya se encuentra abierta","Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
 				}
-				comicMngOpen = false;
-				
+				//canOpenComigMng = false;
 			}
 		});
 		menuComicManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
