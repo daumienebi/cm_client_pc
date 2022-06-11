@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import es.daumienebi.comicmanagement.views.HomeUI;
+import es.daumienebi.comicmanagement.ui.HomeUI;
 
 import javax.swing.JLabel;
 import java.awt.Font;

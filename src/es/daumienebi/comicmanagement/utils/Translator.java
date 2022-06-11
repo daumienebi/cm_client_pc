@@ -2,8 +2,8 @@ package es.daumienebi.comicmanagement.utils;
 
 import java.util.ResourceBundle;
 
+import es.daumienebi.comicmanagement.ui.HomeUI;
 import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
-import es.daumienebi.comicmanagement.views.HomeUI;
 
 /**
  * Main class that carries out the UI translation
