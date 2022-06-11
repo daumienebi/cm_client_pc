@@ -1,7 +1,5 @@
 package es.daumienebi.comicmanagement.views;
 
-import java.sql.Connection;
-
 import es.daumienebi.comicmanagement.utils.SplashScreenUtil;
 
 public class SplashScreenUI {
