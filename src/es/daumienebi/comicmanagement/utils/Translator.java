@@ -50,4 +50,8 @@ public class Translator {
 	public static void translateCollectionManamentUI(AppLanguage language) {
 		setBundle(language);
 	}
+	
+	public static void translatePersonalizedReportsUI(AppLanguage language) {
+		setBundle(language);
+	}
 }

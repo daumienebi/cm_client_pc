@@ -43,7 +43,7 @@ public class NewCollectionUI extends JDialog {
 	public NewCollectionUI() {
 		setTitle("A\u00F1adir nueva colecci\u00F3n");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewCollectionUI.class.getResource("/resources/comic-icon_128.png")));
-		setBounds(100, 100, 500, 350);
+		setBounds(100, 100, 620, 406);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -95,6 +95,10 @@ public class NewCollectionUI extends JDialog {
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			
+			JButton btnNewButton = new JButton("");
+			btnNewButton.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-compact-camera-24.png")));
+			buttonPane.add(btnNewButton);
 			{
 				JButton NewCollectionUI_AddCollection = new JButton("A\u00F1adir Collec\u00F3n");
 				NewCollectionUI_AddCollection.setActionCommand("OK");

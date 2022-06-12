@@ -70,7 +70,7 @@ public class HomeUI {
 	private JMenuItem menuPersonalizedReports;
 	private JMenuItem mntmNewMenuItem;
 	private JMenuItem mntmNewMenuItem_1;
-	private JMenuItem mntmNewMenuItem_2;
+	private JMenuItem menuAddConnection;
 	private JMenu menuSelectLanguage;
 	private JMenuItem mntmNewMenuItem_3;
 	private JMenuItem mntmNewMenuItem_4;
@@ -78,6 +78,8 @@ public class HomeUI {
 	private boolean canOpenComigMng = true;
 	
 	ComicService comicService = new ComicService();
+	private JMenuItem mntmNewMenuItem_6;
+	private JMenuItem mntmNewMenuItem_7;
 	
 	
 	/**
@@ -185,9 +187,17 @@ public class HomeUI {
 		menuConnection.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuConnection);
 		
-		mntmNewMenuItem_2 = new JMenuItem("Añadir conexión");
-		mntmNewMenuItem_2.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-add-database-24.png")));
-		menuConnection.add(mntmNewMenuItem_2);
+		menuAddConnection = new JMenuItem("Añadir conexión");
+		menuAddConnection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ConfigUI ui = new ConfigUI();
+				ui.setModal(true);
+				ui.setLocationRelativeTo(frame);
+				ui.setVisible(true);
+			}
+		});
+		menuAddConnection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-add-database-24.png")));
+		menuConnection.add(menuAddConnection);
 		
 		menuCollections = new JMenu("Colleciones");
 		menuCollections.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
@@ -270,7 +280,21 @@ public class HomeUI {
 		menuBasicReports.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
 		menuReports.add(menuBasicReports);
 		
+		mntmNewMenuItem_6 = new JMenuItem("Colecci\u00F3nes");
+		menuBasicReports.add(mntmNewMenuItem_6);
+		
+		mntmNewMenuItem_7 = new JMenuItem("Comics");
+		menuBasicReports.add(mntmNewMenuItem_7);
+		
 		menuPersonalizedReports = new JMenuItem("Informes Personalizados");
+		menuPersonalizedReports.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PersonalizedReportsUI ui = new PersonalizedReportsUI();
+				ui.setLocationRelativeTo(frame);
+				ui.setMinimumSize(Constants.comicManagementMinimumSize);
+				ui.setVisible(true);
+			}
+		});
 		menuPersonalizedReports.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
 		menuReports.add(menuPersonalizedReports);
 		
