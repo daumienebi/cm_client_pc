@@ -55,7 +55,6 @@ public class ComicDetailsUI extends JDialog {
 	public static String NewComicUI_newComic = "Detalles Comic";
 	
 	private JButton btnComicPoster;
-	private JTextField txtNumber;
 	private JPanel dataPanel;
 	private JTextField txtName;
 	private JTextField txtDay;
