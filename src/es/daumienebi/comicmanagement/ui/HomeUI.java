@@ -64,24 +64,21 @@ public class HomeUI {
 	public static JMenu menuHelp;
 	public static JMenuItem menuHelpContents;
 	public static JMenuItem menuTecnicalManual;
+	public static JMenu menuBasicReports;
+	public static JMenuItem menuPersonalizedReports;
+	public static JMenuItem menuAddConnection;
+	public static JMenu menuSelectLanguage;
+	public static JMenuItem menuEnglish;
+	public static JMenuItem menuSpanish;
+	public static JMenuItem menuGalician;
+	public static JMenuItem menuPersonalizedR_collection;
+	public static JMenuItem menuPersonalizedR_comic;
 	
 	
-	private JMenu menuBasicReports;
-	private JMenuItem menuPersonalizedReports;
-	private JMenuItem mntmNewMenuItem;
-	private JMenuItem mntmNewMenuItem_1;
-	private JMenuItem menuAddConnection;
-	private JMenu menuSelectLanguage;
-	private JMenuItem mntmNewMenuItem_3;
-	private JMenuItem mntmNewMenuItem_4;
-	private JMenuItem mntmNewMenuItem_5;
 	private boolean canOpenComicMng = true;
 	private boolean canOpenCollectionMng = true;
-	
 	ComicService comicService = new ComicService();
-	private JMenuItem mntmNewMenuItem_6;
-	private JMenuItem mntmNewMenuItem_7;
-	
+
 	
 	/**
 	 * Launch the application.
@@ -104,7 +101,7 @@ public class HomeUI {
 	 */
 	public HomeUI() {
 		initialize();
-		Translator.bundle = null;
+		//Translator.bundle = null;
 	}
 
 	/**
@@ -295,11 +292,11 @@ public class HomeUI {
 		menuBasicReports.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
 		menuReports.add(menuBasicReports);
 		
-		mntmNewMenuItem_6 = new JMenuItem("Colecci\u00F3nes");
-		menuBasicReports.add(mntmNewMenuItem_6);
+		menuPersonalizedR_collection = new JMenuItem("Colecci\u00F3nes");
+		menuBasicReports.add(menuPersonalizedR_collection);
 		
-		mntmNewMenuItem_7 = new JMenuItem("Comics");
-		menuBasicReports.add(mntmNewMenuItem_7);
+		menuPersonalizedR_comic = new JMenuItem("Comics");
+		menuBasicReports.add(menuPersonalizedR_comic);
 		
 		menuPersonalizedReports = new JMenuItem("Informes Personalizados");
 		menuPersonalizedReports.addActionListener(new ActionListener() {
@@ -321,17 +318,17 @@ public class HomeUI {
 		menuSelectLanguage.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-translation-24.png")));
 		menuSettings.add(menuSelectLanguage);
 		
-		mntmNewMenuItem_3 = new JMenuItem("Ingl\u00E9s");
-		mntmNewMenuItem_3.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/gb_icon.jpg")));
-		menuSelectLanguage.add(mntmNewMenuItem_3);
+		menuEnglish = new JMenuItem("Ingl\u00E9s");
+		menuEnglish.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/gb_icon.jpg")));
+		menuSelectLanguage.add(menuEnglish);
 		
-		mntmNewMenuItem_4 = new JMenuItem("Espa\u00F1ol");
-		mntmNewMenuItem_4.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/esp_icon.jpg")));
-		menuSelectLanguage.add(mntmNewMenuItem_4);
+		menuSpanish = new JMenuItem("Espa\u00F1ol");
+		menuSpanish.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/esp_icon.jpg")));
+		menuSelectLanguage.add(menuSpanish);
 		
-		mntmNewMenuItem_5 = new JMenuItem("Gallego");
-		mntmNewMenuItem_5.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/2560px-Flag_of_Galicia.svg (2).png")));
-		menuSelectLanguage.add(mntmNewMenuItem_5);
+		menuGalician = new JMenuItem("Gallego");
+		menuGalician.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/2560px-Flag_of_Galicia.svg (2).png")));
+		menuSelectLanguage.add(menuGalician);
 		
 		menuHelp = new JMenu("Ayuda");
 		menuHelp.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
@@ -356,6 +353,7 @@ public class HomeUI {
         imgSlider.setIcon(finalImg);
     }
 	
+	/*
 	private void setBottomImg(){
 		Image img = null;
 		Image newImg;
@@ -366,8 +364,10 @@ public class HomeUI {
         ImageIcon finalImg = new ImageIcon(newImg);
         //btmLabel.setIcon(finalImg);
     }
-	
+	*/
+	/*
 	private void setCenterImg(){
+
 		Image img = null;
 		Image newImg;
 		ImageIcon icon = new ImageIcon(HomeUI.class.getResource("/resources/background.jpg"));
@@ -377,7 +377,7 @@ public class HomeUI {
         ImageIcon finalImg = new ImageIcon(newImg);
         imgSlider.setIcon(finalImg);
     }
-	
+	*/
 	private void setBackgroundImage() {
 		ImageIcon img = new ImageIcon(HomeUI.class.getResource("/resources/backgroundd.jpg"));
 		  mainPanel = new JPanel()
