@@ -1,11 +1,6 @@
 package es.daumienebi.comicmanagement.ui;
-
-import java.util.ArrayList;
-
 import es.daumienebi.comicmanagement.utils.Configuration;
-import es.daumienebi.comicmanagement.utils.Constants;
 import es.daumienebi.comicmanagement.utils.SplashScreenUtil;
-import es.daumienebi.comicmanagement.utils.Constants.ComicState;
 
 public class SplashScreenUI {
 

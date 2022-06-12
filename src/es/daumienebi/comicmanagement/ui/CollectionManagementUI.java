@@ -15,9 +15,16 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import es.daumienebi.comicmanagement.controllers.CollectionManagementUIController;
+import es.daumienebi.comicmanagement.models.Collection;
+import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import javax.swing.JButton;
+import java.util.ArrayList;
 
 public class CollectionManagementUI extends JFrame {
 
@@ -26,7 +33,9 @@ public class CollectionManagementUI extends JFrame {
 	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
 	private JTable collectionTable;
 	private JTextField txtCollection;
-
+	
+	private CollectionManagementUIController controller = new CollectionManagementUIController();
+	private ArrayList<Collection> collections = new ArrayList<Collection>();
 	/**
 	 * Launch the application.
 	 */
@@ -47,6 +56,11 @@ public class CollectionManagementUI extends JFrame {
 	 * Create the frame.
 	 */
 	public CollectionManagementUI() {
+		Inicialize();
+		loadCollections();
+	}
+		
+	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CollectionManagementUI.class.getResource("/resources/comic-icon_128.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 667, 393);
@@ -91,6 +105,12 @@ public class CollectionManagementUI extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
+		JButton CollectionManagementUI_btnEdit = new JButton("Editar Colecci\u00F3n");
+		panel_1.add(CollectionManagementUI_btnEdit);
+		
+		JButton CollectionManagementUI_btnDelete = new JButton("Borrar Colleci\u00F3n");
+		panel_1.add(CollectionManagementUI_btnDelete);
+		
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2, BorderLayout.CENTER);
 		panel_2.setLayout(new BorderLayout(0, 0));
@@ -112,5 +132,12 @@ public class CollectionManagementUI extends JFrame {
 			}
 		));
 		scrollPane.setViewportView(collectionTable);
+	}
+	
+	private void loadCollections() {
+		collections = controller.findAllCollections();
+		CollectionTableModel tableModel = new CollectionTableModel(collections);
+		//tableModel.translateColumns();
+		collectionTable.setModel(tableModel);
 	}
 }

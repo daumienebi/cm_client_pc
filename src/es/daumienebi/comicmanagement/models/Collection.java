@@ -11,8 +11,11 @@ public class Collection {
 	private String name;
 	private String image;
 	
+	public Collection() {
+		
+	}
+	
 	public Collection(Long id, String name, String image) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.image = image;

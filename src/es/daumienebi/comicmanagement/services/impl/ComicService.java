@@ -31,7 +31,7 @@ public class ComicService implements IComicService {
 			comics = mapper.readValue(EntityUtils.toString(entity),new TypeReference<ArrayList<Comic>>() {
 			});
 			counter = comics.size();
-			System.out.println(counter + "users found");		
+			System.out.println(counter + " comics found");		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
