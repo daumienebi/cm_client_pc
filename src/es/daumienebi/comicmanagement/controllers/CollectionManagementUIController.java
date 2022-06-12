@@ -12,4 +12,8 @@ public class CollectionManagementUIController {
 	public ArrayList<Collection> findAllCollections(){
 		return collectionService.findAllCollections();
 	}
+	
+	public Collection getCollection(Long id) {
+		return collectionService.findCollectionById(id);
+	}
 }

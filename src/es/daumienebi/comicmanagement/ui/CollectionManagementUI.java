@@ -11,7 +11,12 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Dimension;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.Font;
+import java.awt.Point;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -21,8 +26,12 @@ import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
 import java.util.ArrayList;
 
@@ -106,9 +115,11 @@ public class CollectionManagementUI extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		JButton CollectionManagementUI_btnEdit = new JButton("Editar Colecci\u00F3n");
+		CollectionManagementUI_btnEdit.setVisible(false);
 		panel_1.add(CollectionManagementUI_btnEdit);
 		
 		JButton CollectionManagementUI_btnDelete = new JButton("Borrar Colleci\u00F3n");
+		CollectionManagementUI_btnDelete.setVisible(false);
 		panel_1.add(CollectionManagementUI_btnDelete);
 		
 		JPanel panel_2 = new JPanel();
@@ -119,19 +130,53 @@ public class CollectionManagementUI extends JFrame {
 		panel_2.add(scrollPane, BorderLayout.CENTER);
 		
 		collectionTable = new JTable();
-		collectionTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column"
-			}
-		));
 		scrollPane.setViewportView(collectionTable);
+		
+		buttomBtnActions(CollectionManagementUI_btnEdit, CollectionManagementUI_btnDelete);
+		tableDoubleClick(collectionTable);
+	}
+	
+	private void tableDoubleClick(JTable table) {
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
+		            //String nombre =table.getValueAt(row, 1).toString();
+		            //String apellido = table.getValueAt(row, 2).toString();
+		            //LocalDate fechaNac = LocalDate.parse(table.getValueAt(row, 3).toString());
+		            //String foto = table.getValueAt(row, 4).toString();
+		            //Actor actor = new Actor(id, nombre, apellido, fechaNac, foto);
+		            Collection collection = controller.getCollection(id);
+		            if(collection == null) {
+		            	JOptionPane.showMessageDialog(table, "Actor not found","Data not found",JOptionPane.ERROR_MESSAGE);
+		            }else {
+		            	CollectionDetailsUI ui = new CollectionDetailsUI(collection);
+		            	ui.setLocationRelativeTo(getContentPane());
+		            	ui.setVisible(true);
+		            }
+		        }
+		    }
+		});
+	}
+	
+	private void buttomBtnActions(JButton btnEdit,JButton btnDelete) {
+		collectionTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				int fila =collectionTable.getSelectedRow();
+				if(fila >-1) {
+					btnEdit.setVisible(true);
+					btnDelete.setVisible(true);
+				}else{
+					btnEdit.setVisible(false);
+					btnDelete.setVisible(false);
+				}
+			}
+		});
 	}
 	
 	private void loadCollections() {

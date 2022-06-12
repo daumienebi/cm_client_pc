@@ -8,8 +8,8 @@ public interface IComicService {
 
 	public ArrayList<Comic> findAllComics();
 	
-	public Comic findComicById();
+	public Comic findComicById(Long id);
 	
-	public ArrayList<Comic> findByName();
+	public ArrayList<Comic> findByName(String name);
 	
 }

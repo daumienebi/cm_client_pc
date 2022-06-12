@@ -40,13 +40,13 @@ public class ComicService implements IComicService {
 	}
 
 	@Override
-	public Comic findComicById() {
+	public Comic findComicById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Comic> findByName() {
+	public ArrayList<Comic> findByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

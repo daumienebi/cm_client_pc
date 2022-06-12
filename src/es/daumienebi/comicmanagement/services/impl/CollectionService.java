@@ -41,13 +41,23 @@ public class CollectionService implements ICollectionService{
 	}
 
 	@Override
-	public Collection findCollectionById() {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection findCollectionById(Long id) {
+		String url = SERVER + "/collections/"+id;
+		Collection collection = new Collection();
+		try {
+			HttpEntity entity = HttpClientUtil.get(url);
+			ObjectMapper mapper = new ObjectMapper();			
+			collection = mapper.readValue(EntityUtils.toString(entity),new TypeReference<Collection>() {
+			});	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return collection;
 	}
 
 	@Override
-	public ArrayList<Collection> findCollectionByName() {
+	public ArrayList<Collection> findCollectionByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
