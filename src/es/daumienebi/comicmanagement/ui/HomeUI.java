@@ -75,7 +75,8 @@ public class HomeUI {
 	private JMenuItem mntmNewMenuItem_3;
 	private JMenuItem mntmNewMenuItem_4;
 	private JMenuItem mntmNewMenuItem_5;
-	private boolean canOpenComigMng = true;
+	private boolean canOpenComicMng = true;
+	private boolean canOpenCollectionMng = true;
 	
 	ComicService comicService = new ComicService();
 	private JMenuItem mntmNewMenuItem_6;
@@ -219,10 +220,24 @@ public class HomeUI {
 		menuCollectionManagement = new JMenuItem("Gestionar Colecciones");
 		menuCollectionManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CollectionManagementUI ui = new CollectionManagementUI();
-				ui.setModal(true);
-				ui.setLocationRelativeTo(frame);
-				ui.setVisible(true);
+				if(canOpenCollectionMng) {
+					CollectionManagementUI ui = new CollectionManagementUI();
+					ui.setLocationRelativeTo(frame);
+					ui.setMinimumSize(Constants.collectionManagementMinimumSize);
+					ui.setVisible(true);
+					canOpenCollectionMng = false;
+					//Add a window listener to the opened ui to know when it is closed
+					ui.addWindowListener(new WindowAdapter() {
+			            public void windowClosing(WindowEvent windowEvent) {
+			            	canOpenCollectionMng = true;
+			              ui.setEnabled(false);
+			            }
+			          });
+				}else {
+					JOptionPane.showMessageDialog(null, "La ventana de gestión de colecciones ya se encuentra abierta","Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				
 			}
 		});
 		menuCollectionManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
@@ -250,16 +265,16 @@ public class HomeUI {
 		menuComicManagement.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				if(canOpenComigMng) {
+				if(canOpenComicMng) {
 					ComicManagementUI ui = new ComicManagementUI();
 					ui.setLocationRelativeTo(frame);
 					ui.setMinimumSize(Constants.comicManagementMinimumSize);
 					ui.setVisible(true);
-					canOpenComigMng = false;
+					canOpenComicMng = false;
 					//Add a window listener to the opened ui to know when it is closed
 					ui.addWindowListener(new WindowAdapter() {
 			            public void windowClosing(WindowEvent windowEvent) {
-			            	canOpenComigMng = true;
+			            	canOpenComicMng = true;
 			              ui.setEnabled(false);
 			            }
 			          });
