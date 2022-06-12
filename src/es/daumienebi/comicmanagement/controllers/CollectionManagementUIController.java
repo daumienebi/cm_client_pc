@@ -7,7 +7,7 @@ import es.daumienebi.comicmanagement.services.ICollectionService;
 import es.daumienebi.comicmanagement.services.impl.CollectionService;
 
 public class CollectionManagementUIController {
-	ICollectionService collectionService = new CollectionService();
+	private ICollectionService collectionService = new CollectionService();
 	
 	public ArrayList<Collection> findAllCollections(){
 		return collectionService.findAllCollections();

@@ -33,6 +33,8 @@ import javax.swing.border.TitledBorder;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
+import es.daumienebi.comicmanagement.controllers.ComicDetailsUIController;
+import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.utils.Constants.ComicState;
 
 import java.awt.event.ActionListener;
@@ -61,32 +63,17 @@ public class ComicDetailsUI extends JDialog {
 	private JTextField txtColeccion;
 	private DatePicker datePicker;
 	private LocalDate selectedDate;
-	//private ArrayList<ComicState> comicState = (ArrayList<ComicState>) List.of(ComicState.Bueno,ComicState.Nuevo,ComicState.Malo);
+	JComboBox<ComicState> cmbState;
 	
+	ComicDetailsUIController controller = new ComicDetailsUIController();
 	
-	/**
-	 * Launch the application.
-	 */
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ComicDetailsUI dialog = new ComicDetailsUI();
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public ComicDetailsUI() {
-		Inicialize();
+	public ComicDetailsUI(Comic comic) {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setModal(true);
+		Inicialize(comic);
 	}
 	
-	void Inicialize() {
+	void Inicialize(Comic comic) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewComicUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 943, 580);
 		setTitle(NewComicUI_windowTitle);
@@ -130,7 +117,6 @@ public class ComicDetailsUI extends JDialog {
 		lblNewLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtName = new JTextField();
-		txtName.setText("COmic de spiderman");
 		txtName.setEditable(false);
 		txtName.setColumns(10);
 		
@@ -155,7 +141,7 @@ public class ComicDetailsUI extends JDialog {
 		txtComicNumber.setEditable(false);
 		txtComicNumber.setColumns(10);
 		
-		JComboBox cmbState = new JComboBox();
+		cmbState = new JComboBox();
 		cmbState.setEnabled(false);
 		cmbState.setModel(new DefaultComboBoxModel(ComicState.values()));
 		
@@ -163,7 +149,6 @@ public class ComicDetailsUI extends JDialog {
 		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtColeccion = new JTextField();
-		txtColeccion.setText("Coleccion 2");
 		txtColeccion.setEditable(false);
 		txtColeccion.setColumns(10);
 		GroupLayout gl_dataPanel = new GroupLayout(dataPanel);
@@ -231,5 +216,23 @@ public class ComicDetailsUI extends JDialog {
 					.addGap(104))
 		);
 		dataPanel.setLayout(gl_dataPanel);
+		setValues(comic);
 	}
+	
+	private void setValues(Comic comic) {
+		txtName.setText(comic.getName());
+		txtColeccion.setText("collección");
+		txtComicNumber.setText(String.valueOf(comic.getNumber()));
+		txtColeccion.setText(controller.getCollectionName(comic));
+		datePicker.setDate(comic.getAdquisition_date());
+		switch(comic.getState()) {
+			case "Bueno": cmbState.setSelectedItem(ComicState.Bueno);
+			case "Malo" : cmbState.setSelectedItem(ComicState.Malo);
+			case "Nuevo": cmbState.setSelectedItem(ComicState.Nuevo);
+			
+			default : cmbState.setSelectedItem(ComicState.SinEstado);
+		}
+		
+	}
+	
 }

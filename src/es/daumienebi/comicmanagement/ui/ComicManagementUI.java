@@ -7,9 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.Point;
 
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
@@ -23,13 +28,18 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import es.daumienebi.comicmanagement.controllers.ComicManagementUIController;
+import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.services.IComicService;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.tablemodels.ComicTableModel;
+import es.daumienebi.comicmanagement.utils.Constants;
 
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.Color;
 
@@ -46,7 +56,7 @@ public class ComicManagementUI extends JFrame {
 	private JTable comicsTable;
 	private ArrayList<Comic> comics = new ArrayList<Comic>();
 	
-	IComicService comicService = new ComicService();
+	ComicManagementUIController controller = new ComicManagementUIController();
 	/**
 	 * Launch the application.
 	 */
@@ -170,14 +180,56 @@ public class ComicManagementUI extends JFrame {
 		searchPanel.setLayout(gl_searchPanel);
 		searchPanel.setBorder(BorderFactory.createTitledBorder(null, ComicManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
 
+		buttomBtnActions(ComicManagementUI_btnEdit, ComicManagementUI_btnDelete);
+		tableDoubleClick(comicsTable);
 	}
 	
 	
 	private void loadComicsTable() {
-		comics = comicService.findAllComics();
+		comics = controller.findAllComics();
 		ComicTableModel tableModel = new ComicTableModel(comics);
 		//tableModel.translateColumns();
 		comicsTable.setModel(tableModel);
 		//table.removeColumn(table.getColumnModel().getColumn(0));
 	}
+
+	private void tableDoubleClick(JTable table) {
+		table.addMouseListener(new MouseAdapter() {
+		    public void mousePressed(MouseEvent mouseEvent) {
+		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
+		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
+		            Comic comic = controller.getComic(id);
+		            if(comic == null) {
+		            	JOptionPane.showMessageDialog(table, "Comic not found","Data not found",JOptionPane.ERROR_MESSAGE);
+		            }else {
+		            	ComicDetailsUI ui = new ComicDetailsUI(comic);
+		            	ui.setLocationRelativeTo(getContentPane());
+		            	ui.setMinimumSize(Constants.comicDetailsMinimumSize);
+		            	ui.setVisible(true);
+		            }
+		        }
+		    }
+		});
+	}
+	
+	private void buttomBtnActions(JButton btnEdit,JButton btnDelete) {
+		comicsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// TODO Auto-generated method stub
+				int fila =comicsTable.getSelectedRow();
+				if(fila >-1) {
+					btnEdit.setVisible(true);
+					btnDelete.setVisible(true);
+				}else{
+					btnEdit.setVisible(false);
+					btnDelete.setVisible(false);
+				}
+			}
+		});
+	}
+
 }

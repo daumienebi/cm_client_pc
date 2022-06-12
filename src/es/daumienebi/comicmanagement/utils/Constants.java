@@ -16,7 +16,8 @@ public class Constants {
 	public static Dimension newCollectionMinimumSize = new Dimension(450,400);
 	public static Dimension comicManagementMinimumSize = new Dimension(700,500);
 	public static Dimension collectionManagementMinimumSize = new Dimension(400,400);
-	public static Dimension collectionDetailsUIMinimumSize = new Dimension(400,350);
+	public static Dimension collectionDetailsUIMinimumSize = new Dimension(500,350);
 	public static enum AppLanguage {English,Spanish,Galician}
-	public static enum ComicState {Bueno,Nuevo,Malo}
+	public static enum ComicState {Bueno,Nuevo,Malo,SinEstado}
+	public static Dimension comicDetailsMinimumSize = new Dimension(830,550);
 }

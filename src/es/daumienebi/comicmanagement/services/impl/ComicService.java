@@ -41,8 +41,18 @@ public class ComicService implements IComicService {
 
 	@Override
 	public Comic findComicById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		String url = SERVER + "/comics/"+id;
+		Comic comic = new Comic();
+		try {
+			HttpEntity entity = HttpClientUtil.get(url);
+			ObjectMapper mapper = new ObjectMapper();			
+			comic = mapper.readValue(EntityUtils.toString(entity),new TypeReference<Comic>() {
+			});	
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return comic;
 	}
 
 	@Override

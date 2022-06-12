@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import es.daumienebi.comicmanagement.controllers.CollectionManagementUIController;
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
+import es.daumienebi.comicmanagement.utils.Constants;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -144,17 +145,13 @@ public class CollectionManagementUI extends JFrame {
 		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
-		            //String nombre =table.getValueAt(row, 1).toString();
-		            //String apellido = table.getValueAt(row, 2).toString();
-		            //LocalDate fechaNac = LocalDate.parse(table.getValueAt(row, 3).toString());
-		            //String foto = table.getValueAt(row, 4).toString();
-		            //Actor actor = new Actor(id, nombre, apellido, fechaNac, foto);
 		            Collection collection = controller.getCollection(id);
 		            if(collection == null) {
-		            	JOptionPane.showMessageDialog(table, "Actor not found","Data not found",JOptionPane.ERROR_MESSAGE);
+		            	JOptionPane.showMessageDialog(table, "Collection not found","Data not found",JOptionPane.ERROR_MESSAGE);
 		            }else {
 		            	CollectionDetailsUI ui = new CollectionDetailsUI(collection);
 		            	ui.setLocationRelativeTo(getContentPane());
+		            	ui.setMinimumSize(Constants.collectionDetailsUIMinimumSize);
 		            	ui.setVisible(true);
 		            }
 		        }
