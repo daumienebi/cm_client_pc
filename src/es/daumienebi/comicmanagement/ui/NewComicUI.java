@@ -33,9 +33,14 @@ import javax.swing.border.TitledBorder;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
+import es.daumienebi.comicmanagement.utils.Constants.ComicState;
+
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class NewComicUI extends JDialog {
 	
@@ -56,10 +61,14 @@ public class NewComicUI extends JDialog {
 	private JTextField textField;
 	private DatePicker datePicker;
 	private LocalDate selectedDate;
-
+	//private ArrayList<ComicState> comicState = (ArrayList<ComicState>) List.of(ComicState.Bueno,ComicState.Nuevo,ComicState.Malo);
+	
+	
 	/**
 	 * Launch the application.
 	 */
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -165,6 +174,7 @@ public class NewComicUI extends JDialog {
 		txtComicNumber.setColumns(10);
 		
 		JComboBox cmbState = new JComboBox();
+		cmbState.setModel(new DefaultComboBoxModel(ComicState.values()));
 		
 		JButton btnClear = new JButton("Limpiar");
 		btnClear.addActionListener(new ActionListener() {
@@ -255,44 +265,5 @@ public class NewComicUI extends JDialog {
 					.addGap(36))
 		);
 		dataPanel.setLayout(gl_dataPanel);
-		//.addComponent(dp, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-		//.addComponent(dp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-		//inicializeForm();
-
 	}
-	
-	/*
-	private void inicializeForm() {
-		NewComicUI_comicName = new JLabel("Nombre");
-		txtName = new JTextField();
-		NewComicUI_comicName = new JLabel("Fecha Adquisición");
-		txtDate = new JTextField();
-		//txtMonth = new JTextField();
-		//txtYear = new JTextField();
-		NewComicUI_comicName = new JLabel("Collección");
-		txtCollection = new JTextField();
-		NewComicUI_comicName = new JLabel("Estado");
-		NewComicUI_comicName = new JLabel("Numero");
-		txtNumber = new JTextField();
-		
-		dataPanel.add(NewComicUI_comicName);
-		dataPanel.add(txtName);
-		dataPanel.add(NewComicUI_comicAdquisitionDate);
-		dataPanel.add(txtDate);
-		dataPanel.add(NewComicUI_comicCollection);
-		dataPanel.add(txtCollection);
-		dataPanel.add(NewComicUI_comicState);
-		//dataPanel.add(txtState);
-		dataPanel.add(NewComicUI_comicNumber);
-		dataPanel.add(txtNumber);
-		
-		/*
-		JPanel j = new JPanel();
-		
-		j.setLayout(new BorderLayout());
-		j.add(dataPanel,BorderLayout.NORTH);
-		add(j);
-		
-	}
-*/
 }
