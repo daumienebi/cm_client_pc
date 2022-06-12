@@ -11,6 +11,9 @@ public class ComicTableModel extends AbstractTableModel{
 	private ArrayList<Comic> comics;
 	private String[] columns = {"ID","NOMBRE","FECHA ADQUISICIÓN","COLECCIÓN","ESTADO","NUMERO"};
 	
+	public ComicTableModel(ArrayList<Comic> comics) {
+		this.comics = comics;
+	}
 	
 	@Override
 	public String getColumnName(int column) {

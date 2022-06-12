@@ -30,7 +30,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+
+import com.github.lgooddatepicker.components.DatePicker;
+
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 
 public class NewComicUI extends JDialog {
@@ -48,11 +52,10 @@ public class NewComicUI extends JDialog {
 	private JPanel dataPanel;
 	private JTextField txtName;
 	private JTextField txtDay;
-	private JTextField txtMonth;
-	private JTextField txtYear;
 	private JTextField txtComicNumber;
 	private JTextField textField;
-	
+	private DatePicker datePicker;
+	private LocalDate selectedDate;
 
 	/**
 	 * Launch the application.
@@ -82,6 +85,11 @@ public class NewComicUI extends JDialog {
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		
 		JButton NewComicUI_btnAddComic = new JButton("A\u00F1adir Comic");
+		NewComicUI_btnAddComic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectedDate = datePicker.getDate();
+			}
+		});
 		panel.add(NewComicUI_btnAddComic);
 		
 		JButton NewComicUI_btnSaveComic = new JButton("Guardar Comic");
@@ -147,11 +155,8 @@ public class NewComicUI extends JDialog {
 		JLabel lblNewLabel_1_1 = new JLabel("FECHA ADQUISICI\u00D3N");
 		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		txtMonth = new JTextField();
-		txtMonth.setColumns(10);
-		
-		txtYear = new JTextField();
-		txtYear.setColumns(10);
+		datePicker =new DatePicker();
+		datePicker.setDateToToday();
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("NUMERO");
 		lblNewLabel_1_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
@@ -161,8 +166,8 @@ public class NewComicUI extends JDialog {
 		
 		JComboBox cmbState = new JComboBox();
 		
-		JButton btnNewButton = new JButton("Limpiar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnClear = new JButton("Limpiar");
+		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -182,7 +187,7 @@ public class NewComicUI extends JDialog {
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_dataPanel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnClear, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_dataPanel.createSequentialGroup()
 							.addGap(20)
 							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
@@ -199,58 +204,59 @@ public class NewComicUI extends JDialog {
 									.addGroup(gl_dataPanel.createSequentialGroup()
 										.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED))))
-							.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_dataPanel.createSequentialGroup()
-									.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(txtComicNumber, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-										.addComponent(txtDay, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-									.addGap(28)
-									.addComponent(txtMonth, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-									.addGap(33)
-									.addComponent(txtYear, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_dataPanel.createSequentialGroup()
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-									.addGap(18)
-									.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
-								.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-								.addGroup(gl_dataPanel.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(cmbState, 0, 312, Short.MAX_VALUE)))))
+							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_dataPanel.createSequentialGroup()
+										.addComponent(textField, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+										.addGap(18)
+										.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
+									.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
+									.addGroup(gl_dataPanel.createSequentialGroup()
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
+											.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+											.addComponent(cmbState, 0, 312, Short.MAX_VALUE))))
+								.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE))))
 					.addGap(0))
 		);
 		gl_dataPanel.setVerticalGroup(
 			gl_dataPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_dataPanel.createSequentialGroup()
 					.addGap(98)
-					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
+					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE, false)
+						.addGroup(gl_dataPanel.createSequentialGroup()
+							.addGap(9)
+							.addComponent(lblNewLabel))
 						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+					.addGap(36)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
 							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnNewButton_1))
 						.addComponent(lblCollection))
 					.addGap(43)
-					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1_1)
-						.addComponent(txtMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtDay, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE, false)
+						.addGroup(gl_dataPanel.createSequentialGroup()
+							.addGap(11)
+							.addComponent(lblNewLabel_1_1))
+						.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 					.addGap(38)
-					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1_1_1))
-					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE, false)
+						.addGroup(gl_dataPanel.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblNewLabel_1_1_1))
+						.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(24)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
 						.addComponent(cmbState, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-					.addGap(31))
+					.addGap(35)
+					.addComponent(btnClear, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+					.addGap(36))
 		);
 		dataPanel.setLayout(gl_dataPanel);
-		
+		//.addComponent(dp, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+		//.addComponent(dp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		//inicializeForm();
 
 	}

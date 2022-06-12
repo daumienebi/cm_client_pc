@@ -24,6 +24,14 @@
     	<version>2.13.3</version>
 	</dependency>
 	
+	<!-- https://mvnrepository.com/artifact/com.github.lgooddatepicker/LGoodDatePicker -->
+	<dependency>
+    	<groupId>com.github.lgooddatepicker</groupId>
+    	<artifactId>LGoodDatePicker</artifactId>
+    	<version>11.2.1</version>
+	</dependency>
+
+	
   </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>

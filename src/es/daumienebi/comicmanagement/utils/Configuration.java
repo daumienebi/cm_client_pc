@@ -9,7 +9,7 @@ import es.daumienebi.comicmanagement.utils.Constants.*;
  */
 public class Configuration {
 
-	public static String server = "http://192.168.0.17:8081";
+	public static String server = "http://localhost:8081";
 	public static String language;
 	public static String comic_image_server;
 	public static String collection_image_server;
@@ -17,4 +17,5 @@ public class Configuration {
 	public static String ftp_user;
 	public static String ftp_password;
 	public static AppLanguage app_language;
+	public static boolean debug_mode = true;
 }

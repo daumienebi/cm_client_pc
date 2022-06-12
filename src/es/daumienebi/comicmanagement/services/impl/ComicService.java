@@ -18,36 +18,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class ComicService implements IComicService {
 	private static String SERVER = Configuration.server;
-	
-	public User getUser() {
-		
-		
-		return new User();
-		
-	}
-	
-	public ArrayList<User> getAllUsers(){
-		String url = SERVER + "/users";
-		ArrayList<User> users = new ArrayList<User>();
-		try {
-			HttpEntity entity = HttpClientUtil.get(url);
-			ObjectMapper mapper = new ObjectMapper();
-			int counter = 0;			
-			users = mapper.readValue(EntityUtils.toString(entity),new TypeReference<ArrayList<User>>() {
-			});
-			counter = users.size();
-			System.out.println(counter + "users found");		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return users;
-	}
 
 	@Override
 	public ArrayList<Comic> findAllComics() {
 		// TODO Auto-generated method stub
-		String url = SERVER + "/users";
+		String url = SERVER + "/comics";
 		ArrayList<Comic> comics = new ArrayList<Comic>();
 		try {
 			HttpEntity entity = HttpClientUtil.get(url);

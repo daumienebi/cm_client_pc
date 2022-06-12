@@ -186,16 +186,6 @@ public class HomeUI {
 		menuBar.add(menuConnection);
 		
 		mntmNewMenuItem_2 = new JMenuItem("Añadir conexión");
-		mntmNewMenuItem_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ConfigUI  ui = new ConfigUI();
-				ui.setModal(true);
-				ui.setLocationRelativeTo(frame);
-				ui.setMinimumSize(Constants.configUIMinimunSize);
-				ui.setVisible(true);
-				comicService.getUser();
-			}
-		});
 		mntmNewMenuItem_2.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-add-database-24.png")));
 		menuConnection.add(mntmNewMenuItem_2);
 		

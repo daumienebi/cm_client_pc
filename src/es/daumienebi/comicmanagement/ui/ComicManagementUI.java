@@ -22,21 +22,31 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import es.daumienebi.comicmanagement.models.Comic;
+import es.daumienebi.comicmanagement.services.IComicService;
+import es.daumienebi.comicmanagement.services.impl.ComicService;
+import es.daumienebi.comicmanagement.tablemodels.ComicTableModel;
+
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.awt.Color;
 
 public class ComicManagementUI extends JFrame {
 
 	//To be translated
-	public static String ComicManagementUI_searchOptions = "Search Filters";
-	public static String ComicManagementUI_windowTitle = "Comic Management";
+	public static String ComicManagementUI_searchOptions = "Busqueda Comic";
+	public static String ComicManagementUI_windowTitle = "Gestión de comics";
 	
 	private JPanel contentPane;
-	private JTextField txtNombre;
+	private JTextField txtName;
 	private JTextField txtCollection;
 	private JPanel dataPanel;
-	private JTable table;
+	private JTable comicsTable;
+	private ArrayList<Comic> comics = new ArrayList<Comic>();
+	
+	IComicService comicService = new ComicService();
 	/**
 	 * Launch the application.
 	 */
@@ -56,7 +66,13 @@ public class ComicManagementUI extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public ComicManagementUI() {
+		Inicialize();
+		loadComicsTable();
+	}
+	
+	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ComicManagementUI.class.getResource("/resources/comic-icon_128.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setTitle(ComicManagementUI_windowTitle);
@@ -71,11 +87,11 @@ public class ComicManagementUI extends JFrame {
 		panel.setBackground(new Color(0, 0, 0));
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton btnNewButton = new JButton("Edit Comic");
-		panel.add(btnNewButton);
+		JButton ComicManagementUI_btnEdit = new JButton("Editar Comic");
+		panel.add(ComicManagementUI_btnEdit);
 		
-		JButton btnNewButton_1 = new JButton("Delete Comic");
-		panel.add(btnNewButton_1);
+		JButton ComicManagementUI_btnDelete = new JButton("Borrar Comic");
+		panel.add(ComicManagementUI_btnDelete);
 		ImageIcon img = new ImageIcon(HomeUI.class.getResource("/resources/sideImg.png"));
 		
 		dataPanel = new JPanel();
@@ -85,8 +101,8 @@ public class ComicManagementUI extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		dataPanel.add(scrollPane, BorderLayout.CENTER);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		comicsTable = new JTable();
+		comicsTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null},
 				{null, null, null, null, null},
@@ -96,7 +112,7 @@ public class ComicManagementUI extends JFrame {
 				"New column", "New column", "New column", "New column", "New column"
 			}
 		));
-		scrollPane.setViewportView(table);
+		scrollPane.setViewportView(comicsTable);
 		
 		JPanel searchPanel = new JPanel();
 		searchPanel.setBackground(new Color(240, 230, 140));
@@ -110,8 +126,8 @@ public class ComicManagementUI extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("Collecci\u00F3n");
 		lblNewLabel_2.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		txtNombre = new JTextField();
-		txtNombre.setColumns(10);
+		txtName = new JTextField();
+		txtName.setColumns(10);
 		
 		txtCollection = new JTextField();
 		txtCollection.setColumns(10);
@@ -127,7 +143,7 @@ public class ComicManagementUI extends JFrame {
 						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(gl_searchPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, 355, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 355, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtCollection, 355, 355, 355))
 					.addPreferredGap(ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
 					.addComponent(ComicManagementUI_btnSearch, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
@@ -141,7 +157,7 @@ public class ComicManagementUI extends JFrame {
 							.addGap(11)
 							.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
@@ -154,5 +170,14 @@ public class ComicManagementUI extends JFrame {
 		searchPanel.setLayout(gl_searchPanel);
 		searchPanel.setBorder(BorderFactory.createTitledBorder(null, ComicManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
 
+	}
+	
+	
+	private void loadComicsTable() {
+		comics = comicService.findAllComics();
+		ComicTableModel tableModel = new ComicTableModel(comics);
+		//tableModel.translateColumns();
+		comicsTable.setModel(tableModel);
+		//table.removeColumn(table.getColumnModel().getColumn(0));
 	}
 }
