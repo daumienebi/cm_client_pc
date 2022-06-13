@@ -14,13 +14,13 @@ import es.daumienebi.comicmanagement.utils.Configuration;
 
 public class ComicDetailsUIController {
 
-	ICollectionService collectionService = new CollectionService();
+	private ICollectionService collectionService = new CollectionService();
 	private String COMIC_IMAGE_SERVER =  Configuration.comic_image_server;
 	
 	public String getCollectionName(Comic comic) {
 		
-		Long comic_id = (long) comic.getCollection_id();
-		Collection collection = collectionService.findCollectionById(comic_id);
+		Long id = (long) comic.getCollection_id();
+		Collection collection = collectionService.findCollectionById(id);
 		
 		
 		return collection.getName();
@@ -35,14 +35,14 @@ public class ComicDetailsUIController {
 			url = new URL(COMIC_IMAGE_SERVER + imgRoute);
 			icon = new ImageIcon(url);
 			if(icon.getImageLoadStatus() == MediaTracker.ERRORED) {
-				//
+				//?
 			}
 			if(icon == null || icon.getImageLoadStatus() != MediaTracker.COMPLETE) {
 				icon = default_icon;
 			}
 			Image img = icon.getImage();
-			//Rescale the image
-			Image imgNuevo = img.getScaledInstance(300,350,  java.awt.Image.SCALE_SMOOTH );
+			//Re-scale the image
+			Image imgNuevo = img.getScaledInstance(300,500,  java.awt.Image.SCALE_SMOOTH );
 			icon =new ImageIcon(imgNuevo);
 			return icon;
 		} catch (Exception e) {

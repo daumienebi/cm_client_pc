@@ -72,10 +72,6 @@ public class ComicManagementUI extends JFrame {
 			}
 		});
 	}
-
-	/**
-	 * Create the frame.
-	 */
 	
 	public ComicManagementUI() {
 		Inicialize();

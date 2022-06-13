@@ -148,7 +148,7 @@ public class CollectionManagementUI extends JFrame {
 		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
 		            Collection collection = controller.getCollection(id);
 		            if(collection == null) {
-		            	JOptionPane.showMessageDialog(table, "Collection not found","Data not found",JOptionPane.ERROR_MESSAGE);
+		            	JOptionPane.showMessageDialog(table, "Collection not found","Record not found",JOptionPane.ERROR_MESSAGE);
 		            }else {
 		            	CollectionDetailsUI ui = new CollectionDetailsUI(collection);
 		            	ui.setLocationRelativeTo(getContentPane());

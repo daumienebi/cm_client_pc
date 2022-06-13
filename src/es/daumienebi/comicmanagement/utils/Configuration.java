@@ -13,9 +13,9 @@ public class Configuration {
 	public static String language;
 	public static String comic_image_server = "http://192.168.56.101/comicmanagement/images/comics/";;
 	public static String collection_image_server = "http://192.168.56.101/comicmanagement/images/collections/";
-	public static String ftp_server;
-	public static String ftp_user;
-	public static String ftp_password;
+	public static String ftp_server = "http://192.168.56.101";
+	public static String ftp_user = "comicdb";
+	public static String ftp_password = "comicdb";
 	public static AppLanguage app_language;
 	public static boolean debug_mode = true;
 }

@@ -112,7 +112,7 @@ public class NewComicUI extends JDialog {
 		
 		btnComicPoster = new JButton("");
 		btnComicPoster.setMargin(new Insets(0, 0, 0, 0));
-		btnComicPoster.setBounds(20,20,300,450);
+		btnComicPoster.setBounds(20,20,300,500);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/deadpool_collection.jpg"));
 		Image img = icon.getImage();
 		Image imgNuevo = img.getScaledInstance(btnComicPoster.getWidth(),btnComicPoster.getHeight(),  java.awt.Image.SCALE_SMOOTH );

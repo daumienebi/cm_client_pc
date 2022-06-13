@@ -30,20 +30,6 @@ public class CollectionDetailsUI extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CollectionDetailsUI dialog = new CollectionDetailsUI();
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
 
 	public CollectionDetailsUI(Collection collection) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
