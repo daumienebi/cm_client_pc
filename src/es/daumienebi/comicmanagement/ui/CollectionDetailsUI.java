@@ -15,14 +15,18 @@ import java.awt.Image;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Toolkit;
+import java.lang.ModuleLayer.Controller;
+
 import javax.swing.SwingConstants;
 
+import es.daumienebi.comicmanagement.controllers.CollectionDetailsUIController;
 import es.daumienebi.comicmanagement.models.Collection;
 
 public class CollectionDetailsUI extends JDialog {
 	private JTextField txtName;
 	private JTextField txtComicCount;
-
+	private JLabel lblImg;
+	private CollectionDetailsUIController controller = new CollectionDetailsUIController();
 	/**
 	 * Launch the application.
 	 */
@@ -54,7 +58,7 @@ public class CollectionDetailsUI extends JDialog {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.WEST);
 		
-		JLabel lblImg = new JLabel("");
+		lblImg = new JLabel("");
 		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
 		lblImg.setBounds(20,20,200,300);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/deadpool_collection.jpg"));
@@ -120,6 +124,7 @@ public class CollectionDetailsUI extends JDialog {
 	void setValues(Collection collection) {
 		txtName.setText(collection.getName());
 		txtComicCount.setText("5");
+		lblImg.setIcon(controller.getCollectionsImage(collection.getImage()));
 		
 	}
 }
