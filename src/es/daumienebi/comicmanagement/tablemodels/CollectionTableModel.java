@@ -1,12 +1,8 @@
 package es.daumienebi.comicmanagement.tablemodels;
 
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.net.URL;
 import java.util.ArrayList;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 import es.daumienebi.comicmanagement.controllers.CollectionDetailsUIController;
@@ -58,7 +54,7 @@ public class CollectionTableModel extends AbstractTableModel {
 		switch (columnIndex) {
 			case 0: return collection.getId();
 			case 1: return collection.getName();
-			case 2: return controller.getCollectionsImage(collection.getImage());
+			case 2: return controller.getCollectionsImage(collection.getImage(),true);
 			default:return "-";
 		}
 	}

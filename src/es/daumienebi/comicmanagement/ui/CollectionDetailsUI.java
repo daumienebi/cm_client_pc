@@ -39,14 +39,14 @@ public class CollectionDetailsUI extends JDialog {
 	
 	void Inicialize(Collection collection) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CollectionDetailsUI.class.getResource("/resources/comic-icon_128.png")));
-		setBounds(100, 100, 617, 348);
+		setBounds(100, 100, 700, 600);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.WEST);
 		
 		lblImg = new JLabel("");
 		lblImg.setHorizontalAlignment(SwingConstants.CENTER);
-		lblImg.setBounds(20,20,200,300);
+		lblImg.setBounds(20,20,300,500);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/deadpool_collection.jpg"));
 		Image img = icon.getImage();
 		Image imgNuevo = img.getScaledInstance(lblImg.getWidth(),lblImg.getHeight(),  java.awt.Image.SCALE_SMOOTH );
@@ -110,7 +110,7 @@ public class CollectionDetailsUI extends JDialog {
 	void setValues(Collection collection) {
 		txtName.setText(collection.getName());
 		txtComicCount.setText("5");
-		lblImg.setIcon(controller.getCollectionsImage(collection.getImage()));
+		lblImg.setIcon(controller.getCollectionsImage(collection.getImage(),false));
 		
 	}
 }

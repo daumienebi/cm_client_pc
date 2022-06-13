@@ -134,6 +134,7 @@ public class CollectionManagementUI extends JFrame {
 		scrollPane.setViewportView(collectionTable);
 		collectionTable.setRowHeight(100);
 		
+		
 		buttomBtnActions(CollectionManagementUI_btnEdit, CollectionManagementUI_btnDelete);
 		tableDoubleClick(collectionTable);
 	}
@@ -180,7 +181,10 @@ public class CollectionManagementUI extends JFrame {
 	private void loadCollections() {
 		collections = controller.findAllCollections();
 		CollectionTableModel tableModel = new CollectionTableModel(collections);
+		
 		//tableModel.translateColumns();
 		collectionTable.setModel(tableModel);
+		collectionTable.getColumnModel().getColumn(2).setMinWidth(150);
+		collectionTable.getColumnModel().getColumn(2).setMaxWidth(200);
 	}
 }
