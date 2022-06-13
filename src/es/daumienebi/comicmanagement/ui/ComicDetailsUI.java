@@ -75,7 +75,7 @@ public class ComicDetailsUI extends JDialog {
 	void Inicialize(Comic comic) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewComicUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 943, 580);
-		setTitle(NewComicUI_windowTitle);
+		setTitle(comic.getName());
 		
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.NORTH);

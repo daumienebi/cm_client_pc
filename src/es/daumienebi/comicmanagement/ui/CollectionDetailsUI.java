@@ -40,7 +40,7 @@ public class CollectionDetailsUI extends JDialog {
 	void Inicialize(Collection collection) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CollectionDetailsUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 700, 600);
-		
+		setTitle(collection.getName());
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.WEST);
 		
