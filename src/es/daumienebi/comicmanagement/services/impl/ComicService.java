@@ -11,6 +11,8 @@ import es.daumienebi.comicmanagement.services.IComicService;
 import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.HttpClientUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 /**
  * 
  * @author Daumienebi Sakpa
@@ -27,6 +29,8 @@ public class ComicService implements IComicService {
 		try {
 			HttpEntity entity = HttpClientUtil.get(url);
 			ObjectMapper mapper = new ObjectMapper();
+			//mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+			//mapper.registerModule(new JavaTimeModule());
 			int counter = 0;			
 			comics = mapper.readValue(EntityUtils.toString(entity),new TypeReference<ArrayList<Comic>>() {
 			});

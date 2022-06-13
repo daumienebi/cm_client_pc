@@ -223,7 +223,7 @@ public class ComicDetailsUI extends JDialog {
 		txtColeccion.setText("collección");
 		txtComicNumber.setText(String.valueOf(comic.getNumber()));
 		txtColeccion.setText(controller.getCollectionName(comic));
-		datePicker.setDate(comic.getAdquisition_date());
+		datePicker.setDate(comic.getAdquisition_date().toLocalDate());
 		switch(comic.getState()) {
 			case "Bueno": cmbState.setSelectedItem(ComicState.Bueno);
 			case "Malo" : cmbState.setSelectedItem(ComicState.Malo);

@@ -1,5 +1,6 @@
 package es.daumienebi.comicmanagement.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -11,7 +12,7 @@ public class Comic {
 
 	private Long id;
 	private String name;
-	private LocalDate adquisition_date;
+	private Date adquisition_date;
 	private String image;
 	private int collection_id;
 	private String state;
@@ -19,7 +20,7 @@ public class Comic {
 	
 	public Comic() {}
 	
-	public Comic(Long id, String name, LocalDate adquisition_date, String image, int collection_id, String state,
+	public Comic(Long id, String name, Date adquisition_date, String image, int collection_id, String state,
 			int number) {
 		super();
 		this.id = id;
@@ -42,10 +43,10 @@ public class Comic {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public LocalDate getAdquisition_date() {
+	public Date getAdquisition_date() {
 		return adquisition_date;
 	}
-	public void setAdquisition_date(LocalDate adquisition_date) {
+	public void setAdquisition_date(Date adquisition_date) {
 		this.adquisition_date = adquisition_date;
 	}
 	public String getImage() {
