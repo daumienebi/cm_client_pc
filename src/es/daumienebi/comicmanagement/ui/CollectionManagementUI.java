@@ -132,6 +132,7 @@ public class CollectionManagementUI extends JFrame {
 		
 		collectionTable = new JTable();
 		scrollPane.setViewportView(collectionTable);
+		collectionTable.setRowHeight(100);
 		
 		buttomBtnActions(CollectionManagementUI_btnEdit, CollectionManagementUI_btnDelete);
 		tableDoubleClick(collectionTable);
