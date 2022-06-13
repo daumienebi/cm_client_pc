@@ -33,9 +33,12 @@ import javax.swing.border.TitledBorder;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
+import es.daumienebi.comicmanagement.controllers.NewComicUIController;
+import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.utils.Constants.ComicState;
 
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,6 @@ public class NewComicUI extends JDialog {
 	public static String NewComicUI_newComic = "Comic Nuevo";
 	
 	private JButton btnComicPoster;
-	private JTextField txtNumber;
 	private JPanel dataPanel;
 	private JTextField txtName;
 	private JTextField txtDay;
@@ -61,8 +63,13 @@ public class NewComicUI extends JDialog {
 	private JTextField textField;
 	private DatePicker datePicker;
 	private LocalDate selectedDate;
-	//private ArrayList<ComicState> comicState = (ArrayList<ComicState>) List.of(ComicState.Bueno,ComicState.Nuevo,ComicState.Malo);
 	
+	Comic comic;
+	private String imageName = "";
+	private File imgFile;
+	
+	//Controller
+	private NewComicUIController controller = new NewComicUIController();
 	
 	/**
 	 * Launch the application.
@@ -111,9 +118,10 @@ public class NewComicUI extends JDialog {
 		getContentPane().add(panel_2, BorderLayout.WEST);
 		
 		btnComicPoster = new JButton("");
+		btnComicPoster.setBorder(null);
 		btnComicPoster.setMargin(new Insets(0, 0, 0, 0));
 		btnComicPoster.setBounds(20,20,300,500);
-		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/deadpool_collection.jpg"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/add_image.jpg"));
 		Image img = icon.getImage();
 		Image imgNuevo = img.getScaledInstance(btnComicPoster.getWidth(),btnComicPoster.getHeight(),  java.awt.Image.SCALE_SMOOTH );
 		icon =new ImageIcon(imgNuevo);

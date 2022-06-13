@@ -1,5 +1,14 @@
 package es.daumienebi.comicmanagement.controllers;
 
-public class NewComicUIController {
+import java.io.File;
+import javax.swing.JButton;
 
+import es.daumienebi.comicmanagement.utils.ImageChooser;
+
+public class NewComicUIController {
+	private ImageChooser imageChooser = new ImageChooser();
+	
+	public File setImagePoster(JButton imgBtn) {
+		return imageChooser.setImagePoster(imgBtn);
+	}
 }
