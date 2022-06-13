@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.border.BevelBorder;
@@ -126,10 +127,44 @@ public class NewCollectionUI extends JDialog {
 			buttonPane.add(btnAddImage);
 			{
 				NewCollectionUI_AddCollection = new JButton("A\u00F1adir Collec\u00F3n");
+				NewCollectionUI_AddCollection.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						validateCollection_Add();
+					}
+				});
 				NewCollectionUI_AddCollection.setActionCommand("OK");
 				buttonPane.add(NewCollectionUI_AddCollection);
 				getRootPane().setDefaultButton(NewCollectionUI_AddCollection);
 			}
+		}
+	}
+	
+	void validateCollection_Add() {
+		String name = txtName.getText();
+		collection = new Collection(1000L,name,imageName);
+		if(!name.isBlank()) {
+			if(imageName != null) {
+				collection.setImage(imageName);
+				addCollection(collection);
+			}else {
+				collection.setImage("");
+				addCollection(collection);
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Porfavor,rellene los campos");
+		}
+	}
+	
+	void addCollection(Collection collection){
+		//Method to be called internally by validateCollection_Add()
+		boolean added = controller.saveCollection(collection);
+		if(added) {
+			JOptionPane.showMessageDialog(getContentPane(),"The record has been added successfully",""
+					,JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+		}else {
+			JOptionPane.showMessageDialog(getContentPane(),"There was an error adding the record","Error",JOptionPane.ERROR_MESSAGE);
+
 		}
 	}
 }

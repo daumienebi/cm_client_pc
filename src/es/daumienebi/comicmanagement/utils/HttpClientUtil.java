@@ -2,9 +2,16 @@ package es.daumienebi.comicmanagement.utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.daumienebi.comicmanagement.models.Collection;
 
 /**
  * 
@@ -28,5 +35,18 @@ public class HttpClientUtil {
 			//System.out.println(EntityUtils.toString(entity));
 		}
 		return entity;
+	}
+	
+	public static void post(StringEntity entity,String url) throws Exception{
+		//Probably return the statusCode and control it in the Service class
+		HttpPost post = new HttpPost(url);
+		post.setEntity(entity);
+		
+		CloseableHttpResponse response = httpClient.execute(post);
+		if(response.getStatusLine().getStatusCode() != 200) {
+			System.out.println("Error Adding the collection");
+			System.out.println(entity.getContent().toString());
+		}
+		
 	}
 }
