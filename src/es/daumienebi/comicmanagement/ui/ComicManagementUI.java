@@ -112,16 +112,7 @@ public class ComicManagementUI extends JFrame {
 		dataPanel.add(scrollPane, BorderLayout.CENTER);
 		
 		comicsTable = new JTable();
-		comicsTable.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
-			}
-		));
+		comicsTable.setRowHeight(40);
 		scrollPane.setViewportView(comicsTable);
 		
 		JPanel searchPanel = new JPanel();

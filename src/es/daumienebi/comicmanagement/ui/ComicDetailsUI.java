@@ -231,6 +231,7 @@ public class ComicDetailsUI extends JDialog {
 			
 			default : cmbState.setSelectedItem(ComicState.SinEstado);
 		}
+		btnComicPoster.setIcon(controller.getComicsImage(comic.getImage()));
 		
 	}
 	
