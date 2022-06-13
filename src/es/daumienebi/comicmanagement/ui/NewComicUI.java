@@ -90,10 +90,11 @@ public class NewComicUI extends JDialog {
 		});
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public NewComicUI() {
+		Inicialize();
+	}
+	
+	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewComicUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 943, 580);
 		setTitle(NewComicUI_windowTitle);
@@ -103,7 +104,8 @@ public class NewComicUI extends JDialog {
 		JButton NewComicUI_btnAddComic = new JButton("A\u00F1adir Comic");
 		NewComicUI_btnAddComic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectedDate = datePicker.getDate();
+				//validateComic_Add();
+				//selectedDate = datePicker.getDate();
 			}
 		});
 		panel.add(NewComicUI_btnAddComic);
@@ -118,6 +120,11 @@ public class NewComicUI extends JDialog {
 		getContentPane().add(panel_2, BorderLayout.WEST);
 		
 		btnComicPoster = new JButton("");
+		btnComicPoster.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				imgFile = controller.setImagePoster(btnComicPoster);
+			}
+		});
 		btnComicPoster.setBorder(null);
 		btnComicPoster.setMargin(new Insets(0, 0, 0, 0));
 		btnComicPoster.setBounds(20,20,300,500);
@@ -127,6 +134,11 @@ public class NewComicUI extends JDialog {
 		icon =new ImageIcon(imgNuevo);
 		btnComicPoster.setIcon(icon);
 		JButton btnAddComicPoster = new JButton("");
+		btnAddComicPoster.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				imgFile = controller.setImagePoster(btnComicPoster);
+			}
+		});
 		btnAddComicPoster.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		btnAddComicPoster.setIcon(new ImageIcon(NewComicUI.class.getResource("/resources/icons8-compact-camera-40.png")));
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
@@ -273,5 +285,21 @@ public class NewComicUI extends JDialog {
 					.addGap(36))
 		);
 		dataPanel.setLayout(gl_dataPanel);
+	}
+
+	private void validateComic_Add() {
+		
+	}
+	
+	private void addComic(Comic comic) {
+		//to be called internally by validateComic_Add()
+	}
+	
+	private void validateComic_Edit(Comic comic) {
+		
+	}
+	
+	private void editComic(Comic comic) {
+		//to be called internally by validateComic_Edit()
 	}
 }
