@@ -19,6 +19,7 @@ import java.awt.SystemColor;
 import javax.swing.UIManager;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -35,10 +36,12 @@ import com.github.lgooddatepicker.components.DatePicker;
 
 import es.daumienebi.comicmanagement.controllers.NewComicUIController;
 import es.daumienebi.comicmanagement.models.Comic;
+import es.daumienebi.comicmanagement.utils.TextFieldValidatorUtil;
 import es.daumienebi.comicmanagement.utils.Constants.ComicState;
 
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +66,7 @@ public class NewComicUI extends JDialog {
 	private JTextField textField;
 	private DatePicker datePicker;
 	private LocalDate selectedDate;
+	private JComboBox cmbState;
 	
 	Comic comic;
 	private String imageName = "";
@@ -104,8 +108,7 @@ public class NewComicUI extends JDialog {
 		JButton NewComicUI_btnAddComic = new JButton("A\u00F1adir Comic");
 		NewComicUI_btnAddComic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//validateComic_Add();
-				//selectedDate = datePicker.getDate();
+				validateComic_Add();
 			}
 		});
 		panel.add(NewComicUI_btnAddComic);
@@ -123,6 +126,7 @@ public class NewComicUI extends JDialog {
 		btnComicPoster.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				imgFile = controller.setImagePoster(btnComicPoster);
+				imageName = imgFile.getName();
 			}
 		});
 		btnComicPoster.setBorder(null);
@@ -137,6 +141,7 @@ public class NewComicUI extends JDialog {
 		btnAddComicPoster.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				imgFile = controller.setImagePoster(btnComicPoster);
+				imageName = imgFile.getName();
 			}
 		});
 		btnAddComicPoster.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -193,7 +198,7 @@ public class NewComicUI extends JDialog {
 		txtComicNumber = new JTextField();
 		txtComicNumber.setColumns(10);
 		
-		JComboBox cmbState = new JComboBox();
+		cmbState = new JComboBox();
 		cmbState.setModel(new DefaultComboBoxModel(ComicState.values()));
 		
 		JButton btnClear = new JButton("Limpiar");
@@ -288,11 +293,41 @@ public class NewComicUI extends JDialog {
 	}
 
 	private void validateComic_Add() {
+		String name = txtName.getText().trim();
+		int collectionId = 0,number = 0;
+		String state = cmbState.getSelectedItem().toString();
+		selectedDate = datePicker.getDate();
+		boolean uploaded = false;
 		
+		if(TextFieldValidatorUtil.isNumeric(txtComicNumber.getText().trim())) {
+			number = Integer.parseInt(txtComicNumber.getText().trim());
+		}
+		//add onKeyreleased method for the comic number to be > 0
+		if(!name.isBlank() && collectionId >0 && number > 0) {
+			comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,state,number);
+			if(!imageName.isBlank()) {
+				comic.setImage(imageName);
+				addComic(comic);
+			}else {
+				comic.setImage("");
+				addComic(comic);
+			}
+		}else {
+			JOptionPane.showMessageDialog(getContentPane(),"Por favor, rellene los campos correctamente","Error",JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	private void addComic(Comic comic) {
 		//to be called internally by validateComic_Add()
+		boolean added = controller.saveComic(comic);
+		if(added) {
+			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido añadido correctamente",""
+					,JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+		}else {
+			JOptionPane.showMessageDialog(getContentPane(),"Error añadiendo el registro","Error",JOptionPane.ERROR_MESSAGE);
+
+		}
 	}
 	
 	private void validateComic_Edit(Comic comic) {

@@ -2,6 +2,8 @@ package es.daumienebi.comicmanagement.services.impl;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -64,4 +66,33 @@ public class ComicService implements IComicService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean saveComic(Comic comic) {
+		String url = SERVER + "/comics";
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			StringEntity json = new StringEntity(mapper.writeValueAsString(comic),ContentType.APPLICATION_JSON);
+			HttpClientUtil.post(json, url);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteComic(Long id) {
+		String url = SERVER + "/comics/"+id;
+		System.out.println(url);
+		try {
+			boolean res = HttpClientUtil.delete(url);
+			System.out.println(res);
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		return false;// TODO: handle exception
+	}
+	
 }

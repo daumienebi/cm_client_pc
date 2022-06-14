@@ -31,6 +31,17 @@ public class Comic {
 		this.state = state;
 		this.number = number;
 	}
+	
+	public Comic(String name, Date adquisition_date, String image, int collection_id, String state,
+			int number) {
+		this.name = name;
+		this.adquisition_date = adquisition_date;
+		this.image = image;
+		this.collection_id = collection_id;
+		this.state = state;
+		this.number = number;
+	}
+	
 	public Long getId() {
 		return id;
 	}

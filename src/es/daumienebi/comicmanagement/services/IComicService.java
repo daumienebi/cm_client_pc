@@ -12,4 +12,9 @@ public interface IComicService {
 	
 	public ArrayList<Comic> findByName(String name);
 	
+	public boolean saveComic(Comic comic);
+	
+	public boolean deleteComic(Long id);
+	
+	
 }

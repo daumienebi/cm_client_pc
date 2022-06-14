@@ -162,11 +162,11 @@ public class NewCollectionUI extends JDialog {
 		//Method to be called internally by validateCollection_Add()
 		boolean added = controller.saveCollection(collection);
 		if(added) {
-			JOptionPane.showMessageDialog(getContentPane(),"The record has been added successfully",""
+			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido añadido correctamente",""
 					,JOptionPane.INFORMATION_MESSAGE);
 			dispose();
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"There was an error adding the record","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),"Error añadiendo el registro","Error",JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
