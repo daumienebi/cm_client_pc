@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Dimension;
 import javax.swing.border.TitledBorder;
@@ -35,6 +36,8 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import java.util.ArrayList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CollectionManagementUI extends JFrame {
 
@@ -46,25 +49,11 @@ public class CollectionManagementUI extends JFrame {
 	
 	private CollectionManagementUIController controller = new CollectionManagementUIController();
 	private ArrayList<Collection> collections = new ArrayList<Collection>();
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CollectionManagementUI frame = new CollectionManagementUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
+	//static values to obtain the selected table item
+	private static int row;
+	private	static int column;
+	
 	public CollectionManagementUI() {
 		Inicialize();
 		loadCollections();
@@ -73,7 +62,7 @@ public class CollectionManagementUI extends JFrame {
 	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CollectionManagementUI.class.getResource("/resources/comic-icon_128.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 667, 393);
+		setBounds(100, 100, 850, 580);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -120,6 +109,28 @@ public class CollectionManagementUI extends JFrame {
 		panel_1.add(CollectionManagementUI_btnEdit);
 		
 		JButton CollectionManagementUI_btnDelete = new JButton("Borrar Colleci\u00F3n");
+		CollectionManagementUI_btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Long collection_id;
+				int response;
+				boolean deleted;
+				collection_id = (long)getCollectionId();
+				
+				response = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados ", "Borrar colleción", JOptionPane.YES_NO_OPTION);
+				if(response == JOptionPane.YES_OPTION) {
+					deleted = controller.deleteCollection(collection_id);
+					if(deleted) {
+						JOptionPane.showMessageDialog(getContentPane(), "Colección eliminada correctamente", "Borrar Registro",
+								JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
+						loadCollections();
+					}else {
+						JOptionPane.showMessageDialog(getContentPane(), "Error borrando la colección", 
+								"Error deleting the record", JOptionPane.ERROR_MESSAGE);
+					}
+				}	
+			}
+			
+		});
 		CollectionManagementUI_btnDelete.setVisible(false);
 		panel_1.add(CollectionManagementUI_btnDelete);
 		
@@ -149,7 +160,7 @@ public class CollectionManagementUI extends JFrame {
 		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
 		            Collection collection = controller.getCollection(id);
 		            if(collection == null) {
-		            	JOptionPane.showMessageDialog(table, "Collection not found","Record not found",JOptionPane.ERROR_MESSAGE);
+		            	JOptionPane.showMessageDialog(rootPane, "Collection not found","Record not found",JOptionPane.ERROR_MESSAGE);
 		            }else {
 		            	CollectionDetailsUI ui = new CollectionDetailsUI(collection);
 		            	ui.setLocationRelativeTo(getContentPane());
@@ -159,6 +170,13 @@ public class CollectionManagementUI extends JFrame {
 		        }
 		    }
 		});
+	}
+	
+	private int getCollectionId() {
+		row = collectionTable.getSelectedRow();
+		column = 0;
+		int collection_id = Integer.parseInt(collectionTable.getModel().getValueAt(row, column).toString());
+		return collection_id;
 	}
 	
 	private void buttomBtnActions(JButton btnEdit,JButton btnDelete) {

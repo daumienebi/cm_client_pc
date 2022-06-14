@@ -121,6 +121,7 @@ public class NewCollectionUI extends JDialog {
 			btnAddImage.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					imgFile = controller.setImagePoster(lblCollectionImg);
+					imageName = imgFile.getName();
 				}
 			});
 			btnAddImage.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-compact-camera-24.png")));

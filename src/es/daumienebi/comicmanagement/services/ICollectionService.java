@@ -13,4 +13,6 @@ public interface ICollectionService {
 	public ArrayList<Collection> findCollectionByName(String name);
 	
 	public boolean saveCollection(Collection collection);
+	
+	public int deleteCollection(Long id);
 }

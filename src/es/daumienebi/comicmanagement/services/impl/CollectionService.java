@@ -78,4 +78,16 @@ public class CollectionService implements ICollectionService{
 		return false;
 	}
 
+	@Override
+	public int deleteCollection(Long id) {
+		String url = SERVER + "/collections/"+id;
+		int response = 0;
+		try {
+			response = HttpClientUtil.delete(url);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return response;
+	}
+
 }

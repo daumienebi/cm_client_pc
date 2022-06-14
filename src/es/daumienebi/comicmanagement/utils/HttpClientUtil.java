@@ -1,6 +1,7 @@
 package es.daumienebi.comicmanagement.utils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ContentType;
@@ -47,6 +48,18 @@ public class HttpClientUtil {
 			System.out.println("Error Adding the collection");
 			System.out.println(entity.getContent().toString());
 		}
+		
+	}
+	
+	public static int delete(String url) throws Exception{
+		//Probably return the statusCode and control it in the Service class
+		HttpDelete delete = new HttpDelete(url);
+		CloseableHttpResponse response = httpClient.execute(delete);
+		if(response.getStatusLine().getStatusCode() != 200) {
+			System.out.println("Error Adding the collection");
+			
+		}
+		return response.getStatusLine().getStatusCode();
 		
 	}
 }

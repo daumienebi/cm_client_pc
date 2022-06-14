@@ -2,12 +2,14 @@ package es.daumienebi.comicmanagement.controllers;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.services.ICollectionService;
 import es.daumienebi.comicmanagement.services.impl.CollectionService;
 
 public class CollectionManagementUIController {
-	private ICollectionService collectionService = new CollectionService();
+	private CollectionService collectionService = new CollectionService();
 	
 	public ArrayList<Collection> findAllCollections(){
 		return collectionService.findAllCollections();
@@ -16,4 +18,10 @@ public class CollectionManagementUIController {
 	public Collection getCollection(Long id) {
 		return collectionService.findCollectionById(id);
 	}
+	
+	/*
+	public JOptionPane deleteCollection(Long id) {
+		return collectionService.deleteCollection(id);
+	}
+	*/
 }
