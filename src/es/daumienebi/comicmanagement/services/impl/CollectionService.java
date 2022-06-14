@@ -79,15 +79,17 @@ public class CollectionService implements ICollectionService{
 	}
 
 	@Override
-	public int deleteCollection(Long id) {
+	public boolean deleteCollection(Long id) {
 		String url = SERVER + "/collections/"+id;
-		int response = 0;
+		System.out.println(url);
 		try {
-			response = HttpClientUtil.delete(url);
+			boolean res = HttpClientUtil.delete(url);
+			System.out.println(res);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+			return false;// TODO: handle exception
 		}
-		return response;
+		return true;
 	}
 
 }

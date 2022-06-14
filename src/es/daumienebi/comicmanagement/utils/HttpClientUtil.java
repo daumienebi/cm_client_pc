@@ -4,15 +4,9 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import es.daumienebi.comicmanagement.models.Collection;
 
 /**
  * 
@@ -46,20 +40,19 @@ public class HttpClientUtil {
 		CloseableHttpResponse response = httpClient.execute(post);
 		if(response.getStatusLine().getStatusCode() != 200) {
 			System.out.println("Error Adding the collection");
-			System.out.println(entity.getContent().toString());
 		}
-		
+		response.close();//important shit
 	}
 	
-	public static int delete(String url) throws Exception{
+	public static boolean delete(String url) throws Exception{
 		//Probably return the statusCode and control it in the Service class
 		HttpDelete delete = new HttpDelete(url);
-		CloseableHttpResponse response = httpClient.execute(delete);
+		CloseableHttpResponse response =  httpClient.execute(delete);
 		if(response.getStatusLine().getStatusCode() != 200) {
-			System.out.println("Error Adding the collection");
-			
+			System.out.println("Error Deleting the collection");
+			return false;
 		}
-		return response.getStatusLine().getStatusCode();
-		
+		response.close();
+		return true;
 	}
 }

@@ -2,6 +2,7 @@ package es.daumienebi.comicmanagement.controllers;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import es.daumienebi.comicmanagement.models.Collection;
@@ -19,9 +20,7 @@ public class CollectionManagementUIController {
 		return collectionService.findCollectionById(id);
 	}
 	
-	/*
-	public JOptionPane deleteCollection(Long id) {
+	public boolean deleteCollection(Long id) {
 		return collectionService.deleteCollection(id);
 	}
-	*/
 }

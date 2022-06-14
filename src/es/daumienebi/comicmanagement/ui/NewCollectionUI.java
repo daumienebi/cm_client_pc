@@ -142,14 +142,16 @@ public class NewCollectionUI extends JDialog {
 	
 	void validateCollection_Add() {
 		String name = txtName.getText();
-		collection = new Collection(1000L,name,imageName);
+		collection = new Collection(name,imageName);
 		if(!name.isBlank()) {
-			if(imageName != null) {
+			if(!imageName.isBlank()) {
 				collection.setImage(imageName);
 				addCollection(collection);
+				System.out.println(collection.toString());
 			}else {
 				collection.setImage("");
 				addCollection(collection);
+				System.out.println(collection.toString());
 			}
 		}else {
 			JOptionPane.showMessageDialog(null, "Porfavor,rellene los campos");

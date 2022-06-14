@@ -14,5 +14,5 @@ public interface ICollectionService {
 	
 	public boolean saveCollection(Collection collection);
 	
-	public int deleteCollection(Long id);
+	public boolean deleteCollection(Long id);
 }

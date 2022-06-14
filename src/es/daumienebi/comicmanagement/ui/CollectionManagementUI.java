@@ -113,12 +113,11 @@ public class CollectionManagementUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Long collection_id;
 				int response;
-				boolean deleted;
 				collection_id = (long)getCollectionId();
 				
 				response = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados ", "Borrar colleción", JOptionPane.YES_NO_OPTION);
 				if(response == JOptionPane.YES_OPTION) {
-					deleted = controller.deleteCollection(collection_id);
+					boolean deleted = controller.deleteCollection(collection_id);
 					if(deleted) {
 						JOptionPane.showMessageDialog(getContentPane(), "Colección eliminada correctamente", "Borrar Registro",
 								JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));

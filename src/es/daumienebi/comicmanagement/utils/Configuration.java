@@ -9,7 +9,8 @@ import es.daumienebi.comicmanagement.utils.Constants.*;
  */
 public class Configuration {
 
-	public static String server = "http://localhost:8081";
+	//public static String server = "http://localhost:8081";
+	public static String server = "http://192.168.56.101:8081";
 	public static String language;
 	public static String comic_image_server = "http://192.168.56.101/comicmanagement/images/comics/";;
 	public static String collection_image_server = "http://192.168.56.101/comicmanagement/images/collections/";

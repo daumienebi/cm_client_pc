@@ -21,6 +21,11 @@ public class Collection {
 		this.image = image;
 	}
 	
+	public Collection(String name, String image) {
+		this.name = name;
+		this.image = image;
+	}
+	
 	public Long getId() {
 		return id;
 	}
