@@ -33,6 +33,7 @@ import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.services.IComicService;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
+import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
 import es.daumienebi.comicmanagement.tablemodels.ComicTableModel;
 import es.daumienebi.comicmanagement.utils.Constants;
 
@@ -44,6 +45,11 @@ import java.util.ArrayList;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import es.daumienebi.comicmanagement.utils.Constants.ComicSearchFilter;
 
 public class ComicManagementUI extends JFrame {
 
@@ -57,7 +63,9 @@ public class ComicManagementUI extends JFrame {
 	private JPanel dataPanel;
 	private JTable comicsTable;
 	private ArrayList<Comic> comics = new ArrayList<Comic>();
+	JComboBox cmbFilter;
 	
+	ComicSearchFilter filter = ComicSearchFilter.Comic;
 	private static int row;
 	private	static int column;
 	ComicManagementUIController controller = new ComicManagementUIController();
@@ -167,12 +175,33 @@ public class ComicManagementUI extends JFrame {
 		lblNewLabel_2.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtName = new JTextField();
+		txtName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(filter == ComicSearchFilter.Comic) {
+					ComicTableModel tableModel = new ComicTableModel(controller.filterComic(txtName.getText()));
+					comicsTable.setModel(tableModel);
+				}else {
+					//filter by collection name
+				}
+				
+			}
+		});
 		txtName.setColumns(10);
 		
 		txtCollection = new JTextField();
 		txtCollection.setColumns(10);
 		
-		JButton ComicManagementUI_btnSearch = new JButton("Buscar");
+		cmbFilter = new JComboBox();
+		cmbFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				filter = (ComicSearchFilter)cmbFilter.getSelectedItem();
+			}
+		});
+		cmbFilter.setModel(new DefaultComboBoxModel(ComicSearchFilter.values()));
+		
+		JLabel lblNewLabel_1 = new JLabel("Filtro");
+		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		GroupLayout gl_searchPanel = new GroupLayout(searchPanel);
 		gl_searchPanel.setHorizontalGroup(
 			gl_searchPanel.createParallelGroup(Alignment.LEADING)
@@ -182,29 +211,27 @@ public class ComicManagementUI extends JFrame {
 						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(gl_searchPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 355, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtCollection, 355, 355, 355))
-					.addPreferredGap(ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
-					.addComponent(ComicManagementUI_btnSearch, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-					.addGap(27))
+					.addGroup(gl_searchPanel.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(txtCollection)
+						.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addGap(32)
+					.addComponent(cmbFilter, 0, 104, Short.MAX_VALUE))
 		);
 		gl_searchPanel.setVerticalGroup(
 			gl_searchPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_searchPanel.createSequentialGroup()
-					.addGroup(gl_searchPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_searchPanel.createSequentialGroup()
-							.addGap(11)
-							.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtCollection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_searchPanel.createSequentialGroup()
-							.addGap(22)
-							.addComponent(ComicManagementUI_btnSearch, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)))
+					.addGap(11)
+					.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_1)
+						.addComponent(cmbFilter, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtCollection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(29, Short.MAX_VALUE))
 		);
 		searchPanel.setLayout(gl_searchPanel);
@@ -268,5 +295,4 @@ public class ComicManagementUI extends JFrame {
 			}
 		});
 	}
-
 }

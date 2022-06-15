@@ -160,7 +160,9 @@ public class NewComicUI extends JDialog {
 		btnComicPoster.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				imgFile = controller.setImagePoster(btnComicPoster);
-				imageName = imgFile.getName();
+				if(imgFile != null) {
+					imageName = imgFile.getName();
+				}
 			}
 		});
 		btnComicPoster.setBorder(null);
@@ -175,7 +177,10 @@ public class NewComicUI extends JDialog {
 		btnAddComicPoster.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				imgFile = controller.setImagePoster(btnComicPoster);
-				imageName = imgFile.getName();
+				if(imgFile != null) {
+					imageName = imgFile.getName();
+				}
+				
 			}
 		});
 		btnAddComicPoster.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));

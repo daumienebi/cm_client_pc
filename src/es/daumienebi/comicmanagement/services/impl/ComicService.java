@@ -1,5 +1,6 @@
 package es.daumienebi.comicmanagement.services.impl;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
@@ -22,7 +23,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  */
 public class ComicService implements IComicService {
 	private static String SERVER = Configuration.server;
-
+	private CollectionService  collectionService = new CollectionService();
+	
+	
 	@Override
 	public ArrayList<Comic> findAllComics() {
 		// TODO Auto-generated method stub
@@ -112,6 +115,18 @@ public class ComicService implements IComicService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public ArrayList<Comic> fliterComic(String name) {
+		ArrayList<Comic> filteredComics = findAllComics();
+		return (ArrayList<Comic>) filteredComics
+				.stream()
+				.filter(x-> x.getName().toLowerCase().contains(name.toLowerCase()))
+				.collect(Collectors.toList());				
+	}
+
+	public ArrayList<Comic> fliterComicByCollection(String name) {
+		return null;
 	}
 	
 }

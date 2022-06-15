@@ -114,6 +114,10 @@ public class CollectionManagementUI extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		JButton CollectionManagementUI_btnEdit = new JButton("Editar Colecci\u00F3n");
+		CollectionManagementUI_btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		CollectionManagementUI_btnEdit.setVisible(false);
 		panel_1.add(CollectionManagementUI_btnEdit);
 		

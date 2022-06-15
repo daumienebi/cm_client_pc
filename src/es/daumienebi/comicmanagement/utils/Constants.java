@@ -21,5 +21,6 @@ public class Constants {
 	public static enum ComicState {Bueno,Nuevo,Malo,SinEstado}
 	public static Dimension comicDetailsMinimumSize = new Dimension(830,550);
 	public static Dimension editComicMinimumSize = new Dimension(850,700);
+	public static enum ComicSearchFilter {Comic,Coleccion}
 
 }
