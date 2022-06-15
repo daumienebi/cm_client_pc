@@ -8,7 +8,9 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.models.Comic;
+import es.daumienebi.comicmanagement.services.impl.CollectionService;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.ImageChooser;
@@ -16,6 +18,8 @@ import es.daumienebi.comicmanagement.utils.ImageChooser;
 public class NewComicUIController {
 	private ImageChooser imageChooser = new ImageChooser();
 	ComicService comicService = new ComicService();
+	CollectionService collectionService = new CollectionService();
+	
 	private String COMIC_IMAGE_SERVER =  Configuration.comic_image_server;
 	
 	public File setImagePoster(JButton imgBtn) {
@@ -48,5 +52,25 @@ public class NewComicUIController {
 		} catch (Exception e) {
 		}
 		return null;
+	}
+
+	public String getCollectionName(Comic comic) {
+		
+		Long id = (long) comic.getCollection_id();
+		Collection collection = collectionService.findCollectionById(id);
+		
+		
+		return collection.getName();
+	}
+	
+	public Collection getCollection(Comic comic) {
+		
+		Long id = (long) comic.getCollection_id();
+		Collection collection = collectionService.findCollectionById(id);	
+		return collection;
+	}
+	
+	public boolean updateComic(Comic comic) {
+		return comicService.updateComic(comic);
 	}
 }

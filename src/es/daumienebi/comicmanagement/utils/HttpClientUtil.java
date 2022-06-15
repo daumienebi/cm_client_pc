@@ -4,6 +4,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -50,6 +51,19 @@ public class HttpClientUtil {
 		CloseableHttpResponse response =  httpClient.execute(delete);
 		if(response.getStatusLine().getStatusCode() != 200) {
 			System.out.println("Error Deleting the entity");
+			return false;
+		}
+		response.close();
+		return true;
+	}
+	
+	public static boolean put(StringEntity entity,String url) throws Exception{
+		
+		HttpPut put = new HttpPut(url);
+		put.setEntity(entity);
+		CloseableHttpResponse response = httpClient.execute(put);
+		if(response.getStatusLine().getStatusCode() != 200) {
+			System.out.println("Error updating the entity");
 			return false;
 		}
 		response.close();

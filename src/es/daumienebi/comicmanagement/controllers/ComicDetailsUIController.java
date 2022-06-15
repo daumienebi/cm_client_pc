@@ -21,8 +21,6 @@ public class ComicDetailsUIController {
 		
 		Long id = (long) comic.getCollection_id();
 		Collection collection = collectionService.findCollectionById(id);
-		
-		
 		return collection.getName();
 	}
 	

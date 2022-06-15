@@ -102,6 +102,7 @@ public class ComicManagementUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int comicId = getComicId();
 				Comic comic = controller.getComic((long)comicId);
+				System.out.println(comic.toString() + "ole");
 				if(comic != null) {
 					NewComicUI ui = new NewComicUI(comic);
 					ui.setLocationRelativeTo(getContentPane());

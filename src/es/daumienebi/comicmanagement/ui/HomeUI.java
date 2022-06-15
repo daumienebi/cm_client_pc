@@ -140,19 +140,19 @@ public class HomeUI {
 		setImageSlider(0); // start the slider from 0
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(255, 153, 102));
+		panel_1.setBackground(new Color(255, 165, 0));
 		mainPanel.add(panel_1, BorderLayout.EAST);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(255, 153, 102));
+		panel_2.setBackground(new Color(165, 42, 42));
 		mainPanel.add(panel_2, BorderLayout.WEST);
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 153, 102));
+		panel_3.setBackground(new Color(224, 255, 255));
 		mainPanel.add(panel_3, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 153, 102));
+		panel.setBackground(new Color(224, 255, 255));
 		mainPanel.add(panel, BorderLayout.SOUTH);
 		//setBottomImg();
 		

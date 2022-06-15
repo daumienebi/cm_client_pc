@@ -16,5 +16,6 @@ public interface IComicService {
 	
 	public boolean deleteComic(Long id);
 	
+	public boolean updateComic(Comic comic);
 	
 }

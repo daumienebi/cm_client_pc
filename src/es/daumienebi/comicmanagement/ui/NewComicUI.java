@@ -60,6 +60,8 @@ public class NewComicUI extends JDialog {
 	public static String NewComicUI_newComic = "Comic Nuevo";
 	public static JButton NewComicUI_btnAddComic;
 	public static JButton NewComicUI_btnSaveComic;
+	public static String UIMessage_plsFillFields;
+	
 	
 	private JButton btnComicPoster;
 	private JPanel dataPanel;
@@ -120,7 +122,8 @@ public class NewComicUI extends JDialog {
 		selectedDate = comic.getAdquisition_date().toLocalDate();
 		datePicker.setDate(selectedDate);
 		btnComicPoster.setIcon(controller.getComicsImage(comic.getImage()));
-		
+		selectedCollection = controller.getCollection(comic);
+		txtCollection.setText(selectedCollection.getName());
 	}
 	
 	void Inicialize() {
@@ -139,6 +142,11 @@ public class NewComicUI extends JDialog {
 		panel.add(NewComicUI_btnAddComic);
 		
 		NewComicUI_btnSaveComic = new JButton("Guardar Comic");
+		NewComicUI_btnSaveComic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				validateComic_Edit();
+			}
+		});
 		NewComicUI_btnSaveComic.setVisible(false);
 		panel.add(NewComicUI_btnSaveComic);
 		
@@ -248,6 +256,7 @@ public class NewComicUI extends JDialog {
 		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtCollection = new JTextField();
+		txtCollection.setEditable(false);
 		txtCollection.setColumns(10);
 		
 		JButton btnAddCollection = new JButton("");
@@ -383,12 +392,50 @@ public class NewComicUI extends JDialog {
 		}
 	}
 	
-	private void validateComic_Edit(Comic comic) {
+	private void validateComic_Edit() {
+		String name = txtName.getText().trim();
+		int collectionId = 0,number = 0;
+		if(selectedDate == null) {
+			selectedDate = LocalDate.now();
+		}
+		//selectedDate = datePicker.getDate();
+		boolean uploaded = false;
 		
+		if(TextFieldValidatorUtil.isNumeric(txtComicNumber.getText().trim())) {
+			number = Integer.parseInt(txtComicNumber.getText().trim());
+		}
+		//add onKeyreleased method for the comic number to be > 0
+		if(!name.isBlank() && number > 0 && selectedCollection != null) {
+			collectionId = Integer.valueOf(selectedCollection.getId().toString());
+			//comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,comicState,number);
+			if(!imageName.isBlank()) {
+				comic.setImage(imageName);
+				editComic(comic, name, collectionId, number);
+			}else {
+				comic.setImage("");
+				editComic(comic, name, collectionId, number);
+			}
+		}else {
+			JOptionPane.showMessageDialog(getContentPane(),"Por favor, rellene los campos correctamente","Error",JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
-	private void editComic(Comic comic) {
+	private void editComic(Comic comic,String name, int collectionId,int number) {
 		//to be called internally by validateComic_Edit()
+		comic.setName(name);
+		comic.setCollection_id(collectionId);
+		comic.setAdquisition_date(Date.valueOf(selectedDate));
+		comic.setImage(imageName);
+		boolean added = controller.updateComic(comic);
+		if(added) {
+			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido añadido correctamente",""
+					,JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+		}else {
+			JOptionPane.showMessageDialog(getContentPane(),"Error añadiendo el registro","Error",JOptionPane.ERROR_MESSAGE);
+
+		}
+		
 	}
 	
 	private void clear() {

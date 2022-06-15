@@ -96,4 +96,22 @@ public class ComicService implements IComicService {
 		}
 	}
 	
+	@Override
+	public boolean updateComic(Comic comic) {
+		Long id = comic.getId();
+		System.out.println(id);
+		String url = SERVER + "/comics/"+id;
+		System.out.println(url);
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			StringEntity json = new StringEntity(mapper.writeValueAsString(comic),ContentType.APPLICATION_JSON);
+			boolean res = HttpClientUtil.put(json,url);
+			System.out.println(res);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 }
