@@ -42,6 +42,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ComicManagementUI extends JFrame {
 
@@ -56,6 +58,8 @@ public class ComicManagementUI extends JFrame {
 	private JTable comicsTable;
 	private ArrayList<Comic> comics = new ArrayList<Comic>();
 	
+	private static int row;
+	private	static int column;
 	ComicManagementUIController controller = new ComicManagementUIController();
 	/**
 	 * Launch the application.
@@ -94,9 +98,34 @@ public class ComicManagementUI extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
 		JButton ComicManagementUI_btnEdit = new JButton("Editar Comic");
+		ComicManagementUI_btnEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		panel.add(ComicManagementUI_btnEdit);
 		
 		JButton ComicManagementUI_btnDelete = new JButton("Borrar Comic");
+		ComicManagementUI_btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Long comicId;
+				int response;
+				comicId = (long)getComicId();
+				
+				response = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar el comic?", "Borrar Comic", JOptionPane.YES_NO_OPTION);
+				if(response == JOptionPane.YES_OPTION) {
+					boolean deleted = controller.deleteComic(comicId);
+					if(deleted) {
+						JOptionPane.showMessageDialog(getContentPane(), "Comic borrado correctamente", "Borrar Registro",
+								JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
+						loadComicsTable();
+					}else {
+						JOptionPane.showMessageDialog(getContentPane(), "Error borrando el comic", 
+								"Error deleting the record", JOptionPane.ERROR_MESSAGE);
+					}
+				}	
+			}
+		});
 		panel.add(ComicManagementUI_btnDelete);
 		ImageIcon img = new ImageIcon(HomeUI.class.getResource("/resources/sideImg.png"));
 		
@@ -200,6 +229,13 @@ public class ComicManagementUI extends JFrame {
 		        }
 		    }
 		});
+	}
+	
+	private int getComicId() {
+		row = comicsTable.getSelectedRow();
+		column = 0;
+		int comicId = Integer.parseInt(comicsTable.getModel().getValueAt(row, column).toString());
+		return comicId;
 	}
 	
 	private void buttomBtnActions(JButton btnEdit,JButton btnDelete) {

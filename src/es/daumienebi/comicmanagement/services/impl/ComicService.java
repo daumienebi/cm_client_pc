@@ -89,11 +89,11 @@ public class ComicService implements IComicService {
 		try {
 			boolean res = HttpClientUtil.delete(url);
 			System.out.println(res);
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+			return false;
 		}
-		return false;// TODO: handle exception
 	}
 	
 }

@@ -76,7 +76,7 @@ public class NewCollectionUI extends JDialog {
 		JLabel lblCollectionImg = new JLabel("");
 		//lblCollectionImg.setMargin(new Insets(0, 0, 0, 0));
 		lblCollectionImg.setBounds(20,20,300,500);
-		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/deadpool_collection.jpg"));
+		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/add_image.jpg"));
 		Image img = icon.getImage();
 		Image imgNuevo = img.getScaledInstance(lblCollectionImg.getWidth(),lblCollectionImg.getHeight(),  java.awt.Image.SCALE_SMOOTH );
 		icon =new ImageIcon(imgNuevo);

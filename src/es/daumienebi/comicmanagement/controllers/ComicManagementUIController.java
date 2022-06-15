@@ -7,7 +7,7 @@ import es.daumienebi.comicmanagement.services.IComicService;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
 
 public class ComicManagementUIController {
-	private IComicService comicService = new ComicService();
+	private ComicService comicService = new ComicService();
 	
 	
 	public ArrayList<Comic> findAllComics(){
@@ -16,5 +16,9 @@ public class ComicManagementUIController {
 	
 	public Comic getComic(Long id) {
 		return comicService.findComicById(id);
+	}
+	
+	public boolean deleteComic(Long id) {
+		return comicService.deleteComic(id);
 	}
 }

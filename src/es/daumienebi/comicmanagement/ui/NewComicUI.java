@@ -101,6 +101,10 @@ public class NewComicUI extends JDialog {
 		Inicialize();
 	}
 	
+	public NewComicUI(Comic comic) {
+		Inicialize();
+	}
+	
 	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewComicUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 943, 580);
@@ -373,5 +377,6 @@ public class NewComicUI extends JDialog {
 		txtName.setText("");
 		txtCollection.setText("");
 		cmbState.setSelectedItem(ComicState.Nuevo);
+		txtComicNumber.setText("");
 	}
 }
