@@ -1,7 +1,4 @@
 package es.daumienebi.comicmanagement.ui;
-
-import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -15,7 +12,6 @@ import java.awt.Image;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Toolkit;
-import java.lang.ModuleLayer.Controller;
 
 import javax.swing.SwingConstants;
 

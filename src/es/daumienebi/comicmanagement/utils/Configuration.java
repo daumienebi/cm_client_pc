@@ -18,5 +18,5 @@ public class Configuration {
 	public static String ftp_user = "comicdb";
 	public static String ftp_password = "comicdb";
 	public static AppLanguage app_language;
-	public static boolean debug_mode = false;
+	public static boolean debug_mode = true;
 }

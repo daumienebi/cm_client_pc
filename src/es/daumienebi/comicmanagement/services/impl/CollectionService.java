@@ -99,7 +99,7 @@ public class CollectionService implements ICollectionService{
 		
 		return (ArrayList<Collection>) filteredCollections
 				.stream()
-				.filter(x-> x.getName().contains(name))
+				.filter(x-> x.getName().toLowerCase().contains(name.toLowerCase()))
 				.collect(Collectors.toList());
 				
 	}

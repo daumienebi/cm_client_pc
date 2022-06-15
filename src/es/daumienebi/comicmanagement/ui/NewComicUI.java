@@ -224,6 +224,7 @@ public class NewComicUI extends JDialog {
 		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		datePicker =new DatePicker();
+		datePicker.getComponentDateTextField().setEditable(false);
 		datePicker.getComponentToggleCalendarButton().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectedDate = datePicker.getDate();
@@ -395,36 +396,38 @@ public class NewComicUI extends JDialog {
 	private void validateComic_Edit() {
 		String name = txtName.getText().trim();
 		int collectionId = 0,number = 0;
-		if(selectedDate == null) {
-			selectedDate = LocalDate.now();
-		}
+		//if(selectedDate == null) {
+			//selectedDate = LocalDate.now();
+		//}
 		//selectedDate = datePicker.getDate();
+		Date date = Date.valueOf(datePicker.getDateStringOrEmptyString());
 		boolean uploaded = false;
 		
 		if(TextFieldValidatorUtil.isNumeric(txtComicNumber.getText().trim())) {
 			number = Integer.parseInt(txtComicNumber.getText().trim());
 		}
 		//add onKeyreleased method for the comic number to be > 0
-		if(!name.isBlank() && number > 0 && selectedCollection != null) {
+		if(!name.isBlank() && number > 0 && selectedCollection != null && date != null) {
 			collectionId = Integer.valueOf(selectedCollection.getId().toString());
 			//comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,comicState,number); -lmao
 			if(!imageName.isBlank()) {
 				comic.setImage(imageName);
-				editComic(comic, name, collectionId, number);
+				editComic(comic, name, collectionId, number,date);
 			}else {
 				comic.setImage("");
-				editComic(comic, name, collectionId, number);
+				editComic(comic, name, collectionId, number,date);
 			}
 		}else {
 			JOptionPane.showMessageDialog(getContentPane(),"Por favor, rellene los campos correctamente","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
-	private void editComic(Comic comic,String name, int collectionId,int number) {
+	private void editComic(Comic comic,String name, int collectionId,int number,Date date) {
 		//to be called internally by validateComic_Edit()
 		comic.setName(name);
 		comic.setCollection_id(collectionId);
-		comic.setAdquisition_date(Date.valueOf(selectedDate));
+		comic.setAdquisition_date(date);
+		//comic.setAdquisition_date(Date.valueOf(datePicker.getText()));
 		comic.setImage(imageName);
 		comic.setNumber(number);
 		boolean added = controller.updateComic(comic);

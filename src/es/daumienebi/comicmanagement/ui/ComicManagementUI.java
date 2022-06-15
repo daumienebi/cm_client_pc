@@ -114,7 +114,6 @@ public class ComicManagementUI extends JFrame {
 				}else
 					JOptionPane.showMessageDialog(getContentPane(), "El comic no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
 				loadComicsTable();
-				
 			}
 		});
 		panel.add(ComicManagementUI_btnEdit);
@@ -151,11 +150,12 @@ public class ComicManagementUI extends JFrame {
 		dataPanel.add(scrollPane, BorderLayout.CENTER);
 		
 		comicsTable = new JTable();
+		comicsTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		comicsTable.setRowHeight(40);
 		scrollPane.setViewportView(comicsTable);
 		
 		JPanel searchPanel = new JPanel();
-		searchPanel.setBackground(new Color(240, 230, 140));
+		searchPanel.setBackground(new Color(205, 92, 92));
 		searchPanel.setPreferredSize(new Dimension(0, 120));
 		searchPanel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(searchPanel, BorderLayout.NORTH);
