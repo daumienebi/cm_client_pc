@@ -407,7 +407,7 @@ public class NewComicUI extends JDialog {
 		//add onKeyreleased method for the comic number to be > 0
 		if(!name.isBlank() && number > 0 && selectedCollection != null) {
 			collectionId = Integer.valueOf(selectedCollection.getId().toString());
-			//comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,comicState,number);
+			//comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,comicState,number); -lmao
 			if(!imageName.isBlank()) {
 				comic.setImage(imageName);
 				editComic(comic, name, collectionId, number);
@@ -426,6 +426,7 @@ public class NewComicUI extends JDialog {
 		comic.setCollection_id(collectionId);
 		comic.setAdquisition_date(Date.valueOf(selectedDate));
 		comic.setImage(imageName);
+		comic.setNumber(number);
 		boolean added = controller.updateComic(comic);
 		if(added) {
 			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido añadido correctamente",""

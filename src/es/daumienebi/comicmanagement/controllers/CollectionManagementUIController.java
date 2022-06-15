@@ -23,4 +23,10 @@ public class CollectionManagementUIController {
 	public boolean deleteCollection(Long id) {
 		return collectionService.deleteCollection(id);
 	}
+	
+	public ArrayList<Collection> fliterCollection(String name) {
+		ArrayList<Collection> filteredCollections = new ArrayList<>();
+		filteredCollections = collectionService.fliterCollection(name);
+		return filteredCollections;
+	}
 }

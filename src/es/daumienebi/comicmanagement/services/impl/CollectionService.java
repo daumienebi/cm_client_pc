@@ -1,6 +1,7 @@
 package es.daumienebi.comicmanagement.services.impl;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
@@ -92,4 +93,14 @@ public class CollectionService implements ICollectionService{
 		return true;
 	}
 
+	public ArrayList<Collection> fliterCollection(String name) {
+		ArrayList<Collection> filteredCollections = findAllCollections();
+		
+		
+		return (ArrayList<Collection>) filteredCollections
+				.stream()
+				.filter(x-> x.getName().contains(name))
+				.collect(Collectors.toList());
+				
+	}
 }
