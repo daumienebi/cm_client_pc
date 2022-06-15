@@ -285,6 +285,7 @@ public class HomeUI {
 		menuComics.add(menuComicManagement);
 		
 		menuReports = new JMenu("Informes");
+		menuReports.setEnabled(false);
 		menuReports.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuReports);
 		
@@ -311,6 +312,7 @@ public class HomeUI {
 		menuReports.add(menuPersonalizedReports);
 		
 		menuSettings = new JMenu("Ajustes");
+		menuSettings.setEnabled(false);
 		menuSettings.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuSettings);
 		
@@ -331,6 +333,7 @@ public class HomeUI {
 		menuSelectLanguage.add(menuGalician);
 		
 		menuHelp = new JMenu("Ayuda");
+		menuHelp.setEnabled(false);
 		menuHelp.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuHelp);
 		
