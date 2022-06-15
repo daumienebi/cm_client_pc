@@ -32,10 +32,11 @@ public class NewCollectionUI extends JDialog {
 	//To be translated
 	public static JLabel NewCollectionUI_name;
 	public static JButton NewCollectionUI_AddCollection;
+	public static JButton NewCollectionUI_SaveCollection;
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtName;
-
+	private JLabel lblCollectionImg;
 	Collection collection;
 	private String imageName = "";
 	private File imgFile;
@@ -56,12 +57,24 @@ public class NewCollectionUI extends JDialog {
 	}
 
 	
+	public NewCollectionUI(Collection collection) {
+		//New Instance to edit a collection
+		this();
+		setDefaultCloseOperation(NewComicUI.DISPOSE_ON_CLOSE);
+		this.collection = collection;
+		imageName = collection.getImage();
+		NewCollectionUI_AddCollection.setVisible(false);
+		NewCollectionUI_SaveCollection.setVisible(false);
+		setTitle("Editar colección");
+		txtName.setText(collection.getName());
+		lblCollectionImg.setIcon(controller.getCollectionsImage(collection.getImage(),false));
+	}
 	
 	public NewCollectionUI() {
 		Inicialize();
 	}
 	
-	void Inicialize() {
+	private void Inicialize() {
 		setTitle("A\u00F1adir nueva colecci\u00F3n");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewCollectionUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 700, 600);
@@ -73,7 +86,7 @@ public class NewCollectionUI extends JDialog {
 		JPanel panel = new JPanel();
 		contentPanel.add(panel, BorderLayout.WEST);
 		
-		JLabel lblCollectionImg = new JLabel("");
+		lblCollectionImg = new JLabel("");
 		//lblCollectionImg.setMargin(new Insets(0, 0, 0, 0));
 		lblCollectionImg.setBounds(20,20,300,500);
 		ImageIcon icon = new ImageIcon(getClass().getResource("/resources/add_image.jpg"));
@@ -139,10 +152,18 @@ public class NewCollectionUI extends JDialog {
 				buttonPane.add(NewCollectionUI_AddCollection);
 				getRootPane().setDefaultButton(NewCollectionUI_AddCollection);
 			}
+			
+			NewCollectionUI_SaveCollection = new JButton("Guardar Colecci\u00F3n");
+			NewCollectionUI_SaveCollection.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					validateCollection_Edit();
+				}
+			});
+			buttonPane.add(NewCollectionUI_SaveCollection);
 		}
 	}
 	
-	void validateCollection_Add() {
+	private void validateCollection_Add() {
 		String name = txtName.getText();
 		collection = new Collection(name,imageName);
 		if(!name.isBlank()) {
@@ -160,7 +181,7 @@ public class NewCollectionUI extends JDialog {
 		}
 	}
 	
-	void addCollection(Collection collection){
+	private void addCollection(Collection collection){
 		//Method to be called internally by validateCollection_Add()
 		boolean added = controller.saveCollection(collection);
 		if(added) {
@@ -172,4 +193,14 @@ public class NewCollectionUI extends JDialog {
 
 		}
 	}
+	
+	private void validateCollection_Edit() {
+		
+	}
+	
+	private void editCollection(Collection collection,String name) {
+		
+	}
+
+	
 }
