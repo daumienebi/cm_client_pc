@@ -39,7 +39,7 @@ public class HttpClientUtil {
 		
 		CloseableHttpResponse response = httpClient.execute(post);
 		if(response.getStatusLine().getStatusCode() != 200) {
-			System.out.println("Error Adding the collection");
+			System.out.println("Error Adding the entity");
 		}
 		response.close();//important shit
 	}
@@ -49,7 +49,7 @@ public class HttpClientUtil {
 		HttpDelete delete = new HttpDelete(url);
 		CloseableHttpResponse response =  httpClient.execute(delete);
 		if(response.getStatusLine().getStatusCode() != 200) {
-			System.out.println("Error Deleting the collection");
+			System.out.println("Error Deleting the entity");
 			return false;
 		}
 		response.close();

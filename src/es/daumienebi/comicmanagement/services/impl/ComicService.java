@@ -74,11 +74,12 @@ public class ComicService implements IComicService {
 			ObjectMapper mapper = new ObjectMapper();
 			StringEntity json = new StringEntity(mapper.writeValueAsString(comic),ContentType.APPLICATION_JSON);
 			HttpClientUtil.post(json, url);
+			System.out.println(json);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	@Override

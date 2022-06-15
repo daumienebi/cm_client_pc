@@ -35,6 +35,7 @@ import javax.swing.border.TitledBorder;
 import com.github.lgooddatepicker.components.DatePicker;
 
 import es.daumienebi.comicmanagement.controllers.NewComicUIController;
+import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.utils.TextFieldValidatorUtil;
 import es.daumienebi.comicmanagement.utils.Constants.ComicState;
@@ -63,14 +64,16 @@ public class NewComicUI extends JDialog {
 	private JTextField txtName;
 	private JTextField txtDay;
 	private JTextField txtComicNumber;
-	private JTextField textField;
+	private JTextField txtCollection;
 	private DatePicker datePicker;
 	private LocalDate selectedDate;
 	private JComboBox cmbState;
 	
 	Comic comic;
+	Collection selectedCollection;
 	private String imageName = "";
 	private File imgFile;
+	private String comicState = ComicState.Nuevo.toString();
 	
 	//Controller
 	private NewComicUIController controller = new NewComicUIController();
@@ -114,6 +117,7 @@ public class NewComicUI extends JDialog {
 		panel.add(NewComicUI_btnAddComic);
 		
 		JButton NewComicUI_btnSaveComic = new JButton("Guardar Comic");
+		NewComicUI_btnSaveComic.setVisible(false);
 		panel.add(NewComicUI_btnSaveComic);
 		
 		JPanel panel_1 = new JPanel();
@@ -190,6 +194,11 @@ public class NewComicUI extends JDialog {
 		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		datePicker =new DatePicker();
+		datePicker.getComponentToggleCalendarButton().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectedDate = datePicker.getDate();
+			}
+		});
 		datePicker.setDateToToday();
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("NUMERO");
@@ -199,22 +208,41 @@ public class NewComicUI extends JDialog {
 		txtComicNumber.setColumns(10);
 		
 		cmbState = new JComboBox();
+		cmbState.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comicState = cmbState.getSelectedItem().toString();
+			}
+		});
 		cmbState.setModel(new DefaultComboBoxModel(ComicState.values()));
 		
 		JButton btnClear = new JButton("Limpiar");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				clear();
 			}
 		});
 		
 		JLabel lblNewLabel_1 = new JLabel("ESTADO");
 		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtCollection = new JTextField();
+		txtCollection.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon(NewComicUI.class.getResource("/resources/icons8-search-24.png")));
+		JButton btnAddCollection = new JButton("");
+		btnAddCollection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddCollectioToComicUI ui = new AddCollectioToComicUI();
+				ui.setModal(true);
+				ui.setLocationRelativeTo(null);
+				ui.setVisible(true);
+				selectedCollection = ui.getSelectedCollection();
+				if(selectedCollection != null) {
+					txtCollection.setText(selectedCollection.getName());
+				}
+				
+			}
+		});
+		btnAddCollection.setIcon(new ImageIcon(NewComicUI.class.getResource("/resources/icons8-search-24.png")));
 		GroupLayout gl_dataPanel = new GroupLayout(dataPanel);
 		gl_dataPanel.setHorizontalGroup(
 			gl_dataPanel.createParallelGroup(Alignment.TRAILING)
@@ -242,9 +270,9 @@ public class NewComicUI extends JDialog {
 							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_dataPanel.createSequentialGroup()
-										.addComponent(textField, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+										.addComponent(txtCollection, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
 										.addGap(18)
-										.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
+										.addComponent(btnAddCollection, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
 									.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
 									.addGroup(gl_dataPanel.createSequentialGroup()
 										.addPreferredGap(ComponentPlacement.RELATED)
@@ -266,8 +294,8 @@ public class NewComicUI extends JDialog {
 					.addGap(36)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnNewButton_1))
+							.addComponent(txtCollection, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnAddCollection))
 						.addComponent(lblCollection))
 					.addGap(43)
 					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE, false)
@@ -295,16 +323,19 @@ public class NewComicUI extends JDialog {
 	private void validateComic_Add() {
 		String name = txtName.getText().trim();
 		int collectionId = 0,number = 0;
-		String state = cmbState.getSelectedItem().toString();
-		selectedDate = datePicker.getDate();
+		if(selectedDate == null) {
+			selectedDate = LocalDate.now();
+		}
+		//selectedDate = datePicker.getDate();
 		boolean uploaded = false;
 		
 		if(TextFieldValidatorUtil.isNumeric(txtComicNumber.getText().trim())) {
 			number = Integer.parseInt(txtComicNumber.getText().trim());
 		}
 		//add onKeyreleased method for the comic number to be > 0
-		if(!name.isBlank() && collectionId >0 && number > 0) {
-			comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,state,number);
+		if(!name.isBlank() && number > 0 && selectedCollection != null) {
+			collectionId = Integer.valueOf(selectedCollection.getId().toString());
+			comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,comicState,number);
 			if(!imageName.isBlank()) {
 				comic.setImage(imageName);
 				addComic(comic);
@@ -336,5 +367,11 @@ public class NewComicUI extends JDialog {
 	
 	private void editComic(Comic comic) {
 		//to be called internally by validateComic_Edit()
+	}
+	
+	private void clear() {
+		txtName.setText("");
+		txtCollection.setText("");
+		cmbState.setSelectedItem(ComicState.Nuevo);
 	}
 }
