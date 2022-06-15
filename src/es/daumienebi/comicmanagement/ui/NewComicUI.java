@@ -58,6 +58,8 @@ public class NewComicUI extends JDialog {
 	public static JLabel NewComicUI_comicNumber;
 	public static String NewComicUI_windowTitle = "Añadir Nuevo Comic";
 	public static String NewComicUI_newComic = "Comic Nuevo";
+	public static JButton NewComicUI_btnAddComic;
+	public static JButton NewComicUI_btnSaveComic;
 	
 	private JButton btnComicPoster;
 	private JPanel dataPanel;
@@ -102,7 +104,23 @@ public class NewComicUI extends JDialog {
 	}
 	
 	public NewComicUI(Comic comic) {
-		Inicialize();
+		//New Instance to edit a comic
+		this();
+		setDefaultCloseOperation(NewComicUI.DISPOSE_ON_CLOSE);
+		this.comic = comic;
+		imageName = comic.getImage();
+		NewComicUI_btnAddComic.setVisible(false);
+		NewComicUI_btnSaveComic.setVisible(true);
+		setTitle("Editar comic");
+		
+		txtName.setText(comic.getName());
+		txtComicNumber.setText(String.valueOf(comic.getNumber()));
+		//The comic state will not me modified
+		cmbState.setEnabled(false);
+		selectedDate = comic.getAdquisition_date().toLocalDate();
+		datePicker.setDate(selectedDate);
+		btnComicPoster.setIcon(controller.getComicsImage(comic.getImage()));
+		
 	}
 	
 	void Inicialize() {
@@ -112,7 +130,7 @@ public class NewComicUI extends JDialog {
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		
-		JButton NewComicUI_btnAddComic = new JButton("A\u00F1adir Comic");
+		NewComicUI_btnAddComic = new JButton("A\u00F1adir Comic");
 		NewComicUI_btnAddComic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				validateComic_Add();
@@ -120,7 +138,7 @@ public class NewComicUI extends JDialog {
 		});
 		panel.add(NewComicUI_btnAddComic);
 		
-		JButton NewComicUI_btnSaveComic = new JButton("Guardar Comic");
+		NewComicUI_btnSaveComic = new JButton("Guardar Comic");
 		NewComicUI_btnSaveComic.setVisible(false);
 		panel.add(NewComicUI_btnSaveComic);
 		

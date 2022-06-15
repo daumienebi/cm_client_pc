@@ -132,7 +132,7 @@ public class ComicDetailsUI extends JDialog {
 		datePicker.getComponentToggleCalendarButton().setEnabled(false);
 		datePicker.getComponentDateTextField().setEditable(false);
 		datePicker.setDateToToday();
-		
+		datePicker.setEnabled(false);
 		JLabel lblNewLabel_1_1_1 = new JLabel("NUMERO");
 		lblNewLabel_1_1_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		

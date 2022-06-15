@@ -100,6 +100,19 @@ public class ComicManagementUI extends JFrame {
 		JButton ComicManagementUI_btnEdit = new JButton("Editar Comic");
 		ComicManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int comicId = getComicId();
+				Comic comic = controller.getComic((long)comicId);
+				if(comic != null) {
+					NewComicUI ui = new NewComicUI(comic);
+					ui.setLocationRelativeTo(getContentPane());
+					ui.setModal(true);
+					ui.setVisible(true);
+					ui.setMinimumSize(Constants.editComicMinimumSize);
+					ComicManagementUI_btnEdit.setVisible(false);
+					loadComicsTable();
+				}else
+					JOptionPane.showMessageDialog(getContentPane(), "El comic no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
+				loadComicsTable();
 				
 			}
 		});
