@@ -60,7 +60,7 @@ public class NewCollectionUIController {
 		return null;
 	}
 	
-	public boolean updateComic(Collection collection) {
+	public boolean updateCollection(Collection collection) {
 		return collectionService.updateCollection(collection);
 	}
 }
