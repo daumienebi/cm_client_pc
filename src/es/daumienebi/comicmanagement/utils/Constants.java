@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  * @author Daumienebi Sakpa
- * Constant values to be used in other classes
+ * Constant values like screen dimensions,enums,fonts and other stuffs to be used in other classes
  */
 public class Constants {
 
@@ -22,5 +22,6 @@ public class Constants {
 	public static Dimension comicDetailsMinimumSize = new Dimension(830,550);
 	public static Dimension editComicMinimumSize = new Dimension(850,700);
 	public static enum ComicSearchFilter {Comic,Coleccion}
+	public static Dimension editCollectionMinimumSize = new Dimension(600,500);
 
 }

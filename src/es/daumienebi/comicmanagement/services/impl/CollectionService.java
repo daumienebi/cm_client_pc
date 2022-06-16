@@ -103,4 +103,22 @@ public class CollectionService implements ICollectionService{
 				.collect(Collectors.toList());
 				
 	}
+
+	@Override
+	public boolean updateCollection(Collection collection) {
+		Long id = collection.getId();
+		System.out.println(id);
+		String url = SERVER + "/collections/"+id;
+		System.out.println(url);
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			StringEntity json = new StringEntity(mapper.writeValueAsString(collection),ContentType.APPLICATION_JSON);
+			boolean res = HttpClientUtil.put(json,url);
+			System.out.println(res);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }

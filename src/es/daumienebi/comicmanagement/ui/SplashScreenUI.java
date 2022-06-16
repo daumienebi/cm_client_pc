@@ -3,9 +3,10 @@ import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.SplashScreenUtil;
 
 public class SplashScreenUI {
-
+	private static boolean DEBUG_MODE = Configuration.debug_mode;
+	
 	public static void main(String [] args) {
-		if(Configuration.debug_mode) {
+		if(DEBUG_MODE) {
 			HomeUI mainScreen = new HomeUI();
 			mainScreen.frame.setLocationRelativeTo(mainScreen.frame);					
 			mainScreen.frame.setVisible(true);	

@@ -195,11 +195,26 @@ public class NewCollectionUI extends JDialog {
 	}
 	
 	private void validateCollection_Edit() {
-		
+		String name = txtName.getText();
+		if(!name.isBlank()) {
+			if(!imageName.isBlank()) {
+				collection.setImage(imageName);
+				editCollection(collection,name);
+				System.out.println(collection.toString());
+			}else {
+				collection.setImage("");
+				editCollection(collection,name);
+				System.out.println(collection.toString());
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Porfavor,rellene los campos");
+		}
 	}
 	
 	private void editCollection(Collection collection,String name) {
-		
+		collection.setName(name);
+		collection.setImage(imageName);
+		//boolean added = controller.
 	}
 
 	

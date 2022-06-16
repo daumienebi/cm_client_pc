@@ -10,13 +10,13 @@ import es.daumienebi.comicmanagement.utils.Constants.*;
 public class Configuration {
 
 	//public static String server = "http://localhost:8081";
-	public static String server = "http://192.168.56.101:8081";
+	public static String server = "http://192.168.0.19:8081";
 	public static String language;
-	public static String comic_image_server = "http://192.168.56.101/comicmanagement/images/comics/";;
-	public static String collection_image_server = "http://192.168.56.101/comicmanagement/images/collections/";
+	public static String comic_image_server = "http://192.168.0.19/comicmanagement/images/comics/";;
+	public static String collection_image_server = "http://192.168.0.19/comicmanagement/images/collections/";
 	public static String ftp_server = "http://192.168.56.101";
 	public static String ftp_user = "comicdb";
 	public static String ftp_password = "comicdb";
 	public static AppLanguage app_language;
-	public static boolean debug_mode = true;
+	public static boolean debug_mode = false;
 }

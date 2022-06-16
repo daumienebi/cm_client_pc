@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 import es.daumienebi.comicmanagement.controllers.CollectionManagementUIController;
 import es.daumienebi.comicmanagement.models.Collection;
+import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
 import es.daumienebi.comicmanagement.utils.Constants;
 
@@ -116,6 +117,22 @@ public class CollectionManagementUI extends JFrame {
 		JButton CollectionManagementUI_btnEdit = new JButton("Editar Colecci\u00F3n");
 		CollectionManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Long collection_id;
+				int response;
+				collection_id = (long)getCollectionId();
+				Collection collection = controller.getCollection(collection_id);
+				System.out.println(collection.toString() + "ole");
+				if(collection != null) {
+					NewCollectionUI ui = new NewCollectionUI(collection);
+					ui.setLocationRelativeTo(getContentPane());
+					ui.setModal(true);
+					ui.setVisible(true);
+					ui.setMinimumSize(Constants.editCollectionMinimumSize);
+					CollectionManagementUI_btnEdit.setVisible(false);
+					loadCollections();
+				}else
+					JOptionPane.showMessageDialog(getContentPane(), "La colección no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
+				loadCollections();
 			}
 		});
 		CollectionManagementUI_btnEdit.setVisible(false);
