@@ -36,6 +36,8 @@ import javax.swing.JDialog;
 
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -84,6 +86,13 @@ public class AddCollectioToComicUI extends JDialog {
 		CollectionManagementUI_collection.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtCollection = new JTextField();
+		txtCollection.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				CollectionTableModel tableModel = new CollectionTableModel(controller.fliterCollection(txtCollection.getText()));
+				collectionTable.setModel(tableModel);
+			}
+		});
 		txtCollection.setMinimumSize(new Dimension(100, 100));
 		txtCollection.setColumns(10);
 		GroupLayout gl_panel = new GroupLayout(panel);

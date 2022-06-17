@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import es.daumienebi.comicmanagement.models.Collection;
+import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.services.ICollectionService;
 import es.daumienebi.comicmanagement.services.impl.CollectionService;
 import es.daumienebi.comicmanagement.utils.Configuration;
@@ -57,5 +58,9 @@ public class NewCollectionUIController {
 		} catch (Exception e) {
 		}
 		return null;
+	}
+	
+	public boolean updateCollection(Collection collection) {
+		return collectionService.updateCollection(collection);
 	}
 }

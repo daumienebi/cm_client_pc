@@ -220,15 +220,17 @@ public class ComicDetailsUI extends JDialog {
 	
 	private void setValues(Comic comic) {
 		txtName.setText(comic.getName());
-		txtColeccion.setText("collección");
 		txtComicNumber.setText(String.valueOf(comic.getNumber()));
 		txtColeccion.setText(controller.getCollectionName(comic));
 		datePicker.setDate(comic.getAdquisition_date().toLocalDate());
 		switch(comic.getState()) {
 			case "Bueno": cmbState.setSelectedItem(ComicState.Bueno);
+			break;
 			case "Malo" : cmbState.setSelectedItem(ComicState.Malo);
+			break;
 			case "Nuevo": cmbState.setSelectedItem(ComicState.Nuevo);
-			
+			break;
+			//the breaks are necessary to correctly view the values
 			default : cmbState.setSelectedItem(ComicState.SinEstado);
 		}
 		btnComicPoster.setIcon(controller.getComicsImage(comic.getImage()));

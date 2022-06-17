@@ -64,7 +64,7 @@ public class NewCollectionUI extends JDialog {
 		this.collection = collection;
 		imageName = collection.getImage();
 		NewCollectionUI_AddCollection.setVisible(false);
-		NewCollectionUI_SaveCollection.setVisible(false);
+		NewCollectionUI_SaveCollection.setVisible(true);
 		setTitle("Editar colección");
 		txtName.setText(collection.getName());
 		lblCollectionImg.setIcon(controller.getCollectionsImage(collection.getImage(),false));
@@ -155,7 +155,11 @@ public class NewCollectionUI extends JDialog {
 			}
 			
 			NewCollectionUI_SaveCollection = new JButton("Guardar Colecci\u00F3n");
+<<<<<<< HEAD
 			NewCollectionUI_SaveCollection.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-save-24.png")));
+=======
+			NewCollectionUI_SaveCollection.setVisible(false);
+>>>>>>> edf3f8e569e7a8898ba752d9822a6ea619cc64e7
 			NewCollectionUI_SaveCollection.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					validateCollection_Edit();
@@ -197,11 +201,34 @@ public class NewCollectionUI extends JDialog {
 	}
 	
 	private void validateCollection_Edit() {
-		
+		String name = txtName.getText();
+		if(!name.isBlank()) {
+			if(!imageName.isBlank()) {
+				collection.setImage(imageName);
+				editCollection(collection,name);
+				System.out.println(collection.toString());
+			}else {
+				collection.setImage("");
+				editCollection(collection,name);
+				System.out.println(collection.toString());
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "Porfavor,rellene los campos");
+		}
 	}
 	
 	private void editCollection(Collection collection,String name) {
-		
+		collection.setName(name);
+		collection.setImage(imageName);
+		boolean added = controller.updateCollection(collection);
+		if(added) {
+			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido modificado correctamente",""
+					,JOptionPane.INFORMATION_MESSAGE);
+			dispose();
+		}else {
+			JOptionPane.showMessageDialog(getContentPane(),"Error modificando el registro","Error",JOptionPane.ERROR_MESSAGE);
+
+		}
 	}
 
 	
