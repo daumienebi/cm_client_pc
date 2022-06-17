@@ -143,6 +143,7 @@ public class NewCollectionUI extends JDialog {
 			buttonPane.add(btnAddImage);
 			{
 				NewCollectionUI_AddCollection = new JButton("A\u00F1adir Collec\u00F3n");
+				NewCollectionUI_AddCollection.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-plus-math-24.png")));
 				NewCollectionUI_AddCollection.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						validateCollection_Add();
@@ -154,6 +155,7 @@ public class NewCollectionUI extends JDialog {
 			}
 			
 			NewCollectionUI_SaveCollection = new JButton("Guardar Colecci\u00F3n");
+			NewCollectionUI_SaveCollection.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-save-24.png")));
 			NewCollectionUI_SaveCollection.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					validateCollection_Edit();

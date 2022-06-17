@@ -134,6 +134,7 @@ public class NewComicUI extends JDialog {
 		getContentPane().add(panel, BorderLayout.SOUTH);
 		
 		NewComicUI_btnAddComic = new JButton("A\u00F1adir Comic");
+		NewComicUI_btnAddComic.setIcon(new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
 		NewComicUI_btnAddComic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				validateComic_Add();
@@ -142,6 +143,7 @@ public class NewComicUI extends JDialog {
 		panel.add(NewComicUI_btnAddComic);
 		
 		NewComicUI_btnSaveComic = new JButton("Guardar Comic");
+		NewComicUI_btnSaveComic.setIcon(new ImageIcon(NewComicUI.class.getResource("/resources/icons8-save-24.png")));
 		NewComicUI_btnSaveComic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				validateComic_Edit();
@@ -298,25 +300,26 @@ public class NewComicUI extends JDialog {
 									.addGroup(gl_dataPanel.createSequentialGroup()
 										.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
 											.addComponent(lblNewLabel)
-											.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-											.addComponent(lblCollection, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+											.addComponent(lblNewLabel_1_1, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+											.addComponent(lblCollection, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
 										.addGap(39))
 									.addGroup(gl_dataPanel.createSequentialGroup()
 										.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED))))
 							.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_dataPanel.createSequentialGroup()
-										.addComponent(txtCollection, GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-										.addGap(18)
-										.addComponent(btnAddCollection, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
-									.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
-									.addGroup(gl_dataPanel.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(gl_dataPanel.createParallelGroup(Alignment.LEADING)
-											.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-											.addComponent(cmbState, 0, 312, Short.MAX_VALUE))))
-								.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE))))
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addComponent(txtCollection, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+									.addGap(18)
+									.addComponent(btnAddCollection, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 273, Short.MAX_VALUE))
+								.addComponent(datePicker, GroupLayout.PREFERRED_SIZE, 189, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_dataPanel.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(cmbState, 0, 314, Short.MAX_VALUE)))))
 					.addGap(0))
 		);
 		gl_dataPanel.setVerticalGroup(
@@ -346,13 +349,13 @@ public class NewComicUI extends JDialog {
 							.addGap(2)
 							.addComponent(lblNewLabel_1_1_1))
 						.addComponent(txtComicNumber, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(24)
-					.addGroup(gl_dataPanel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(cmbState, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1))
-					.addGap(35)
-					.addComponent(btnClear, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-					.addGap(36))
+					.addGap(39)
+					.addGroup(gl_dataPanel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1)
+						.addComponent(cmbState, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(btnClear, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addGap(50))
 		);
 		dataPanel.setLayout(gl_dataPanel);
 	}

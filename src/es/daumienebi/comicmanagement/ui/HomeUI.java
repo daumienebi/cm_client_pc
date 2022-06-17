@@ -165,7 +165,7 @@ public class HomeUI {
 		menuBar.add(mnNewMenu);
 		
 		menuOptionExit = new JMenuItem("Salir");
-		menuOptionExit.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-close-24.png")));
+		menuOptionExit.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-shutdown-24.png")));
 		mnNewMenu.add(menuOptionExit);
 		menuOptionExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

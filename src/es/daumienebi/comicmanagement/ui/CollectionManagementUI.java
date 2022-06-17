@@ -114,6 +114,7 @@ public class CollectionManagementUI extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		JButton CollectionManagementUI_btnEdit = new JButton("Editar Colecci\u00F3n");
+		CollectionManagementUI_btnEdit.setIcon(new ImageIcon(CollectionManagementUI.class.getResource("/resources/icons8-edit-24.png")));
 		CollectionManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -122,6 +123,7 @@ public class CollectionManagementUI extends JFrame {
 		panel_1.add(CollectionManagementUI_btnEdit);
 		
 		JButton CollectionManagementUI_btnDelete = new JButton("Borrar Colleci\u00F3n");
+		CollectionManagementUI_btnDelete.setIcon(new ImageIcon(CollectionManagementUI.class.getResource("/resources/icons8-waste-24.png")));
 		CollectionManagementUI_btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Long collection_id;
