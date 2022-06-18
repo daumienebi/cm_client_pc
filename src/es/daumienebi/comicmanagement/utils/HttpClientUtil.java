@@ -27,7 +27,7 @@ public class HttpClientUtil {
 		if(response.getStatusLine().getStatusCode() != 200) {
 			System.out.println("The server is currently down");
 		}else {
-			//The entity can only be consume once, or else it will give an error that u are trying to read a closed stream
+			//The entity can only be consumed once, or else it will give an error that u are trying to read a closed stream
 			//System.out.println(EntityUtils.toString(entity));
 		}
 		return entity;

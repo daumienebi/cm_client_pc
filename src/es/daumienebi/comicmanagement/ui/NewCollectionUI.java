@@ -155,11 +155,8 @@ public class NewCollectionUI extends JDialog {
 			}
 			
 			NewCollectionUI_SaveCollection = new JButton("Guardar Colecci\u00F3n");
-<<<<<<< HEAD
 			NewCollectionUI_SaveCollection.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-save-24.png")));
-=======
 			NewCollectionUI_SaveCollection.setVisible(false);
->>>>>>> edf3f8e569e7a8898ba752d9822a6ea619cc64e7
 			NewCollectionUI_SaveCollection.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					validateCollection_Edit();

@@ -104,7 +104,8 @@ public class ComicManagementUI extends JFrame {
 		panel.setBackground(new Color(0, 0, 0));
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton ComicManagementUI_btnEdit = new JButton("Editar Comic");
+		JButton ComicManagementUI_btnEdit = new JButton("");
+		ComicManagementUI_btnEdit.setIcon(new ImageIcon(ComicManagementUI.class.getResource("/resources/icons8-edit-24.png")));
 		ComicManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int comicId = getComicId();
@@ -125,7 +126,8 @@ public class ComicManagementUI extends JFrame {
 		});
 		panel.add(ComicManagementUI_btnEdit);
 		
-		JButton ComicManagementUI_btnDelete = new JButton("Borrar Comic");
+		JButton ComicManagementUI_btnDelete = new JButton("");
+		ComicManagementUI_btnDelete.setIcon(new ImageIcon(ComicManagementUI.class.getResource("/resources/icons8-waste-24.png")));
 		ComicManagementUI_btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Long comicId;

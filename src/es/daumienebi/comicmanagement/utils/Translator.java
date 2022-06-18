@@ -34,6 +34,22 @@ public class Translator {
 	public static void translateHomeUI(AppLanguage language) {
 		setBundle(language);
 		HomeUI.menuConnection.setText(bundle.getString("menuConnection"));
+		HomeUI.menuCollections.setText(bundle.getString("menuCollections"));
+		HomeUI.menuAddCollection.setText(bundle.getString("menuAddCollection"));
+		HomeUI.menuCollectionManagement.setText(bundle.getString("menuCollectionManagement"));
+		HomeUI.menuComics.setText(bundle.getString("menuComics"));
+		HomeUI.menuAddComic.setText(bundle.getString("menuAddComic"));
+		HomeUI.menuComicManagement.setText(bundle.getString("menuComicManagement"));
+		HomeUI.menuReports.setText(bundle.getString("menuReports"));
+		HomeUI.menuHelpContents.setText(bundle.getString("menuHelpContents"));
+		HomeUI.menuConnection.setText(bundle.getString("menuConnection"));
+		HomeUI.menuConnection.setText(bundle.getString("menuConnection"));
+		HomeUI.menuEnglish.setText(bundle.getString("menuEnglish"));
+		HomeUI.menuSpanish.setText(bundle.getString("menuSpanish"));
+		HomeUI.menuGalician.setText(bundle.getString("menuGalician"));
+		HomeUI.menuSettings.setText(bundle.getString("menuSettings"));
+		HomeUI.menuHelp.setText(bundle.getString("menuHelp"));
+		HomeUI.menuPersonalizedReports.setText(bundle.getString("menuPersonalizedReports"));
 	}
 	public static void translateNewComicUI(AppLanguage language) {
 		setBundle(language);

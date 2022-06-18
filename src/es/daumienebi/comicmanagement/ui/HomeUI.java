@@ -20,7 +20,9 @@ import javax.swing.JPanel;
 
 import es.daumienebi.comicmanagement.controllers.HomeUIController;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
 import es.daumienebi.comicmanagement.utils.Translator;
 
 import javax.swing.JMenuBar;
@@ -285,7 +287,7 @@ public class HomeUI {
 		menuComics.add(menuComicManagement);
 		
 		menuReports = new JMenu("Informes");
-		menuReports.setEnabled(false);
+		//menuReports.setEnabled(false);
 		menuReports.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuReports);
 		
@@ -294,9 +296,17 @@ public class HomeUI {
 		menuReports.add(menuBasicReports);
 		
 		menuPersonalizedR_collection = new JMenuItem("Colecci\u00F3nes");
+		menuPersonalizedR_collection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		menuBasicReports.add(menuPersonalizedR_collection);
 		
 		menuPersonalizedR_comic = new JMenuItem("Comics");
+		menuPersonalizedR_comic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		menuBasicReports.add(menuPersonalizedR_comic);
 		
 		menuPersonalizedReports = new JMenuItem("Informes Personalizados");
@@ -312,7 +322,8 @@ public class HomeUI {
 		menuReports.add(menuPersonalizedReports);
 		
 		menuSettings = new JMenu("Ajustes");
-		menuSettings.setEnabled(false);
+		//menuSettings.setVisible(false);
+		//menuSettings.setEnabled(false);
 		menuSettings.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuSettings);
 		
@@ -321,19 +332,40 @@ public class HomeUI {
 		menuSettings.add(menuSelectLanguage);
 		
 		menuEnglish = new JMenuItem("Ingl\u00E9s");
+		menuEnglish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Configuration.app_language = AppLanguage.English;
+				AppLanguage lang = Configuration.app_language;
+				Translator.translateHomeUI(lang);
+			}
+		});
 		menuEnglish.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/gb_icon.jpg")));
 		menuSelectLanguage.add(menuEnglish);
 		
 		menuSpanish = new JMenuItem("Espa\u00F1ol");
+		menuSpanish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Configuration.app_language = AppLanguage.Spanish;
+				AppLanguage lang = Configuration.app_language;
+				Translator.translateHomeUI(lang);
+			}
+		});
 		menuSpanish.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/esp_icon.jpg")));
 		menuSelectLanguage.add(menuSpanish);
 		
 		menuGalician = new JMenuItem("Gallego");
+		menuGalician.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Configuration.app_language = AppLanguage.Galician;
+				AppLanguage lang = Configuration.app_language;
+				Translator.translateHomeUI(lang);
+			}
+		});
 		menuGalician.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/2560px-Flag_of_Galicia.svg (2).png")));
 		menuSelectLanguage.add(menuGalician);
 		
 		menuHelp = new JMenu("Ayuda");
-		menuHelp.setEnabled(false);
+		//menuHelp.setEnabled(false);
 		menuHelp.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuHelp);
 		
