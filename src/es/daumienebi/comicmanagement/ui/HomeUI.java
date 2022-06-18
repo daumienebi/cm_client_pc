@@ -9,8 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -34,14 +32,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.SwingConstants;
-import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.UIManager;
-import javax.swing.JToggleButton;
 public class HomeUI {
 
-	private JMenuItem menuOptionExit;
-	
 	public JFrame frame;
 	private JLabel imgSlider;
 	private JPanel mainPanel;
@@ -75,7 +69,8 @@ public class HomeUI {
 	public static JMenuItem menuGalician;
 	public static JMenuItem menuPersonalizedR_collection;
 	public static JMenuItem menuPersonalizedR_comic;
-	
+	public static JMenu menuHome;
+	public static JMenuItem menuOptionExit;
 	
 	private boolean canOpenComicMng = true;
 	private boolean canOpenCollectionMng = true;
@@ -112,7 +107,7 @@ public class HomeUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeUI.class.getResource("/resources/logo.png")));
-		frame.setBounds(100, 100, 1300,800);
+		frame.setBounds(100, 100, 1100,800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(frame); //to center the JFrame to the center of the screen
 		setBackgroundImage();
@@ -159,16 +154,18 @@ public class HomeUI {
 		//setBottomImg();
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuBar.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Inicio");
-		mnNewMenu.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-		menuBar.add(mnNewMenu);
+		menuHome = new JMenu("Inicio");
+		menuHome.setForeground(UIManager.getColor("Button.darkShadow"));
+		menuHome.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		menuBar.add(menuHome);
 		
 		menuOptionExit = new JMenuItem("Salir");
 		menuOptionExit.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-shutdown-24.png")));
-		mnNewMenu.add(menuOptionExit);
+		menuHome.add(menuOptionExit);
 		menuOptionExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Close the window
@@ -184,6 +181,7 @@ public class HomeUI {
 		});
 		
 		menuConnection = new JMenu("Conexión");
+		menuConnection.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuConnection.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuConnection);
 		
@@ -200,6 +198,7 @@ public class HomeUI {
 		menuConnection.add(menuAddConnection);
 		
 		menuCollections = new JMenu("Colleciones");
+		menuCollections.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuCollections.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuCollections);
 		
@@ -243,6 +242,7 @@ public class HomeUI {
 		menuCollections.add(menuCollectionManagement);
 		
 		menuComics = new JMenu("Comics");
+		menuComics.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuComics.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuComics);
 		
@@ -253,8 +253,7 @@ public class HomeUI {
 				ui.setModal(true);
 				ui.setLocationRelativeTo(frame);
 				ui.setMinimumSize(Constants.newComicMinimumSize);
-				ui.setVisible(true);
-				
+				ui.setVisible(true);	
 			}
 		});
 		menuAddComic.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-plus-math-24.png")));
@@ -287,6 +286,7 @@ public class HomeUI {
 		menuComics.add(menuComicManagement);
 		
 		menuReports = new JMenu("Informes");
+		menuReports.setForeground(UIManager.getColor("Button.darkShadow"));
 		//menuReports.setEnabled(false);
 		menuReports.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuReports);
@@ -322,6 +322,7 @@ public class HomeUI {
 		menuReports.add(menuPersonalizedReports);
 		
 		menuSettings = new JMenu("Ajustes");
+		menuSettings.setForeground(UIManager.getColor("Button.darkShadow"));
 		//menuSettings.setVisible(false);
 		//menuSettings.setEnabled(false);
 		menuSettings.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
@@ -365,6 +366,7 @@ public class HomeUI {
 		menuSelectLanguage.add(menuGalician);
 		
 		menuHelp = new JMenu("Ayuda");
+		menuHelp.setForeground(UIManager.getColor("Button.darkShadow"));
 		//menuHelp.setEnabled(false);
 		menuHelp.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuHelp);

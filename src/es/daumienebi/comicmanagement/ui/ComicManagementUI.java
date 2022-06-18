@@ -35,7 +35,9 @@ import es.daumienebi.comicmanagement.services.IComicService;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
 import es.daumienebi.comicmanagement.tablemodels.ComicTableModel;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -56,6 +58,7 @@ public class ComicManagementUI extends JFrame {
 	//To be translated
 	public static String ComicManagementUI_searchOptions = "Busqueda Comic";
 	public static String ComicManagementUI_windowTitle = "Gestión de comics";
+	public static JLabel ComicManagementUI_name;
 	
 	private JPanel contentPane;
 	private JTextField txtBusqueda;
@@ -86,6 +89,7 @@ public class ComicManagementUI extends JFrame {
 	
 	public ComicManagementUI() {
 		Inicialize();
+		translate();
 		loadComicsTable();
 	}
 	
@@ -169,8 +173,8 @@ public class ComicManagementUI extends JFrame {
 		searchPanel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(searchPanel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Nombre");
-		lblNewLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		ComicManagementUI_name = new JLabel("Nombre");
+		ComicManagementUI_name.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtBusqueda = new JTextField();
 		txtBusqueda.addKeyListener(new KeyAdapter() {
@@ -202,7 +206,7 @@ public class ComicManagementUI extends JFrame {
 			gl_searchPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_searchPanel.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+					.addComponent(ComicManagementUI_name, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 					.addGap(43)
 					.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 412, GroupLayout.PREFERRED_SIZE)
 					.addGap(91)
@@ -215,7 +219,7 @@ public class ComicManagementUI extends JFrame {
 				.addGroup(gl_searchPanel.createSequentialGroup()
 					.addGap(11)
 					.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ComicManagementUI_name, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_1)
 						.addComponent(cmbFilter, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
@@ -232,7 +236,7 @@ public class ComicManagementUI extends JFrame {
 	private void loadComicsTable() {
 		comics = controller.findAllComics();
 		ComicTableModel tableModel = new ComicTableModel(comics);
-		//tableModel.translateColumns();
+		tableModel.translateColumns();
 		comicsTable.setModel(tableModel);
 		//table.removeColumn(table.getColumnModel().getColumn(0));
 	}
@@ -281,5 +285,10 @@ public class ComicManagementUI extends JFrame {
 				}
 			}
 		});
+	}
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateComicManagementUI(Configuration.app_language);
+		}
 	}
 }

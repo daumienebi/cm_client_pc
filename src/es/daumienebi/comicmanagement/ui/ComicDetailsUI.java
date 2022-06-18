@@ -1,6 +1,5 @@
 package es.daumienebi.comicmanagement.ui;
 
-import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Insets;
 
@@ -13,35 +12,24 @@ import javax.swing.JComboBox;
 
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import java.awt.Button;
-import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.UIManager;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import java.awt.Panel;
-import java.awt.FlowLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
 import com.github.lgooddatepicker.components.DatePicker;
 
 import es.daumienebi.comicmanagement.controllers.ComicDetailsUIController;
 import es.daumienebi.comicmanagement.models.Comic;
+import es.daumienebi.comicmanagement.utils.Configuration;
+import es.daumienebi.comicmanagement.utils.Translator;
 import es.daumienebi.comicmanagement.utils.Constants.ComicState;
 
-import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.ActionEvent;
 import javax.swing.DefaultComboBoxModel;
 
 public class ComicDetailsUI extends JDialog {
@@ -51,7 +39,6 @@ public class ComicDetailsUI extends JDialog {
 	public static JLabel NewComicUI_comicAdquisitionDate;
 	public static JLabel NewComicUI_comicState;
 	public static JLabel NewComicUI_comicNumber;
-	public static String NewComicUI_windowTitle = "";
 	public static String NewComicUI_newComic = "Detalles Comic";
 	
 	private JButton btnComicPoster;
@@ -70,6 +57,7 @@ public class ComicDetailsUI extends JDialog {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		Inicialize(comic);
+		translate();
 	}
 	
 	void Inicialize(Comic comic) {
@@ -237,4 +225,9 @@ public class ComicDetailsUI extends JDialog {
 		
 	}
 	
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateComicDetailsUI(Configuration.app_language);
+		}
+	}
 }

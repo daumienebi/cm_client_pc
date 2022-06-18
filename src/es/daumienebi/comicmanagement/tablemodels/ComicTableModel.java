@@ -1,6 +1,7 @@
 package es.daumienebi.comicmanagement.tablemodels;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -8,15 +9,30 @@ import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.services.ICollectionService;
 import es.daumienebi.comicmanagement.services.impl.CollectionService;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 public class ComicTableModel extends AbstractTableModel{
 
 	private ArrayList<Comic> comics;
 	private String[] columns = {"ID","NOMBRE","FECHA ADQUISICIÓN","COLECCIÓN","ESTADO","NUMERO"};
 	private ICollectionService collectionService = new CollectionService();
+	private ResourceBundle bundle = null;
 	
 	public ComicTableModel(ArrayList<Comic> comics) {
 		this.comics = comics;
+	}
+
+	public String [] translateColumns() {
+		if(Translator.bundle != null) {
+			bundle = Translator.bundle;
+			columns[0] = bundle.getString("TableHeader_Id").toUpperCase();
+			columns[1] = bundle.getString("TableHeader_Name").toUpperCase();
+			columns[2] = bundle.getString("TableHeader_AdquisitionDate").toUpperCase();
+			columns[3] = bundle.getString("TableHeader_Collection").toUpperCase();
+			columns[4] = bundle.getString("TableHeader_State").toUpperCase();
+			columns[5] = bundle.getString("TableHeader_Number").toUpperCase();
+		}
+		return columns;
 	}
 	
 	@Override

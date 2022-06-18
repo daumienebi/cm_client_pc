@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 
 import es.daumienebi.comicmanagement.controllers.NewCollectionUIController;
 import es.daumienebi.comicmanagement.models.Collection;
+import es.daumienebi.comicmanagement.utils.Configuration;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import java.awt.Toolkit;
 import javax.swing.GroupLayout;
@@ -33,6 +35,9 @@ public class NewCollectionUI extends JDialog {
 	public static JLabel NewCollectionUI_name;
 	public static JButton NewCollectionUI_AddCollection;
 	public static JButton NewCollectionUI_SaveCollection;
+	public static String NewCollectionUI_windowTitle = "Añadir una nueva colección";
+	public static String NewCollectionUI_windowTitleEdit = "Editar la colección";
+
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtName;
@@ -65,13 +70,14 @@ public class NewCollectionUI extends JDialog {
 		imageName = collection.getImage();
 		NewCollectionUI_AddCollection.setVisible(false);
 		NewCollectionUI_SaveCollection.setVisible(true);
-		setTitle("Editar colección");
+		setTitle(NewCollectionUI_windowTitleEdit);
 		txtName.setText(collection.getName());
 		lblCollectionImg.setIcon(controller.getCollectionsImage(collection.getImage(),false));
 	}
 	
 	public NewCollectionUI() {
 		Inicialize();
+		translate();
 	}
 	
 	private void Inicialize() {
@@ -82,7 +88,7 @@ public class NewCollectionUI extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		
+		setTitle(NewCollectionUI_windowTitle);
 		JPanel panel = new JPanel();
 		contentPanel.add(panel, BorderLayout.WEST);
 		
@@ -163,6 +169,12 @@ public class NewCollectionUI extends JDialog {
 				}
 			});
 			buttonPane.add(NewCollectionUI_SaveCollection);
+		}
+	}
+	
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateNewCollectionUI(Configuration.app_language);
 		}
 	}
 	

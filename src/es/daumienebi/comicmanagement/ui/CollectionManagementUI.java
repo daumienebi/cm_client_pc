@@ -26,7 +26,9 @@ import es.daumienebi.comicmanagement.controllers.CollectionManagementUIControlle
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,13 +47,18 @@ import java.awt.event.KeyEvent;
 public class CollectionManagementUI extends JFrame {
 
 	private JPanel contentPane;
-	
-	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
 	private JTable collectionTable;
 	private JTextField txtCollection;
 	
 	private CollectionManagementUIController controller = new CollectionManagementUIController();
 	private ArrayList<Collection> collections = new ArrayList<Collection>();
+	
+	//To be translated
+	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
+	public static JLabel CollectionManagementUI_collection;
+	public static String CollectionManagementUI_windowTitle = "Gestión de colecciones";
+
+	
 	
 	//static values to obtain the selected table item
 	private static int row;
@@ -59,6 +66,7 @@ public class CollectionManagementUI extends JFrame {
 	
 	public CollectionManagementUI() {
 		Inicialize();
+		translate();
 		loadCollections();
 	}
 		
@@ -70,7 +78,7 @@ public class CollectionManagementUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+		setTitle(CollectionManagementUI_windowTitle);
 		JPanel panel = new JPanel();
 		panel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		panel.setBorder(BorderFactory.createTitledBorder(null, CollectionManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
@@ -78,7 +86,7 @@ public class CollectionManagementUI extends JFrame {
 		panel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel CollectionManagementUI_collection = new JLabel("Collection");
+		CollectionManagementUI_collection = new JLabel("Collection");
 		CollectionManagementUI_collection.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtCollection = new JTextField();
@@ -232,9 +240,15 @@ public class CollectionManagementUI extends JFrame {
 		collections = controller.findAllCollections();
 		CollectionTableModel tableModel = new CollectionTableModel(collections);
 		
-		//tableModel.translateColumns();
+		tableModel.translateColumns();
 		collectionTable.setModel(tableModel);
 		collectionTable.getColumnModel().getColumn(2).setMinWidth(150);
 		collectionTable.getColumnModel().getColumn(2).setMaxWidth(200);
+	}
+
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateCollectionManagementUI(Configuration.app_language);
+		}
 	}
 }
