@@ -14,14 +14,12 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class ReportsUtil{
 	private static String REPORT_ROUTE = "";
-	//private static String REPORT_ROUTE =  System.getProperty("user.dir") + "\\src\\es\\daumienebi\\comicmanagement\\reports\\";
-	//private static String REPORT_ROUTE =  "./reports/";
 	
 	private static void getReportRoute() {
 		if(Configuration.debug_mode) {
-			REPORT_ROUTE =  "./reports/";
+			REPORT_ROUTE =  System.getProperty("user.dir") + "\\src\\es\\daumienebi\\comicmanagement\\reports\\";		
 		}else
-			REPORT_ROUTE =  System.getProperty("user.dir") + "\\src\\es\\daumienebi\\comicmanagement\\reports\\";
+			REPORT_ROUTE =  "./reports/";
 	}
 	
 	/**
@@ -46,25 +44,22 @@ public class ReportsUtil{
 		}
 	}
 	
-	public static void viewPersonalizedReport1(String reportName,double rating) {
+	public static void viewPersonalizedReport1(String reportName,int year) {
 		getReportRoute();
 		Connection con = null;
-		String sql = "SELECT m.*,g.name as genre_name FROM movie m"
-					+ " inner join genre g"
-					+ " on m.id_genero = g.id"
-					+ " WHERE puntuacion > ?";
+		String sql = "";
 		PreparedStatement preparedSt;
 		try {
 			con = DbConnection.getConnection();
 			preparedSt = con.prepareStatement(sql);
-			preparedSt.setDouble(1, rating);
+			preparedSt.setDouble(1, year);
 			ResultSet rSet = preparedSt.executeQuery();
 			
 			JRResultSetDataSource ds = new JRResultSetDataSource(rSet);
 			
 			//define a HashMap to get the parameters for the report
 			HashMap<String,Object> parameters = new HashMap<String,Object>();
-			parameters.put("RATING", rating);
+			parameters.put("RATING", year);
 			
 			//Compile the report
 			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE+reportName);
@@ -86,27 +81,22 @@ public class ReportsUtil{
 		
 	}
 	
-	public static void viewPersonalizedReport2(String reportName, int year) {
+	public static void viewPersonalizedReport2(String reportName, int comic_count) {
 		getReportRoute();
 		Connection con = null;
-		String sql = "SELECT titulo,duracion,puntuacion,g.name,fecha_estreno FROM movie m"
-					+ " INNER JOIN genre g"
-					+ " ON(m.id_genero = g.id)"
-					+ " WHERE YEAR(fecha_estreno) = ?"
-					+ " ORDER BY titulo asc"
-					+ "";
+		String sql = "";
 		PreparedStatement preparedSt;
 		try {
 			con = DbConnection.getConnection();
 			preparedSt = con.prepareStatement(sql);
-			preparedSt.setInt(1, year);
+			preparedSt.setInt(1, comic_count);
 			ResultSet rSet = preparedSt.executeQuery();
 			
 			JRResultSetDataSource ds = new JRResultSetDataSource(rSet);
 			
 			//define a HashMap to get the parameters for the report
 			HashMap<String,Object> parameters = new HashMap<String,Object>();
-			parameters.put("PREMIERE_YEAR", year);
+			parameters.put("PREMIERE_YEAR", comic_count);
 			
 			//Compile the report
 			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE+reportName);
