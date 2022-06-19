@@ -21,6 +21,7 @@ import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
 import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
+import es.daumienebi.comicmanagement.utils.ReportsUtil;
 import es.daumienebi.comicmanagement.utils.Translator;
 
 import javax.swing.JMenuBar;
@@ -296,6 +297,8 @@ public class HomeUI {
 		menuPersonalizedR_collection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
 		menuPersonalizedR_collection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String reportName = "Collections.jrxml";
+				ReportsUtil.viewReport(reportName);
 			}
 		});
 		menuBasicReports.add(menuPersonalizedR_collection);
@@ -304,6 +307,8 @@ public class HomeUI {
 		menuPersonalizedR_comic.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
 		menuPersonalizedR_comic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String reportName = "Comics.jrxml";
+				ReportsUtil.viewReport(reportName);
 			}
 		});
 		menuBasicReports.add(menuPersonalizedR_comic);
