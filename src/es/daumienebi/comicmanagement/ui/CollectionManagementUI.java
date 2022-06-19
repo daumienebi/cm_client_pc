@@ -50,7 +50,7 @@ public class CollectionManagementUI extends JFrame {
 	private JTable collectionTable;
 	private JTextField txtCollection;
 	private JButton CollectionManagementUI_btnEdit;
-	
+	private JPanel panel;
 	private CollectionManagementUIController controller = new CollectionManagementUIController();
 	private ArrayList<Collection> collections = new ArrayList<Collection>();
 	
@@ -71,9 +71,15 @@ public class CollectionManagementUI extends JFrame {
 	public CollectionManagementUI() {
 		Inicialize();
 		translate();
+		setBorder();
+		setTitle(CollectionManagementUI_windowTitle);
 		loadCollections();
 	}
-		
+	private void setBorder() {
+		panel.setBorder(BorderFactory.createTitledBorder(null, CollectionManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
+
+	}
+	
 	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CollectionManagementUI.class.getResource("/resources/comic-icon_128.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -83,9 +89,9 @@ public class CollectionManagementUI extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		setTitle(CollectionManagementUI_windowTitle);
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-		panel.setBorder(BorderFactory.createTitledBorder(null, CollectionManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
+		setBorder();
 		panel.setPreferredSize(new Dimension(100, 100));
 		panel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(panel, BorderLayout.NORTH);

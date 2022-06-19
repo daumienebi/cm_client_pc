@@ -56,13 +56,16 @@ import es.daumienebi.comicmanagement.utils.Constants.ComicSearchFilter;
 public class ComicManagementUI extends JFrame {
 
 	//To be translated
-	public static String ComicManagementUI_searchOptions = "Busqueda Comic";
+	public static String ComicManagementUI_searchOptions = "Busqueda Comics";
 	public static String ComicManagementUI_windowTitle = "Gestión de comics";
 	public static JLabel ComicManagementUI_name;
 	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
 	public static String UIMessages_error;
 	public static String UIMessages_warning;
 	public static String UIMessages_info;
+	public static JLabel ComicManagementUI_filter;
+	public static JPanel searchPanel;
+	
 	
 	private JButton ComicManagementUI_btnEdit;
 	private JPanel contentPane;
@@ -95,6 +98,8 @@ public class ComicManagementUI extends JFrame {
 	public ComicManagementUI() {
 		Inicialize();
 		translate();
+		setBorder();
+		setTitle(ComicManagementUI_windowTitle);
 		loadComicsTable();
 	}
 	
@@ -152,7 +157,7 @@ public class ComicManagementUI extends JFrame {
 		comicsTable.setRowHeight(40);
 		scrollPane.setViewportView(comicsTable);
 		
-		JPanel searchPanel = new JPanel();
+		searchPanel = new JPanel();
 		searchPanel.setBackground(new Color(205, 92, 92));
 		searchPanel.setPreferredSize(new Dimension(0, 120));
 		searchPanel.setMinimumSize(new Dimension(100, 100));
@@ -184,8 +189,8 @@ public class ComicManagementUI extends JFrame {
 		});
 		cmbFilter.setModel(new DefaultComboBoxModel(ComicSearchFilter.values()));
 		
-		JLabel lblNewLabel_1 = new JLabel("Filtro");
-		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		ComicManagementUI_filter = new JLabel("Filtro");
+		ComicManagementUI_filter.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		GroupLayout gl_searchPanel = new GroupLayout(searchPanel);
 		gl_searchPanel.setHorizontalGroup(
 			gl_searchPanel.createParallelGroup(Alignment.LEADING)
@@ -195,7 +200,7 @@ public class ComicManagementUI extends JFrame {
 					.addGap(43)
 					.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 412, GroupLayout.PREFERRED_SIZE)
 					.addGap(91)
-					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addComponent(ComicManagementUI_filter, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
 					.addGap(32)
 					.addComponent(cmbFilter, 0, 104, Short.MAX_VALUE))
 		);
@@ -206,7 +211,7 @@ public class ComicManagementUI extends JFrame {
 					.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(ComicManagementUI_name, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1)
+						.addComponent(ComicManagementUI_filter)
 						.addComponent(cmbFilter, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(75, Short.MAX_VALUE))
 		);
@@ -217,6 +222,10 @@ public class ComicManagementUI extends JFrame {
 		tableDoubleClick(comicsTable);
 	}
 	
+	private void setBorder() {
+		searchPanel.setBorder(BorderFactory.createTitledBorder(null, ComicManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
+
+	}
 	
 	private void loadComicsTable() {
 		comics = controller.findAllComics();

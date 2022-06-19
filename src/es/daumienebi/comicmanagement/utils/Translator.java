@@ -67,7 +67,7 @@ public class Translator {
 	public static void translateComicDetailsUI(AppLanguage language) {
 		setBundle(language);
 		ComicDetailsUI.NewComicUI_comicName.setText(bundle.getString("NewComicUI_comicName"));
-		ComicDetailsUI.NewComicUI_comicCollection.setText(bundle.getString("NewComicUI_comicCollection"));
+		ComicDetailsUI.NewComicUI_comicCollection.setText(bundle.getString("NewComicUI_comicName"));
 		ComicDetailsUI.NewComicUI_comicAdquisitionDate.setText(bundle.getString("NewComicUI_comicAdquisitionDate"));
 		ComicDetailsUI.NewComicUI_comicState.setText(bundle.getString("NewComicUI_comicState"));
 		ComicDetailsUI.NewComicUI_comicNumber.setText(bundle.getString("NewComicUI_comicNumber"));
@@ -84,9 +84,7 @@ public class Translator {
 		NewComicUI.NewComicUI_windowTitle = bundle.getString("NewComicUI_windowTitle");
 		NewComicUI.NewComicUI_newComic =  bundle.getString("NewComicUI_newComic");
 		NewComicUI.NewComicUI_btnAddComic.setText(bundle.getString("NewComicUI_btnAddComic"));
-		NewComicUI.NewComicUI_btnAddComic.setText(bundle.getString("NewComicUI_comicName"));
 		NewComicUI.NewComicUI_btnSaveComic.setText(bundle.getString("NewComicUI_btnSaveComic"));
-		NewComicUI.NewComicUI_comicName.setText(bundle.getString("NewComicUI_comicName"));
 		//NewComicUI.UIMessage_plsFillFields = 
 	}
 	public static void translateNewCollectionUI(AppLanguage language) {
@@ -94,7 +92,6 @@ public class Translator {
 		NewCollectionUI.NewCollectionUI_name.setText(bundle.getString("NewCollectionUI_name"));
 		NewCollectionUI.NewCollectionUI_AddCollection.setText(bundle.getString("NewCollectionUI_AddCollection"));
 		NewCollectionUI.NewCollectionUI_SaveCollection.setText(bundle.getString("NewCollectionUI_SaveCollection"));
-		NewCollectionUI.NewCollectionUI_name.setText(bundle.getString("NewCollectionUI_windowTitle"));
 		NewCollectionUI.NewCollectionUI_windowTitleEdit = bundle.getString("NewCollectionUI_windowTitleEdit");		
 	}
 	public static void translateComicManagementUI(AppLanguage language) {
@@ -102,6 +99,7 @@ public class Translator {
 		ComicManagementUI.ComicManagementUI_searchOptions = bundle.getString("ComicManagementUI_searchOptions");
 		ComicManagementUI.ComicManagementUI_windowTitle = bundle.getString("ComicManagementUI_windowTitle");
 		ComicManagementUI.ComicManagementUI_name.setText(bundle.getString("ComicManagementUI_name"));
+		ComicManagementUI.ComicManagementUI_filter.setText(bundle.getString("ComicManagementUI_filter"));
 	}
 	
 	public static void translateCollectionManagementUI(AppLanguage language) {

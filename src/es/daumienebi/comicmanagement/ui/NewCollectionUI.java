@@ -78,10 +78,10 @@ public class NewCollectionUI extends JDialog {
 	public NewCollectionUI() {
 		Inicialize();
 		translate();
+		setTitle(NewCollectionUI_windowTitle);
 	}
 	
 	private void Inicialize() {
-		setTitle("A\u00F1adir nueva colecci\u00F3n");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewCollectionUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 700, 600);
 		getContentPane().setLayout(new BorderLayout());

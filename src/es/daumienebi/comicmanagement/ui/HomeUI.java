@@ -59,7 +59,6 @@ public class HomeUI {
 	public static JMenu menuSettings;
 	public static JMenu menuHelp;
 	public static JMenuItem menuHelpContents;
-	public static JMenuItem menuTecnicalManual;
 	public static JMenu menuBasicReports;
 	public static JMenuItem menuPersonalizedReports;
 	public static JMenuItem menuAddConnection;
@@ -230,12 +229,10 @@ public class HomeUI {
 			            	canOpenCollectionMng = true;
 			              ui.setEnabled(false);
 			            }
-			          });
+			       });
 				}else {
 					JOptionPane.showMessageDialog(null, "La ventana de gestión de colecciones ya se encuentra abierta","Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
-				}
-				
-				
+				}	
 			}
 		});
 		menuCollectionManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
@@ -296,6 +293,7 @@ public class HomeUI {
 		menuReports.add(menuBasicReports);
 		
 		menuPersonalizedR_collection = new JMenuItem("Colecci\u00F3nes");
+		menuPersonalizedR_collection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
 		menuPersonalizedR_collection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -303,6 +301,7 @@ public class HomeUI {
 		menuBasicReports.add(menuPersonalizedR_collection);
 		
 		menuPersonalizedR_comic = new JMenuItem("Comics");
+		menuPersonalizedR_comic.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
 		menuPersonalizedR_comic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -374,10 +373,6 @@ public class HomeUI {
 		menuHelpContents = new JMenuItem("Contenido de ayuda");
 		menuHelpContents.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-help-24.png")));
 		menuHelp.add(menuHelpContents);
-		
-		menuTecnicalManual = new JMenuItem("Manual tecníco");
-		menuTecnicalManual.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-help-24.png")));
-		menuHelp.add(menuTecnicalManual);
 	}
 	private void setImageSlider(int index){
 		Image img = null;
