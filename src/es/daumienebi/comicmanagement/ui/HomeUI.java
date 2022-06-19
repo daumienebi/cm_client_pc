@@ -238,6 +238,7 @@ public class HomeUI {
 				ConfigUI ui = new ConfigUI();
 				ui.setModal(true);
 				ui.setLocationRelativeTo(frame);
+				ui.setMinimumSize(Constants.configUIMinimunSize);
 				ui.setVisible(true);
 			}
 		});
@@ -366,6 +367,7 @@ public class HomeUI {
 				PersonalizedReportsUI ui = new PersonalizedReportsUI();
 				ui.setLocationRelativeTo(frame);
 				ui.setMinimumSize(Constants.personalizedReportsUICollectionMinimumSize);
+				ui.setModal(true);
 				ui.setVisible(true);
 			}
 		});
@@ -374,8 +376,6 @@ public class HomeUI {
 		
 		menuSettings = new JMenu("Ajustes");
 		menuSettings.setForeground(UIManager.getColor("Button.darkShadow"));
-		//menuSettings.setVisible(false);
-		//menuSettings.setEnabled(false);
 		menuSettings.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuSettings);
 		

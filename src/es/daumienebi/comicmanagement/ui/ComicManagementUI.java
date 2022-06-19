@@ -119,6 +119,7 @@ public class ComicManagementUI extends JFrame {
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
 		ComicManagementUI_btnEdit = new JButton("");
+		ComicManagementUI_btnEdit.setVisible(false);
 		ComicManagementUI_btnEdit.setIcon(new ImageIcon(ComicManagementUI.class.getResource("/resources/icons8-edit-24.png")));
 		ComicManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,6 +133,7 @@ public class ComicManagementUI extends JFrame {
 		panel.add(ComicManagementUI_btnEdit);
 		
 		JButton ComicManagementUI_btnDelete = new JButton("");
+		ComicManagementUI_btnDelete.setVisible(false);
 		ComicManagementUI_btnDelete.setIcon(new ImageIcon(ComicManagementUI.class.getResource("/resources/icons8-waste-24.png")));
 		ComicManagementUI_btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
