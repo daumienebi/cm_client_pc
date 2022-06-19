@@ -67,7 +67,7 @@ public class Translator {
 	public static void translateComicDetailsUI(AppLanguage language) {
 		setBundle(language);
 		ComicDetailsUI.NewComicUI_comicName.setText(bundle.getString("NewComicUI_comicName"));
-		ComicDetailsUI.NewComicUI_comicCollection.setText(bundle.getString("NewComicUI_comicName"));
+		ComicDetailsUI.NewComicUI_comicCollection.setText(bundle.getString("NewComicUI_comicCollection"));
 		ComicDetailsUI.NewComicUI_comicAdquisitionDate.setText(bundle.getString("NewComicUI_comicAdquisitionDate"));
 		ComicDetailsUI.NewComicUI_comicState.setText(bundle.getString("NewComicUI_comicState"));
 		ComicDetailsUI.NewComicUI_comicNumber.setText(bundle.getString("NewComicUI_comicNumber"));

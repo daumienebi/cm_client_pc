@@ -390,31 +390,6 @@ public class HomeUI {
         imgSlider.setIcon(finalImg);
     }
 	
-	/*
-	private void setBottomImg(){
-		Image img = null;
-		Image newImg;
-		ImageIcon icon = new ImageIcon(HomeUI.class.getResource("/resources/bottom_banner.jpg"));
-		img = icon.getImage();
-		//newImg = img.getScaledInstance(imgSlider.getWidth(), imgSlider.getHeight(), Image.SCALE_SMOOTH);
-		newImg = img.getScaledInstance(900,200, Image.SCALE_SMOOTH);
-        ImageIcon finalImg = new ImageIcon(newImg);
-        //btmLabel.setIcon(finalImg);
-    }
-	*/
-	/*
-	private void setCenterImg(){
-
-		Image img = null;
-		Image newImg;
-		ImageIcon icon = new ImageIcon(HomeUI.class.getResource("/resources/background.jpg"));
-		img = icon.getImage();
-		newImg = img.getScaledInstance(imgSlider.getWidth(), imgSlider.getHeight(), Image.SCALE_SMOOTH);
-		//newImg = img.getScaledInstance(900,200, Image.SCALE_SMOOTH);
-        ImageIcon finalImg = new ImageIcon(newImg);
-        imgSlider.setIcon(finalImg);
-    }
-	*/
 	private void setBackgroundImage() {
 		ImageIcon img = new ImageIcon(HomeUI.class.getResource("/resources/backgroundd.jpg"));
 		  mainPanel = new JPanel()

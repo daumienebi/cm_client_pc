@@ -114,7 +114,6 @@ public class NewComicUI extends JDialog {
 		NewComicUI_btnAddComic.setVisible(false);
 		NewComicUI_btnSaveComic.setVisible(true);
 		setTitle("Editar comic");
-		
 		txtName.setText(comic.getName());
 		txtComicNumber.setText(String.valueOf(comic.getNumber()));
 		//The comic state will not me modified
@@ -124,6 +123,7 @@ public class NewComicUI extends JDialog {
 		btnComicPoster.setIcon(controller.getComicsImage(comic.getImage()));
 		selectedCollection = controller.getCollection(comic);
 		txtCollection.setText(selectedCollection.getName());
+		datePicker.getComponentToggleCalendarButton().setEnabled(true);
 	}
 	
 	void Inicialize() {

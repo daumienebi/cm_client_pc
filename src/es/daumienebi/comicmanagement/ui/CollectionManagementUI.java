@@ -49,6 +49,7 @@ public class CollectionManagementUI extends JFrame {
 	private JPanel contentPane;
 	private JTable collectionTable;
 	private JTextField txtCollection;
+	private JButton CollectionManagementUI_btnEdit;
 	
 	private CollectionManagementUIController controller = new CollectionManagementUIController();
 	private ArrayList<Collection> collections = new ArrayList<Collection>();
@@ -57,7 +58,10 @@ public class CollectionManagementUI extends JFrame {
 	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
 	public static JLabel CollectionManagementUI_collection;
 	public static String CollectionManagementUI_windowTitle = "Gestión de colecciones";
-
+	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
+	public static String UIMessages_error;
+	public static String UIMessages_warning;
+	public static String UIMessages_info;
 	
 	
 	//static values to obtain the selected table item
@@ -122,26 +126,15 @@ public class CollectionManagementUI extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		JButton CollectionManagementUI_btnEdit = new JButton("");
+		CollectionManagementUI_btnEdit = new JButton("");
 		CollectionManagementUI_btnEdit.setIcon(new ImageIcon(CollectionManagementUI.class.getResource("/resources/icons8-edit-24.png")));
 		CollectionManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Long collection_id;
-				int response;
-				collection_id = (long)getCollectionId();
-				Collection collection = controller.getCollection(collection_id);
-				System.out.println(collection.toString() + "ole");
-				if(collection != null) {
-					NewCollectionUI ui = new NewCollectionUI(collection);
-					ui.setLocationRelativeTo(getContentPane());
-					ui.setModal(true);
-					ui.setVisible(true);
-					ui.setMinimumSize(Constants.editCollectionMinimumSize);
-					CollectionManagementUI_btnEdit.setVisible(false);
-					loadCollections();
-				}else
-					JOptionPane.showMessageDialog(getContentPane(), "La colección no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
-				loadCollections();
+				if(collectionTable.getSelectedRow() > -1) {
+					editCollection();
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessages_noItemSelected,"",JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		CollectionManagementUI_btnEdit.setVisible(false);
@@ -151,22 +144,11 @@ public class CollectionManagementUI extends JFrame {
 		CollectionManagementUI_btnDelete.setIcon(new ImageIcon(CollectionManagementUI.class.getResource("/resources/icons8-waste-24.png")));
 		CollectionManagementUI_btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Long collection_id;
-				int response;
-				collection_id = (long)getCollectionId();
-				
-				response = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados ", "Borrar colleción", JOptionPane.YES_NO_OPTION);
-				if(response == JOptionPane.YES_OPTION) {
-					boolean deleted = controller.deleteCollection(collection_id);
-					if(deleted) {
-						JOptionPane.showMessageDialog(getContentPane(), "Colección eliminada correctamente", "Borrar Registro",
-								JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
-						loadCollections();
-					}else {
-						JOptionPane.showMessageDialog(getContentPane(), "Error borrando la colección", 
-								"Error deleting the record", JOptionPane.ERROR_MESSAGE);
-					}
-				}	
+				if(collectionTable.getSelectedRow() > -1) {
+					deleteCollection();
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessages_noItemSelected,"",JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 			
 		});
@@ -234,6 +216,44 @@ public class CollectionManagementUI extends JFrame {
 				}
 			}
 		});
+	}
+	
+	private void editCollection() {
+		Long collection_id;
+		int response;
+		collection_id = (long)getCollectionId();
+		Collection collection = controller.getCollection(collection_id);
+		System.out.println(collection.toString() + "ole");
+		if(collection != null) {
+			NewCollectionUI ui = new NewCollectionUI(collection);
+			ui.setLocationRelativeTo(getContentPane());
+			ui.setModal(true);
+			ui.setVisible(true);
+			ui.setMinimumSize(Constants.editCollectionMinimumSize);
+			CollectionManagementUI_btnEdit.setVisible(false);
+			loadCollections();
+		}else
+			JOptionPane.showMessageDialog(getContentPane(), "La colección no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
+		loadCollections();
+	}
+	
+	private void deleteCollection() {
+		Long collection_id;
+		int response;
+		collection_id = (long)getCollectionId();
+		
+		response = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados ", "Borrar colleción", JOptionPane.YES_NO_OPTION);
+		if(response == JOptionPane.YES_OPTION) {
+			boolean deleted = controller.deleteCollection(collection_id);
+			if(deleted) {
+				JOptionPane.showMessageDialog(getContentPane(), "Colección eliminada correctamente", "Borrar Registro",
+						JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
+				loadCollections();
+			}else {
+				JOptionPane.showMessageDialog(getContentPane(), "Error borrando la colección", 
+						"Error deleting the record", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 	
 	private void loadCollections() {
