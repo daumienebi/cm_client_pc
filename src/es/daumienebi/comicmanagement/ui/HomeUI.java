@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.Timer;
 
@@ -34,6 +36,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Desktop;
+
 import javax.swing.UIManager;
 public class HomeUI {
 
@@ -75,6 +79,7 @@ public class HomeUI {
 	private boolean canOpenComicMng = true;
 	private boolean canOpenCollectionMng = true;
 	ComicService comicService = new ComicService();
+	private boolean openHelpWithSystemViewer = false;
 
 	private static String COMIC_IMAGE_SERVER = Configuration.comic_image_server;
 	private static String COLLECTION_IMAGE_SERVER = Configuration.collection_image_server;
@@ -378,6 +383,15 @@ public class HomeUI {
 		menuBar.add(menuHelp);
 		
 		menuHelpContents = new JMenuItem("Contenido de ayuda");
+		menuHelpContents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(openHelpWithSystemViewer) {
+					openHelp();
+				}else {
+					//open with viewer
+				}
+			}
+		});
 		menuHelpContents.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-help-24.png")));
 		menuHelp.add(menuHelpContents);
 	}
@@ -391,6 +405,17 @@ public class HomeUI {
         ImageIcon finalImg = new ImageIcon(newImg);
         imgSlider.setIcon(finalImg);
     }
+	
+	private void openHelp() {
+		if (Desktop.isDesktopSupported()) {
+            try {
+                File myFile = new File( "src/es/daumienebi/comicmanagement/help/JasperReports.pdf");
+                Desktop.getDesktop().open(myFile);
+            } catch (IOException ex) {
+                // no application registered for PDFs
+            }
+        }
+	}
 	
 	private void setBackgroundImage() {
 		ImageIcon img = new ImageIcon(HomeUI.class.getResource("/resources/backgroundd.jpg"));

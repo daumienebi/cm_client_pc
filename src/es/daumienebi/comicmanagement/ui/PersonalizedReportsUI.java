@@ -139,21 +139,8 @@ public class PersonalizedReportsUI extends JDialog {
 		btnLoadReport2.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		btnLoadReport2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(TextFieldValidatorUtil.isNumeric(txtFechaAdq.getText())) {
-					comic_state = cmbState.getSelectedItem().toString();
-					try {
-						Thread.sleep(2000);
-					} catch (Exception e2) {
-						// TODO: handle exception
-					}
-					dispose();
-					ReportsUtil.viewPersonalizedReport1("PersonalizedReport1.jrxml", comic_state,COMIC_IMAGE_SERVER);
-				}else {
-					JOptionPane.showMessageDialog(getContentPane(), "Incorrect data type, please introduce a correct value", "Invalid value", JOptionPane.ERROR_MESSAGE);
-				}
 				
-			}
-			
+			}		
 		});
 		
 		JButton btnNewButton = new JButton("");
@@ -235,17 +222,15 @@ public class PersonalizedReportsUI extends JDialog {
 		btnLoadReport3 = new JButton("Cargar Informe");
 		btnLoadReport3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(TextFieldValidatorUtil.isNumeric(txtComicCount.getText())) {
-					int movie_count = Integer.valueOf(txtComicCount.getText());
+				if(comic_state != null) {
+					comic_state = cmbState.getSelectedItem().toString();
 					try {
 						Thread.sleep(2000);
 					} catch (Exception e2) {
 						// TODO: handle exception
 					}
 					dispose();
-					
-					//ReportsUtil.viewPersonalizedReport3("PersonalizedReport3.jrxml", movie_count);
-					
+					ReportsUtil.viewPersonalizedReport1("PersonalizedReport1.jrxml", comic_state,COMIC_IMAGE_SERVER);
 				}else {
 					JOptionPane.showMessageDialog(getContentPane(), "Incorrect data type, please introduce a correct value", "Invalid value", JOptionPane.ERROR_MESSAGE);
 				}

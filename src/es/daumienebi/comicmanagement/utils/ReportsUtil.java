@@ -31,7 +31,8 @@ public class ReportsUtil{
 		Connection con = null;
 		getReportRoute();
 		try {
-			con = DbConnection.connect();
+			DbConnection.connect();
+			con = DbConnection.getConnection();
 			//Compile the report
 			System.out.println(REPORT_ROUTE);
 			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE+reportName);
@@ -59,9 +60,14 @@ public class ReportsUtil{
 	public static void viewPersonalizedReport1(String reportName,String comic_state,String imageServer) {
 		getReportRoute();
 		Connection con = null;
-		String sql = "";
+		String sql = "SELECT c.name,c.image,c.adquisition_date,c.number,c.state, cc.name AS collection FROM comic c"
+				+ " INNER JOIN collection cc"
+				+ " ON(c.collection_id = cc.id)"
+				+ " WHERE state = ?"
+				+ " ORDER BY c.name";
 		PreparedStatement preparedSt;
 		try {
+			DbConnection.connect();
 			con = DbConnection.getConnection();
 			preparedSt = con.prepareStatement(sql);
 			preparedSt.setString(1, comic_state);
@@ -104,6 +110,7 @@ public class ReportsUtil{
 				+ " ORDER BY comic_count desc";
 		PreparedStatement preparedSt;
 		try {
+			DbConnection.connect();
 			con = DbConnection.getConnection();
 			preparedSt = con.prepareStatement(sql);
 			preparedSt.setInt(1, comic_count);
