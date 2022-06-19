@@ -2,6 +2,9 @@ package es.daumienebi.comicmanagement.ui;
 
 import java.awt.EventQueue;
 
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,6 +16,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.Timer;
 
@@ -23,6 +28,7 @@ import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
 import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
+import es.daumienebi.comicmanagement.utils.JavaHelpUtil;
 import es.daumienebi.comicmanagement.utils.ReportsUtil;
 import es.daumienebi.comicmanagement.utils.Translator;
 
@@ -45,6 +51,10 @@ public class HomeUI {
 	public JFrame frame;
 	private JLabel imgSlider;
 	private JPanel mainPanel;
+	
+	//Generate Java Help
+	private HelpBroker browser;
+	private HelpSet helpset;
 	
 	//Comic Poster stuffs
 	Timer tm;
@@ -76,6 +86,7 @@ public class HomeUI {
 	public static JMenuItem menuPersonalizedR_comic;
 	public static JMenu menuHome;
 	public static JMenuItem menuOptionExit;
+	public static JMenuItem menuOptionRestart;
 	
 	private boolean canOpenComicMng = true;
 	private boolean canOpenCollectionMng = true;
@@ -84,6 +95,7 @@ public class HomeUI {
 
 	private static String COMIC_IMAGE_SERVER = Configuration.comic_image_server;
 	private static String COLLECTION_IMAGE_SERVER = Configuration.collection_image_server;
+	
 	
 	/**
 	 * Launch the application.
@@ -106,7 +118,12 @@ public class HomeUI {
 	 */
 	public HomeUI() {
 		initialize();
-		//Translator.bundle = null;
+		try {
+			generateHelp();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Error generating the help contents");
+		}
 	}
 
 	/**
@@ -171,6 +188,28 @@ public class HomeUI {
 		menuHome.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuHome);
 		
+		menuOptionRestart = new JMenuItem("Reiniciar");
+		menuOptionRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				try {
+					Thread.sleep(2500);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				HomeUI window = new HomeUI();										
+				window.frame.setResizable(true);
+				//System.out.println(" value before :" + Configuration.use_default_connection);
+				//disableMenus();
+				//System.out.println(" value after :" + Configuration.use_default_connection);
+				window.frame.setVisible(true);
+				
+			}
+		});
+		menuOptionRestart.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-refresh-24.png")));
+		menuHome.add(menuOptionRestart);
+		
 		menuOptionExit = new JMenuItem("Salir");
 		menuOptionExit.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-shutdown-24.png")));
 		menuHome.add(menuOptionExit);
@@ -205,7 +244,7 @@ public class HomeUI {
 		menuAddConnection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-add-database-24.png")));
 		menuConnection.add(menuAddConnection);
 		
-		menuCollections = new JMenu("Colleciones");
+		menuCollections = new JMenu("Colecci\u00F3nes");
 		menuCollections.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuCollections.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuCollections);
@@ -399,24 +438,24 @@ public class HomeUI {
 		menuHelp.add(menuHelpContents);
 	}
 	
-	/*
-	private void openpdf(String file){
-		  
-	    try {
-	           SwingController control=new SwingController();
-	            SwingViewBuilder factry=new SwingViewBuilder(control);
-	            JPanel veiwerCompntpnl=factry.buildViewerPanel();
-	            ComponentKeyBinding.install(control, veiwerCompntpnl);
-	            control.getDocumentViewController().setAnnotationCallback(
-	                    new org.icepdf.ri.common.MyAnnotationCallback(
-	                    control.getDocumentViewController()));
-	                   control.openDocument(file);
-	        //jScrollPane1.setViewportView(veiwerCompntpnl); 
-	        } catch (Exception ex) {
-	            JOptionPane.showMessageDialog(null,"Cannot Load Pdf");
-	        }
+	private void generateHelp() throws MalformedURLException {
+		
+		try 
+        {
+			URL helpURL = JavaHelpUtil.getHelpURL();
+            helpset = new HelpSet(null, helpURL);
+            
+            //Defining the viewer (HelpBroker)            
+            browser = helpset.createHelpBroker();
+            
+            //Enabling the menuButton to show the help contents
+            browser.enableHelpOnButton(menuHelpContents, "manual", helpset);          
+        } 
+        catch (HelpSetException ex) 
+        {
+            ex.printStackTrace();
+        }
 	}
-	*/
 	
 	private void setImageSlider(int index){
 		Image img = null;
