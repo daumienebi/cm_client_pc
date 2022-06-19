@@ -26,7 +26,9 @@ import es.daumienebi.comicmanagement.controllers.CollectionManagementUIControlle
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.models.Comic;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -45,13 +47,22 @@ import java.awt.event.KeyEvent;
 public class CollectionManagementUI extends JFrame {
 
 	private JPanel contentPane;
-	
-	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
 	private JTable collectionTable;
 	private JTextField txtCollection;
-	
+	private JButton CollectionManagementUI_btnEdit;
+	private JPanel panel;
 	private CollectionManagementUIController controller = new CollectionManagementUIController();
 	private ArrayList<Collection> collections = new ArrayList<Collection>();
+	
+	//To be translated
+	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
+	public static JLabel CollectionManagementUI_collection;
+	public static String CollectionManagementUI_windowTitle = "Gestión de colecciones";
+	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
+	public static String UIMessages_error;
+	public static String UIMessages_warning;
+	public static String UIMessages_info;
+	
 	
 	//static values to obtain the selected table item
 	private static int row;
@@ -59,9 +70,16 @@ public class CollectionManagementUI extends JFrame {
 	
 	public CollectionManagementUI() {
 		Inicialize();
+		translate();
+		setBorder();
+		setTitle(CollectionManagementUI_windowTitle);
 		loadCollections();
 	}
-		
+	private void setBorder() {
+		panel.setBorder(BorderFactory.createTitledBorder(null, CollectionManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
+
+	}
+	
 	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CollectionManagementUI.class.getResource("/resources/comic-icon_128.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -70,15 +88,15 @@ public class CollectionManagementUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
-		JPanel panel = new JPanel();
+		setTitle(CollectionManagementUI_windowTitle);
+		panel = new JPanel();
 		panel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-		panel.setBorder(BorderFactory.createTitledBorder(null, CollectionManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
+		setBorder();
 		panel.setPreferredSize(new Dimension(100, 100));
 		panel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel CollectionManagementUI_collection = new JLabel("Collection");
+		CollectionManagementUI_collection = new JLabel("Collection");
 		CollectionManagementUI_collection.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtCollection = new JTextField();
@@ -114,49 +132,29 @@ public class CollectionManagementUI extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		JButton CollectionManagementUI_btnEdit = new JButton("Editar Colecci\u00F3n");
+		CollectionManagementUI_btnEdit = new JButton("");
+		CollectionManagementUI_btnEdit.setIcon(new ImageIcon(CollectionManagementUI.class.getResource("/resources/icons8-edit-24.png")));
 		CollectionManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Long collection_id;
-				int response;
-				collection_id = (long)getCollectionId();
-				Collection collection = controller.getCollection(collection_id);
-				System.out.println(collection.toString() + "ole");
-				if(collection != null) {
-					NewCollectionUI ui = new NewCollectionUI(collection);
-					ui.setLocationRelativeTo(getContentPane());
-					ui.setModal(true);
-					ui.setVisible(true);
-					ui.setMinimumSize(Constants.editCollectionMinimumSize);
-					CollectionManagementUI_btnEdit.setVisible(false);
-					loadCollections();
-				}else
-					JOptionPane.showMessageDialog(getContentPane(), "La colección no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
-				loadCollections();
+				if(collectionTable.getSelectedRow() > -1) {
+					editCollection();
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessages_noItemSelected,"",JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		CollectionManagementUI_btnEdit.setVisible(false);
 		panel_1.add(CollectionManagementUI_btnEdit);
 		
-		JButton CollectionManagementUI_btnDelete = new JButton("Borrar Colleci\u00F3n");
+		JButton CollectionManagementUI_btnDelete = new JButton("");
+		CollectionManagementUI_btnDelete.setIcon(new ImageIcon(CollectionManagementUI.class.getResource("/resources/icons8-waste-24.png")));
 		CollectionManagementUI_btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Long collection_id;
-				int response;
-				collection_id = (long)getCollectionId();
-				
-				response = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados ", "Borrar colleción", JOptionPane.YES_NO_OPTION);
-				if(response == JOptionPane.YES_OPTION) {
-					boolean deleted = controller.deleteCollection(collection_id);
-					if(deleted) {
-						JOptionPane.showMessageDialog(getContentPane(), "Colección eliminada correctamente", "Borrar Registro",
-								JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
-						loadCollections();
-					}else {
-						JOptionPane.showMessageDialog(getContentPane(), "Error borrando la colección", 
-								"Error deleting the record", JOptionPane.ERROR_MESSAGE);
-					}
-				}	
+				if(collectionTable.getSelectedRow() > -1) {
+					deleteCollection();
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessages_noItemSelected,"",JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 			
 		});
@@ -226,13 +224,57 @@ public class CollectionManagementUI extends JFrame {
 		});
 	}
 	
+	private void editCollection() {
+		Long collection_id;
+		int response;
+		collection_id = (long)getCollectionId();
+		Collection collection = controller.getCollection(collection_id);
+		System.out.println(collection.toString() + "ole");
+		if(collection != null) {
+			NewCollectionUI ui = new NewCollectionUI(collection);
+			ui.setLocationRelativeTo(getContentPane());
+			ui.setModal(true);
+			ui.setVisible(true);
+			ui.setMinimumSize(Constants.editCollectionMinimumSize);
+			CollectionManagementUI_btnEdit.setVisible(false);
+			loadCollections();
+		}else
+			JOptionPane.showMessageDialog(getContentPane(), "La colección no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
+		loadCollections();
+	}
+	
+	private void deleteCollection() {
+		Long collection_id;
+		int response;
+		collection_id = (long)getCollectionId();
+		
+		response = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados ", "Borrar colleción", JOptionPane.YES_NO_OPTION);
+		if(response == JOptionPane.YES_OPTION) {
+			boolean deleted = controller.deleteCollection(collection_id);
+			if(deleted) {
+				JOptionPane.showMessageDialog(getContentPane(), "Colección eliminada correctamente", "Borrar Registro",
+						JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
+				loadCollections();
+			}else {
+				JOptionPane.showMessageDialog(getContentPane(), "Error borrando la colección", 
+						"Error deleting the record", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
 	private void loadCollections() {
 		collections = controller.findAllCollections();
 		CollectionTableModel tableModel = new CollectionTableModel(collections);
 		
-		//tableModel.translateColumns();
+		tableModel.translateColumns();
 		collectionTable.setModel(tableModel);
 		collectionTable.getColumnModel().getColumn(2).setMinWidth(150);
 		collectionTable.getColumnModel().getColumn(2).setMaxWidth(200);
+	}
+
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateCollectionManagementUI(Configuration.app_language);
+		}
 	}
 }

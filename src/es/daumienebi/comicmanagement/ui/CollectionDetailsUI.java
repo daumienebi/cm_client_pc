@@ -17,20 +17,26 @@ import javax.swing.SwingConstants;
 
 import es.daumienebi.comicmanagement.controllers.CollectionDetailsUIController;
 import es.daumienebi.comicmanagement.models.Collection;
+import es.daumienebi.comicmanagement.utils.Configuration;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 public class CollectionDetailsUI extends JDialog {
 	private JTextField txtName;
 	private JTextField txtComicCount;
 	private JLabel lblImg;
 	private CollectionDetailsUIController controller = new CollectionDetailsUIController();
-	/**
-	 * Launch the application.
-	 */
-
+	
+	
+	//To be translated
+	public static JLabel CollectionDetailsUI_count;
+	public static JLabel CollectionDetailsUI_name;
+	
+	
 	public CollectionDetailsUI(Collection collection) {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModal(true);
 		Inicialize(collection);
+		translate();
 	}
 	
 	void Inicialize(Collection collection) {
@@ -54,10 +60,10 @@ public class CollectionDetailsUI extends JDialog {
 		JPanel panel_1 = new JPanel();
 		getContentPane().add(panel_1, BorderLayout.CENTER);
 		
-		JLabel CollectionDetailsUI_name = new JLabel("Nombre");
+		CollectionDetailsUI_name = new JLabel("Nombre");
 		CollectionDetailsUI_name.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		JLabel CollectionDetailsUI_count = new JLabel("Numero de comics");
+		CollectionDetailsUI_count = new JLabel("Numero de comics");
 		CollectionDetailsUI_count.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtName = new JTextField();
@@ -108,5 +114,11 @@ public class CollectionDetailsUI extends JDialog {
 		txtComicCount.setText("5");
 		lblImg.setIcon(controller.getCollectionsImage(collection.getImage(),false));
 		
+	}
+	
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateCollectionDetailsUI(Configuration.app_language);
+		}
 	}
 }

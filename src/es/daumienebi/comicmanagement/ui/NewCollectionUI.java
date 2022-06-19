@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 
 import es.daumienebi.comicmanagement.controllers.NewCollectionUIController;
 import es.daumienebi.comicmanagement.models.Collection;
+import es.daumienebi.comicmanagement.utils.Configuration;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import java.awt.Toolkit;
 import javax.swing.GroupLayout;
@@ -33,6 +35,9 @@ public class NewCollectionUI extends JDialog {
 	public static JLabel NewCollectionUI_name;
 	public static JButton NewCollectionUI_AddCollection;
 	public static JButton NewCollectionUI_SaveCollection;
+	public static String NewCollectionUI_windowTitle = "Añadir una nueva colección";
+	public static String NewCollectionUI_windowTitleEdit = "Editar la colección";
+
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtName;
@@ -65,24 +70,25 @@ public class NewCollectionUI extends JDialog {
 		imageName = collection.getImage();
 		NewCollectionUI_AddCollection.setVisible(false);
 		NewCollectionUI_SaveCollection.setVisible(true);
-		setTitle("Editar colección");
+		setTitle(NewCollectionUI_windowTitleEdit);
 		txtName.setText(collection.getName());
 		lblCollectionImg.setIcon(controller.getCollectionsImage(collection.getImage(),false));
 	}
 	
 	public NewCollectionUI() {
 		Inicialize();
+		translate();
+		setTitle(NewCollectionUI_windowTitle);
 	}
 	
 	private void Inicialize() {
-		setTitle("A\u00F1adir nueva colecci\u00F3n");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewCollectionUI.class.getResource("/resources/comic-icon_128.png")));
 		setBounds(100, 100, 700, 600);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		
+		setTitle(NewCollectionUI_windowTitle);
 		JPanel panel = new JPanel();
 		contentPanel.add(panel, BorderLayout.WEST);
 		
@@ -143,6 +149,7 @@ public class NewCollectionUI extends JDialog {
 			buttonPane.add(btnAddImage);
 			{
 				NewCollectionUI_AddCollection = new JButton("A\u00F1adir Collec\u00F3n");
+				NewCollectionUI_AddCollection.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-plus-math-24.png")));
 				NewCollectionUI_AddCollection.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						validateCollection_Add();
@@ -154,6 +161,7 @@ public class NewCollectionUI extends JDialog {
 			}
 			
 			NewCollectionUI_SaveCollection = new JButton("Guardar Colecci\u00F3n");
+			NewCollectionUI_SaveCollection.setIcon(new ImageIcon(NewCollectionUI.class.getResource("/resources/icons8-save-24.png")));
 			NewCollectionUI_SaveCollection.setVisible(false);
 			NewCollectionUI_SaveCollection.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -161,6 +169,12 @@ public class NewCollectionUI extends JDialog {
 				}
 			});
 			buttonPane.add(NewCollectionUI_SaveCollection);
+		}
+	}
+	
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateNewCollectionUI(Configuration.app_language);
 		}
 	}
 	

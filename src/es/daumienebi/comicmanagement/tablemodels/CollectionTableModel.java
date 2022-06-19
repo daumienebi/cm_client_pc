@@ -1,6 +1,7 @@
 package es.daumienebi.comicmanagement.tablemodels;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.Icon;
 import javax.swing.table.AbstractTableModel;
@@ -8,6 +9,7 @@ import javax.swing.table.AbstractTableModel;
 import es.daumienebi.comicmanagement.controllers.CollectionDetailsUIController;
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.utils.Configuration;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 public class CollectionTableModel extends AbstractTableModel {
 
@@ -15,9 +17,21 @@ public class CollectionTableModel extends AbstractTableModel {
 	private ArrayList<Collection> collections;
 	private String[] columns = {"ID","NOMBRE","IMAGEN"};
 	private CollectionDetailsUIController controller = new CollectionDetailsUIController();
+	private ResourceBundle bundle = null;
 	
 	public CollectionTableModel(ArrayList<Collection> collections) {
 		this.collections = collections;
+	}
+	
+	
+	public String [] translateColumns() {
+		if(Translator.bundle != null) {
+			bundle = Translator.bundle;
+			columns[0] = bundle.getString("TableHeader_Id").toUpperCase();
+			columns[1] = bundle.getString("TableHeader_Name").toUpperCase();
+			columns[2] = bundle.getString("TableHeader_Image").toUpperCase();
+		}
+		return columns;
 	}
 	
 	@Override

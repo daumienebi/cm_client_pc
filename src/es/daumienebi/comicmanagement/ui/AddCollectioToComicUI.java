@@ -22,7 +22,9 @@ import javax.swing.JTable;
 import es.daumienebi.comicmanagement.controllers.CollectionManagementUIController;
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -40,6 +42,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class AddCollectioToComicUI extends JDialog {
 
@@ -62,6 +65,7 @@ public class AddCollectioToComicUI extends JDialog {
 	public AddCollectioToComicUI() {
 		setResizable(false);
 		Inicialize();
+		translate();
 		loadCollections();
 	}
 		
@@ -118,7 +122,8 @@ public class AddCollectioToComicUI extends JDialog {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
-		AddCollectioToComicUI_btnAdd = new JButton("Elegir colecci\u00F3n");
+		AddCollectioToComicUI_btnAdd = new JButton("");
+		AddCollectioToComicUI_btnAdd.setIcon(new ImageIcon(AddCollectioToComicUI.class.getResource("/resources/icons8-checked-checkbox-24.png")));
 		AddCollectioToComicUI_btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Long collection_id;
@@ -194,10 +199,16 @@ public class AddCollectioToComicUI extends JDialog {
 		collections = controller.findAllCollections();
 		CollectionTableModel tableModel = new CollectionTableModel(collections);
 		
-		//tableModel.translateColumns();
+		tableModel.translateColumns();
 		collectionTable.setModel(tableModel);
 		collectionTable.getColumnModel().getColumn(2).setMinWidth(150);
 		collectionTable.getColumnModel().getColumn(2).setMaxWidth(200);
+	}
+	
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateCollectionManagementUI(Configuration.app_language);
+		}
 	}
 	
 	public Collection getSelectedCollection(){

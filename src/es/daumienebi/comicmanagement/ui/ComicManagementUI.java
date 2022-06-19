@@ -35,7 +35,9 @@ import es.daumienebi.comicmanagement.services.IComicService;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.tablemodels.CollectionTableModel;
 import es.daumienebi.comicmanagement.tablemodels.ComicTableModel;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Translator;
 
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -54,9 +56,18 @@ import es.daumienebi.comicmanagement.utils.Constants.ComicSearchFilter;
 public class ComicManagementUI extends JFrame {
 
 	//To be translated
-	public static String ComicManagementUI_searchOptions = "Busqueda Comic";
+	public static String ComicManagementUI_searchOptions = "Busqueda Comics";
 	public static String ComicManagementUI_windowTitle = "Gestión de comics";
+	public static JLabel ComicManagementUI_name;
+	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
+	public static String UIMessages_error;
+	public static String UIMessages_warning;
+	public static String UIMessages_info;
+	public static JLabel ComicManagementUI_filter;
+	public static JPanel searchPanel;
 	
+	
+	private JButton ComicManagementUI_btnEdit;
 	private JPanel contentPane;
 	private JTextField txtBusqueda;
 	private JPanel dataPanel;
@@ -86,6 +97,9 @@ public class ComicManagementUI extends JFrame {
 	
 	public ComicManagementUI() {
 		Inicialize();
+		translate();
+		setBorder();
+		setTitle(ComicManagementUI_windowTitle);
 		loadComicsTable();
 	}
 	
@@ -104,46 +118,28 @@ public class ComicManagementUI extends JFrame {
 		panel.setBackground(new Color(0, 0, 0));
 		contentPane.add(panel, BorderLayout.SOUTH);
 		
-		JButton ComicManagementUI_btnEdit = new JButton("Editar Comic");
+		ComicManagementUI_btnEdit = new JButton("");
+		ComicManagementUI_btnEdit.setIcon(new ImageIcon(ComicManagementUI.class.getResource("/resources/icons8-edit-24.png")));
 		ComicManagementUI_btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int comicId = getComicId();
-				Comic comic = controller.getComic((long)comicId);
-				System.out.println(comic.toString() + "ole");
-				if(comic != null) {
-					NewComicUI ui = new NewComicUI(comic);
-					ui.setLocationRelativeTo(getContentPane());
-					ui.setModal(true);
-					ui.setVisible(true);
-					ui.setMinimumSize(Constants.editComicMinimumSize);
-					ComicManagementUI_btnEdit.setVisible(false);
-					loadComicsTable();
-				}else
-					JOptionPane.showMessageDialog(getContentPane(), "El comic no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
-				loadComicsTable();
+				if(comicsTable.getSelectedRow() > -1) {
+					editComic();
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessages_noItemSelected,"",JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		panel.add(ComicManagementUI_btnEdit);
 		
-		JButton ComicManagementUI_btnDelete = new JButton("Borrar Comic");
+		JButton ComicManagementUI_btnDelete = new JButton("");
+		ComicManagementUI_btnDelete.setIcon(new ImageIcon(ComicManagementUI.class.getResource("/resources/icons8-waste-24.png")));
 		ComicManagementUI_btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Long comicId;
-				int response;
-				comicId = (long)getComicId();
-				
-				response = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar el comic?", "Borrar Comic", JOptionPane.YES_NO_OPTION);
-				if(response == JOptionPane.YES_OPTION) {
-					boolean deleted = controller.deleteComic(comicId);
-					if(deleted) {
-						JOptionPane.showMessageDialog(getContentPane(), "Comic borrado correctamente", "Borrar Registro",
-								JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
-						loadComicsTable();
-					}else {
-						JOptionPane.showMessageDialog(getContentPane(), "Error borrando el comic", 
-								"Error deleting the record", JOptionPane.ERROR_MESSAGE);
-					}
-				}	
+				if(comicsTable.getSelectedRow() > -1) {
+					deleteComic();
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessages_noItemSelected,"",JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		panel.add(ComicManagementUI_btnDelete);
@@ -161,14 +157,14 @@ public class ComicManagementUI extends JFrame {
 		comicsTable.setRowHeight(40);
 		scrollPane.setViewportView(comicsTable);
 		
-		JPanel searchPanel = new JPanel();
+		searchPanel = new JPanel();
 		searchPanel.setBackground(new Color(205, 92, 92));
 		searchPanel.setPreferredSize(new Dimension(0, 120));
 		searchPanel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(searchPanel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Nombre");
-		lblNewLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		ComicManagementUI_name = new JLabel("Nombre");
+		ComicManagementUI_name.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtBusqueda = new JTextField();
 		txtBusqueda.addKeyListener(new KeyAdapter() {
@@ -193,18 +189,18 @@ public class ComicManagementUI extends JFrame {
 		});
 		cmbFilter.setModel(new DefaultComboBoxModel(ComicSearchFilter.values()));
 		
-		JLabel lblNewLabel_1 = new JLabel("Filtro");
-		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
+		ComicManagementUI_filter = new JLabel("Filtro");
+		ComicManagementUI_filter.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		GroupLayout gl_searchPanel = new GroupLayout(searchPanel);
 		gl_searchPanel.setHorizontalGroup(
 			gl_searchPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_searchPanel.createSequentialGroup()
 					.addGap(19)
-					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+					.addComponent(ComicManagementUI_name, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 					.addGap(43)
 					.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 412, GroupLayout.PREFERRED_SIZE)
 					.addGap(91)
-					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
+					.addComponent(ComicManagementUI_filter, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
 					.addGap(32)
 					.addComponent(cmbFilter, 0, 104, Short.MAX_VALUE))
 		);
@@ -213,9 +209,9 @@ public class ComicManagementUI extends JFrame {
 				.addGroup(gl_searchPanel.createSequentialGroup()
 					.addGap(11)
 					.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ComicManagementUI_name, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1)
+						.addComponent(ComicManagementUI_filter)
 						.addComponent(cmbFilter, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(75, Short.MAX_VALUE))
 		);
@@ -226,11 +222,15 @@ public class ComicManagementUI extends JFrame {
 		tableDoubleClick(comicsTable);
 	}
 	
+	private void setBorder() {
+		searchPanel.setBorder(BorderFactory.createTitledBorder(null, ComicManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
+
+	}
 	
 	private void loadComicsTable() {
 		comics = controller.findAllComics();
 		ComicTableModel tableModel = new ComicTableModel(comics);
-		//tableModel.translateColumns();
+		tableModel.translateColumns();
 		comicsTable.setModel(tableModel);
 		//table.removeColumn(table.getColumnModel().getColumn(0));
 	}
@@ -279,5 +279,46 @@ public class ComicManagementUI extends JFrame {
 				}
 			}
 		});
+	}
+	private void translate() {
+		if(Translator.bundle != null) {
+			Translator.translateComicManagementUI(Configuration.app_language);
+		}
+	}
+	
+	private void editComic() {
+		int comicId = getComicId();
+		Comic comic = controller.getComic((long)comicId);
+		System.out.println(comic.toString() + "ole");
+		if(comic != null) {
+			NewComicUI ui = new NewComicUI(comic);
+			ui.setLocationRelativeTo(getContentPane());
+			ui.setModal(true);
+			ui.setVisible(true);
+			ui.setMinimumSize(Constants.editComicMinimumSize);
+			ComicManagementUI_btnEdit.setVisible(false);
+			loadComicsTable();
+		}else
+			JOptionPane.showMessageDialog(getContentPane(), "El comic no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
+		loadComicsTable();
+	}
+	
+	private void deleteComic() {
+		Long comicId;
+		int response;
+		comicId = (long)getComicId();
+		
+		response = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar el comic?", "Borrar Comic", JOptionPane.YES_NO_OPTION);
+		if(response == JOptionPane.YES_OPTION) {
+			boolean deleted = controller.deleteComic(comicId);
+			if(deleted) {
+				JOptionPane.showMessageDialog(getContentPane(), "Comic borrado correctamente", "Borrar Registro",
+						JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
+				loadComicsTable();
+			}else {
+				JOptionPane.showMessageDialog(getContentPane(), "Error borrando el comic", 
+						"Error deleting the record", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 }

@@ -9,8 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -20,7 +18,10 @@ import javax.swing.JPanel;
 
 import es.daumienebi.comicmanagement.controllers.HomeUIController;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
+import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Constants;
+import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
+import es.daumienebi.comicmanagement.utils.ReportsUtil;
 import es.daumienebi.comicmanagement.utils.Translator;
 
 import javax.swing.JMenuBar;
@@ -32,14 +33,10 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.SwingConstants;
-import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.UIManager;
-import javax.swing.JToggleButton;
 public class HomeUI {
 
-	private JMenuItem menuOptionExit;
-	
 	public JFrame frame;
 	private JLabel imgSlider;
 	private JPanel mainPanel;
@@ -63,7 +60,6 @@ public class HomeUI {
 	public static JMenu menuSettings;
 	public static JMenu menuHelp;
 	public static JMenuItem menuHelpContents;
-	public static JMenuItem menuTecnicalManual;
 	public static JMenu menuBasicReports;
 	public static JMenuItem menuPersonalizedReports;
 	public static JMenuItem menuAddConnection;
@@ -73,7 +69,8 @@ public class HomeUI {
 	public static JMenuItem menuGalician;
 	public static JMenuItem menuPersonalizedR_collection;
 	public static JMenuItem menuPersonalizedR_comic;
-	
+	public static JMenu menuHome;
+	public static JMenuItem menuOptionExit;
 	
 	private boolean canOpenComicMng = true;
 	private boolean canOpenCollectionMng = true;
@@ -110,7 +107,7 @@ public class HomeUI {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeUI.class.getResource("/resources/logo.png")));
-		frame.setBounds(100, 100, 1300,800);
+		frame.setBounds(100, 100, 1100,800);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(frame); //to center the JFrame to the center of the screen
 		setBackgroundImage();
@@ -157,16 +154,18 @@ public class HomeUI {
 		//setBottomImg();
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuBar.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Inicio");
-		mnNewMenu.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
-		menuBar.add(mnNewMenu);
+		menuHome = new JMenu("Inicio");
+		menuHome.setForeground(UIManager.getColor("Button.darkShadow"));
+		menuHome.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
+		menuBar.add(menuHome);
 		
 		menuOptionExit = new JMenuItem("Salir");
-		menuOptionExit.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-close-24.png")));
-		mnNewMenu.add(menuOptionExit);
+		menuOptionExit.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-shutdown-24.png")));
+		menuHome.add(menuOptionExit);
 		menuOptionExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Close the window
@@ -182,6 +181,7 @@ public class HomeUI {
 		});
 		
 		menuConnection = new JMenu("Conexión");
+		menuConnection.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuConnection.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuConnection);
 		
@@ -198,6 +198,7 @@ public class HomeUI {
 		menuConnection.add(menuAddConnection);
 		
 		menuCollections = new JMenu("Colleciones");
+		menuCollections.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuCollections.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuCollections);
 		
@@ -229,18 +230,17 @@ public class HomeUI {
 			            	canOpenCollectionMng = true;
 			              ui.setEnabled(false);
 			            }
-			          });
+			       });
 				}else {
 					JOptionPane.showMessageDialog(null, "La ventana de gestión de colecciones ya se encuentra abierta","Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
-				}
-				
-				
+				}	
 			}
 		});
 		menuCollectionManagement.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-view-details-24.png")));
 		menuCollections.add(menuCollectionManagement);
 		
 		menuComics = new JMenu("Comics");
+		menuComics.setForeground(UIManager.getColor("Button.darkShadow"));
 		menuComics.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuComics);
 		
@@ -251,8 +251,7 @@ public class HomeUI {
 				ui.setModal(true);
 				ui.setLocationRelativeTo(frame);
 				ui.setMinimumSize(Constants.newComicMinimumSize);
-				ui.setVisible(true);
-				
+				ui.setVisible(true);	
 			}
 		});
 		menuAddComic.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-plus-math-24.png")));
@@ -285,7 +284,8 @@ public class HomeUI {
 		menuComics.add(menuComicManagement);
 		
 		menuReports = new JMenu("Informes");
-		menuReports.setEnabled(false);
+		menuReports.setForeground(UIManager.getColor("Button.darkShadow"));
+		//menuReports.setEnabled(false);
 		menuReports.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuReports);
 		
@@ -294,9 +294,23 @@ public class HomeUI {
 		menuReports.add(menuBasicReports);
 		
 		menuPersonalizedR_collection = new JMenuItem("Colecci\u00F3nes");
+		menuPersonalizedR_collection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
+		menuPersonalizedR_collection.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String reportName = "Collections.jrxml";
+				ReportsUtil.viewReport(reportName);
+			}
+		});
 		menuBasicReports.add(menuPersonalizedR_collection);
 		
 		menuPersonalizedR_comic = new JMenuItem("Comics");
+		menuPersonalizedR_comic.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-document-24.png")));
+		menuPersonalizedR_comic.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String reportName = "Comics.jrxml";
+				ReportsUtil.viewReport(reportName);
+			}
+		});
 		menuBasicReports.add(menuPersonalizedR_comic);
 		
 		menuPersonalizedReports = new JMenuItem("Informes Personalizados");
@@ -312,7 +326,9 @@ public class HomeUI {
 		menuReports.add(menuPersonalizedReports);
 		
 		menuSettings = new JMenu("Ajustes");
-		menuSettings.setEnabled(false);
+		menuSettings.setForeground(UIManager.getColor("Button.darkShadow"));
+		//menuSettings.setVisible(false);
+		//menuSettings.setEnabled(false);
 		menuSettings.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuSettings);
 		
@@ -321,29 +337,47 @@ public class HomeUI {
 		menuSettings.add(menuSelectLanguage);
 		
 		menuEnglish = new JMenuItem("Ingl\u00E9s");
+		menuEnglish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Configuration.app_language = AppLanguage.English;
+				AppLanguage lang = Configuration.app_language;
+				Translator.translateHomeUI(lang);
+			}
+		});
 		menuEnglish.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/gb_icon.jpg")));
 		menuSelectLanguage.add(menuEnglish);
 		
 		menuSpanish = new JMenuItem("Espa\u00F1ol");
+		menuSpanish.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Configuration.app_language = AppLanguage.Spanish;
+				AppLanguage lang = Configuration.app_language;
+				Translator.translateHomeUI(lang);
+			}
+		});
 		menuSpanish.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/esp_icon.jpg")));
 		menuSelectLanguage.add(menuSpanish);
 		
 		menuGalician = new JMenuItem("Gallego");
+		menuGalician.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Configuration.app_language = AppLanguage.Galician;
+				AppLanguage lang = Configuration.app_language;
+				Translator.translateHomeUI(lang);
+			}
+		});
 		menuGalician.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/2560px-Flag_of_Galicia.svg (2).png")));
 		menuSelectLanguage.add(menuGalician);
 		
 		menuHelp = new JMenu("Ayuda");
-		menuHelp.setEnabled(false);
+		menuHelp.setForeground(UIManager.getColor("Button.darkShadow"));
+		//menuHelp.setEnabled(false);
 		menuHelp.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuHelp);
 		
 		menuHelpContents = new JMenuItem("Contenido de ayuda");
 		menuHelpContents.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-help-24.png")));
 		menuHelp.add(menuHelpContents);
-		
-		menuTecnicalManual = new JMenuItem("Manual tecníco");
-		menuTecnicalManual.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-help-24.png")));
-		menuHelp.add(menuTecnicalManual);
 	}
 	private void setImageSlider(int index){
 		Image img = null;
@@ -356,31 +390,6 @@ public class HomeUI {
         imgSlider.setIcon(finalImg);
     }
 	
-	/*
-	private void setBottomImg(){
-		Image img = null;
-		Image newImg;
-		ImageIcon icon = new ImageIcon(HomeUI.class.getResource("/resources/bottom_banner.jpg"));
-		img = icon.getImage();
-		//newImg = img.getScaledInstance(imgSlider.getWidth(), imgSlider.getHeight(), Image.SCALE_SMOOTH);
-		newImg = img.getScaledInstance(900,200, Image.SCALE_SMOOTH);
-        ImageIcon finalImg = new ImageIcon(newImg);
-        //btmLabel.setIcon(finalImg);
-    }
-	*/
-	/*
-	private void setCenterImg(){
-
-		Image img = null;
-		Image newImg;
-		ImageIcon icon = new ImageIcon(HomeUI.class.getResource("/resources/background.jpg"));
-		img = icon.getImage();
-		newImg = img.getScaledInstance(imgSlider.getWidth(), imgSlider.getHeight(), Image.SCALE_SMOOTH);
-		//newImg = img.getScaledInstance(900,200, Image.SCALE_SMOOTH);
-        ImageIcon finalImg = new ImageIcon(newImg);
-        imgSlider.setIcon(finalImg);
-    }
-	*/
 	private void setBackgroundImage() {
 		ImageIcon img = new ImageIcon(HomeUI.class.getResource("/resources/backgroundd.jpg"));
 		  mainPanel = new JPanel()
