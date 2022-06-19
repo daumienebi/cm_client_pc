@@ -76,6 +76,8 @@ public class HomeUI {
 	private boolean canOpenCollectionMng = true;
 	ComicService comicService = new ComicService();
 
+	private static String COMIC_IMAGE_SERVER = Configuration.comic_image_server;
+	private static String COLLECTION_IMAGE_SERVER = Configuration.collection_image_server;
 	
 	/**
 	 * Launch the application.
@@ -298,7 +300,7 @@ public class HomeUI {
 		menuPersonalizedR_collection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String reportName = "Collections.jrxml";
-				ReportsUtil.viewReport(reportName);
+				ReportsUtil.viewReportWithImage(reportName,COLLECTION_IMAGE_SERVER);
 			}
 		});
 		menuBasicReports.add(menuPersonalizedR_collection);
@@ -308,7 +310,7 @@ public class HomeUI {
 		menuPersonalizedR_comic.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String reportName = "Comics.jrxml";
-				ReportsUtil.viewReport(reportName);
+				ReportsUtil.viewReportWithImage(reportName,COMIC_IMAGE_SERVER);
 			}
 		});
 		menuBasicReports.add(menuPersonalizedR_comic);
@@ -318,7 +320,7 @@ public class HomeUI {
 			public void actionPerformed(ActionEvent e) {
 				PersonalizedReportsUI ui = new PersonalizedReportsUI();
 				ui.setLocationRelativeTo(frame);
-				ui.setMinimumSize(Constants.comicManagementMinimumSize);
+				ui.setMinimumSize(Constants.personalizedReportsUICollectionMinimumSize);
 				ui.setVisible(true);
 			}
 		});

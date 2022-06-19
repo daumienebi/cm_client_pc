@@ -23,5 +23,6 @@ public class Constants {
 	public static Dimension editComicMinimumSize = new Dimension(850,700);
 	public static enum ComicSearchFilter {Comic,Coleccion}
 	public static Dimension editCollectionMinimumSize = new Dimension(600,500);
+	public static Dimension personalizedReportsUICollectionMinimumSize = new Dimension(550,300);
 
 }

@@ -24,27 +24,39 @@ public class ReportsUtil{
 	
 	/**
 	 * 
-	 * @param rutaInforme - The route where the report is stored
+	 * @param reportName - The name of the report to be loaded -- for example "Damian.jrxml"
 	 */
-	public static void viewReport(String reportName) {
+	
+	public static void viewReportWithImage(String reportName,String imageServer) {
+		Connection con = null;
 		getReportRoute();
 		try {
+			con = DbConnection.connect();
 			//Compile the report
+			System.out.println(REPORT_ROUTE);
 			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE+reportName);
 			
+			//define a HashMap to get the parameters for the report
+			HashMap<String,Object> parameters = new HashMap<String,Object>();
+			parameters.put("IMAGE_SERVER", imageServer);
+			
 			//Fill the report
-			JasperPrint viewer = JasperFillManager.fillReport(report,null,DbConnection.getConnection());
-				
+			JasperPrint viewer = JasperFillManager.fillReport(report,parameters,DbConnection.getConnection());
+			
 			//View the report
 			JasperViewer.viewReport(viewer,false);
 				
 		}catch (JRException e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}finally {
+			if(con != null) {
+				DbConnection.closeConnection();
+			}	
 		}
 	}
-	
-	public static void viewPersonalizedReport1(String reportName,int year) {
+
+	public static void viewPersonalizedReport1(String reportName,String comic_state,String imageServer) {
 		getReportRoute();
 		Connection con = null;
 		String sql = "";
@@ -52,17 +64,18 @@ public class ReportsUtil{
 		try {
 			con = DbConnection.getConnection();
 			preparedSt = con.prepareStatement(sql);
-			preparedSt.setDouble(1, year);
+			preparedSt.setString(1, comic_state);
 			ResultSet rSet = preparedSt.executeQuery();
 			
 			JRResultSetDataSource ds = new JRResultSetDataSource(rSet);
 			
 			//define a HashMap to get the parameters for the report
 			HashMap<String,Object> parameters = new HashMap<String,Object>();
-			parameters.put("RATING", year);
+			parameters.put("IMAGE_SERVER", imageServer);
+			parameters.put("COMIC_STATE", comic_state);
 			
 			//Compile the report
-			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE+reportName);
+			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE + reportName);
 			
 			//Fill the report
 			JasperPrint viewer = JasperFillManager.fillReport(report,parameters,ds);
@@ -81,10 +94,14 @@ public class ReportsUtil{
 		
 	}
 	
-	public static void viewPersonalizedReport2(String reportName, int comic_count) {
+	public static void viewPersonalizedReport2(String reportName, int comic_count,String imageServer) {
 		getReportRoute();
 		Connection con = null;
-		String sql = "";
+		String sql = "SELECT cc.*, COUNT(*) AS comic_count FROM collection cc INNER JOIN comic c"
+				+ " ON c.collection_id = cc.id"
+				+ " GROUP BY cc.id"
+				+ " HAVING comic_count >= ?"
+				+ " ORDER BY comic_count desc";
 		PreparedStatement preparedSt;
 		try {
 			con = DbConnection.getConnection();
@@ -96,10 +113,11 @@ public class ReportsUtil{
 			
 			//define a HashMap to get the parameters for the report
 			HashMap<String,Object> parameters = new HashMap<String,Object>();
-			parameters.put("PREMIERE_YEAR", comic_count);
+			parameters.put("IMAGE_SERVER", imageServer);
+			parameters.put("COMIC_COUNT", comic_count);
 			
 			//Compile the report
-			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE+reportName);
+			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE + reportName);
 			
 			//Fill the report
 			JasperPrint viewer = JasperFillManager.fillReport(report,parameters,ds);
