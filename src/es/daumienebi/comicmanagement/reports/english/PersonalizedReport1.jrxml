@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PersonalizedReport1" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="26de89a9-6a7f-4fd6-a1ca-6a39bddad03d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ComicDB"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="IMAGE_SERVER" class="java.lang.String"/>
+	<parameter name="COMIC_STATE" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT c.name,c.image,c.adquisition_date,c.number,c.state, cc.name AS collection FROM comic c
+INNER JOIN collection cc
+ON(c.collection_id = cc.id)
+WHERE state = $P{COMIC_STATE} 
+ORDER BY c.name]]>
+	</queryString>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comic"/>
+	</field>
+	<field name="image" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="image"/>
+		<property name="com.jaspersoft.studio.field.label" value="image"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comic"/>
+	</field>
+	<field name="adquisition_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="adquisition_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="adquisition_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comic"/>
+	</field>
+	<field name="number" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="number"/>
+		<property name="com.jaspersoft.studio.field.label" value="number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comic"/>
+	</field>
+	<field name="state" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="state"/>
+		<property name="com.jaspersoft.studio.field.label" value="state"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="comic"/>
+	</field>
+	<field name="collection" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="collection"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collection"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="9" width="70" height="71" uuid="0a231bd5-e71d-4241-bdec-369e88473c80"/>
+				<imageExpression><![CDATA["C:/Users/Usuario/Desktop/MyProjects/MyEclipseWorkSpace/ComicManagement/src/resources/comic-icon_128.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="29" width="120" height="30" uuid="bf127ce8-8f3a-4e86-a1fc-ea4c0d3c7895"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMICS IN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="260" y="29" width="80" height="30" uuid="b4deb3fd-c7b2-420c-9649-16f311d5d988"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{COMIC_STATE}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="340" y="30" width="70" height="30" uuid="c8a59e91-20cc-49e6-9411-d8d5a5e0fb60"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STATE]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="15" width="90" height="30" uuid="7cb42d72-7e1d-4fdc-b0ff-23574c825553"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="15" width="100" height="30" uuid="fc38e68f-abfb-499f-9201-eaf46ae0f5fa"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COLLECTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="15" width="70" height="30" uuid="f85bb94d-9b7d-4faf-8616-05be469223f8"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUMBER]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="301" y="15" width="100" height="30" uuid="9b2ed65a-4f42-47df-9480-dd0b45ad2b92"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADQ. DATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="15" width="150" height="30" uuid="c4526bc1-0224-4023-8442-92f15499725e"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMAGE]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="168" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="10" width="90" height="40" uuid="6ee8809f-bd0e-4795-bdfc-5c1a266a24c0"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="10" width="100" height="40" uuid="040a924b-9160-4cfb-afe5-c130eccb013d"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{collection}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="10" width="50" height="30" uuid="c35fc190-d539-4ec8-a541-b7ee6e36e0ff"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="10" width="100" height="30" uuid="7934a579-d45f-44e6-a58c-56a6a9a18f27"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd/MM/YYYY")).format($F{adquisition_date})]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement x="410" y="0" width="150" height="150" uuid="c896326e-438a-4e55-b05f-8cc901fa12a7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "http://192.168.56.101/comicmanagement/images/reports/no_report_image.png")]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement x="235" y="30" width="100" height="30" uuid="a724c3d6-ba4f-461d-a9c7-ce7c8067e442"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Pagina " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

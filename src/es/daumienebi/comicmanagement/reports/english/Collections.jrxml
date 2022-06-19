@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Collections" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a689f4c-7403-4391-ac78-39a8f53b22d8">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="Y29sbGVjdGlvbiAsMTUsMTUsN2Y3MzVlYzktNWNjZC00MDJjLWE3NGMtMWM5ZDZkZDc3OGQ2Ow=="/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ComicDB"/>
+	<parameter name="IMAGE_SERVER" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM collection]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collection"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collection"/>
+	</field>
+	<field name="image" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="image"/>
+		<property name="com.jaspersoft.studio.field.label" value="image"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="collection"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="9" width="70" height="71" uuid="66879b35-0ad1-41b0-9e3b-f2689027bedb"/>
+				<imageExpression><![CDATA["C:/Users/Usuario/Desktop/MyProjects/MyEclipseWorkSpace/ComicManagement/src/resources/comic-icon_128.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="140" y="29" width="300" height="30" uuid="7ce29efe-f136-407c-841f-44f1057db527"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIST OF TOTAL COLLECTIONS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="85" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="30" width="100" height="30" uuid="853eabac-858b-4e6d-9406-c229dd26b78f"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="35" width="100" height="30" uuid="f55777df-b466-4153-be58-84ed58c8ec38"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[POSTER]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="115" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="10" width="200" height="50" uuid="88b1955e-865b-463a-854a-be4497c16c84"/>
+				<textElement>
+					<font size="15"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<image onErrorType="Blank">
+				<reportElement x="380" y="0" width="100" height="100" uuid="341a7621-cf24-4a67-98b4-7572f20ee18c">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "http://192.168.56.101/comicmanagement/images/reports/no_report_image.png")]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="60" splitType="Stretch">
+			<textField>
+				<reportElement x="240" y="30" width="100" height="30" uuid="55441fcb-47ef-4294-b99c-9dc938e59cf4"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

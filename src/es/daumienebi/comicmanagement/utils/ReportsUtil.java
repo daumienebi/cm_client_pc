@@ -14,14 +14,42 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class ReportsUtil{
 	private static String REPORT_ROUTE = "";
+	private static String english_folder = "";
+	private static String spanish_folder = "";
+	private static String galician_folder = "";
 	
-	private static void getReportRoute() {
+	private static void setReportRoute() {
+		System.out.println("Debug mode :" + Configuration.debug_mode);
 		if(Configuration.debug_mode) {
-			REPORT_ROUTE =  System.getProperty("user.dir") + "\\src\\es\\daumienebi\\comicmanagement\\reports\\";		
-		}else
-			REPORT_ROUTE =  "./reports/";
+			spanish_folder = "\\src\\es\\daumienebi\\comicmanagement\\reports\\spanish\\";
+			english_folder = "\\src\\es\\daumienebi\\comicmanagement\\reports\\english\\";
+			galician_folder = "\\src\\es\\daumienebi\\comicmanagement\\reports\\galician\\";
+			switch(Configuration.app_language) {
+				case Spanish : REPORT_ROUTE =  System.getProperty("user.dir") + spanish_folder;
+				break;
+				case English : REPORT_ROUTE =  System.getProperty("user.dir") + english_folder;
+				break;
+				case Galician : REPORT_ROUTE =  System.getProperty("user.dir") + galician_folder;
+				break;
+				default : REPORT_ROUTE =  System.getProperty("user.dir") + spanish_folder;
+				break;
+			}		
+		}else {
+			spanish_folder  = "spanish/";
+			english_folder  = "english/";
+			galician_folder = "galician/";
+			switch(Configuration.app_language) {
+				case Spanish : REPORT_ROUTE =  "./reports/" + spanish_folder;
+				break;
+				case English : REPORT_ROUTE =  "./reports/" + english_folder;
+				break;
+				case Galician : REPORT_ROUTE =  "./reports/" + galician_folder;
+				break;
+				default : REPORT_ROUTE =  "./reports/" + galician_folder;
+				break;
+		}
 	}
-	
+}	
 	/**
 	 * 
 	 * @param reportName - The name of the report to be loaded -- for example "Damian.jrxml"
@@ -29,13 +57,13 @@ public class ReportsUtil{
 	
 	public static void viewReportWithImage(String reportName,String imageServer) {
 		Connection con = null;
-		getReportRoute();
+		setReportRoute();
 		try {
 			DbConnection.connect();
 			con = DbConnection.getConnection();
 			//Compile the report
 			System.out.println(REPORT_ROUTE);
-			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE+reportName);
+			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE + reportName);
 			
 			//define a HashMap to get the parameters for the report
 			HashMap<String,Object> parameters = new HashMap<String,Object>();
@@ -58,7 +86,7 @@ public class ReportsUtil{
 	}
 
 	public static void viewPersonalizedReport1(String reportName,String comic_state,String imageServer) {
-		getReportRoute();
+		setReportRoute();
 		Connection con = null;
 		String sql = "SELECT c.name,c.image,c.adquisition_date,c.number,c.state, cc.name AS collection FROM comic c"
 				+ " INNER JOIN collection cc"
@@ -101,7 +129,7 @@ public class ReportsUtil{
 	}
 	
 	public static void viewPersonalizedReport2(String reportName, int comic_count,String imageServer) {
-		getReportRoute();
+		setReportRoute();
 		Connection con = null;
 		String sql = "SELECT cc.*, COUNT(*) AS comic_count FROM collection cc INNER JOIN comic c"
 				+ " ON c.collection_id = cc.id"

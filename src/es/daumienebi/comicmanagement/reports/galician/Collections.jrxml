@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Collections" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a689f4c-7403-4391-ac78-39a8f53b22d8">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Collections" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7a689f4c-7403-4391-ac78-39a8f53b22d8">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="Y29sbGVjdGlvbiAsMTUsMTUsN2Y3MzVlYzktNWNjZC00MDJjLWE3NGMtMWM5ZDZkZDc3OGQ2Ow=="/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ComicDB"/>
 	<parameter name="IMAGE_SERVER" class="java.lang.String"/>
@@ -37,7 +37,7 @@ FROM collection]]>
 				<textElement>
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TODAS LAS COLECCIÓNES]]></text>
+				<text><![CDATA[TODAS AS COLECCIÓNS]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -48,14 +48,14 @@ FROM collection]]>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NOMBRE]]></text>
+				<text><![CDATA[NOME]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="380" y="35" width="100" height="30" uuid="f55777df-b466-4153-be58-84ed58c8ec38"/>
 				<textElement>
 					<font size="16" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PORTADA]]></text>
+				<text><![CDATA[IMAXE]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -83,7 +83,7 @@ FROM collection]]>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Pagina " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Paxina " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

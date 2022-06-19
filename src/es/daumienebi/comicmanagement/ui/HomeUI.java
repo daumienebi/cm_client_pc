@@ -39,6 +39,7 @@ import java.awt.Color;
 import java.awt.Desktop;
 
 import javax.swing.UIManager;
+
 public class HomeUI {
 
 	public JFrame frame;
@@ -385,16 +386,38 @@ public class HomeUI {
 		menuHelpContents = new JMenuItem("Contenido de ayuda");
 		menuHelpContents.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				/*
 				if(openHelpWithSystemViewer) {
 					openHelp();
 				}else {
 					//open with viewer
 				}
+				*/
 			}
 		});
 		menuHelpContents.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-help-24.png")));
 		menuHelp.add(menuHelpContents);
 	}
+	
+	/*
+	private void openpdf(String file){
+		  
+	    try {
+	           SwingController control=new SwingController();
+	            SwingViewBuilder factry=new SwingViewBuilder(control);
+	            JPanel veiwerCompntpnl=factry.buildViewerPanel();
+	            ComponentKeyBinding.install(control, veiwerCompntpnl);
+	            control.getDocumentViewController().setAnnotationCallback(
+	                    new org.icepdf.ri.common.MyAnnotationCallback(
+	                    control.getDocumentViewController()));
+	                   control.openDocument(file);
+	        //jScrollPane1.setViewportView(veiwerCompntpnl); 
+	        } catch (Exception ex) {
+	            JOptionPane.showMessageDialog(null,"Cannot Load Pdf");
+	        }
+	}
+	*/
+	
 	private void setImageSlider(int index){
 		Image img = null;
 		Image newImg;

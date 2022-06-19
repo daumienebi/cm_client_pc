@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.19.1.final using JasperReports Library version 6.19.1-867c00bf88cd4d784d404379d6c05e1b419e8a4c  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PersonalizedReport1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="26de89a9-6a7f-4fd6-a1ca-6a39bddad03d">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Comics" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="20a5fadf-f610-4c44-8e91-b954bfae6b02">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ComicDB"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<parameter name="IMAGE_SERVER" class="java.lang.String"/>
-	<parameter name="COMIC_STATE" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT c.name,c.image,c.adquisition_date,c.number,c.state, cc.name AS collection FROM comic c
+		<![CDATA[SELECT c.name,c.image,c.adquisition_date,c.number,c.state, cc.name AS coleccion FROM comic c
 INNER JOIN collection cc
 ON(c.collection_id = cc.id)
-WHERE state = $P{COMIC_STATE} 
 ORDER BY c.name]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
@@ -37,107 +35,100 @@ ORDER BY c.name]]>
 		<property name="com.jaspersoft.studio.field.label" value="state"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="comic"/>
 	</field>
-	<field name="collection" class="java.lang.String">
+	<field name="coleccion" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="name"/>
-		<property name="com.jaspersoft.studio.field.label" value="collection"/>
+		<property name="com.jaspersoft.studio.field.label" value="coleccion"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="collection"/>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="81" splitType="Stretch">
+		<band height="86" splitType="Stretch">
 			<image>
-				<reportElement x="0" y="9" width="70" height="71" uuid="0a231bd5-e71d-4241-bdec-369e88473c80"/>
+				<reportElement x="0" y="9" width="70" height="71" uuid="77b4bfd1-2e12-4599-aa9a-f4ef659ac7b6"/>
 				<imageExpression><![CDATA["C:/Users/Usuario/Desktop/MyProjects/MyEclipseWorkSpace/ComicManagement/src/resources/comic-icon_128.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="140" y="29" width="220" height="30" uuid="bf127ce8-8f3a-4e86-a1fc-ea4c0d3c7895"/>
+				<reportElement x="160" y="29" width="220" height="30" uuid="49f08f97-7ee0-4afe-9d2e-6f18b092d2e1"/>
 				<textElement>
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[COMICS EN ESTADO : ]]></text>
+				<text><![CDATA[TODOS LOS COMICS]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="370" y="30" width="100" height="30" uuid="b4deb3fd-c7b2-420c-9649-16f311d5d988"/>
-				<textElement>
-					<font size="20" isBold="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{COMIC_STATE}.toUpperCase()]]></textFieldExpression>
-			</textField>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="60" splitType="Stretch">
+	<columnHeader>
+		<band height="69" splitType="Stretch">
 			<staticText>
-				<reportElement x="120" y="20" width="100" height="30" uuid="0c53cc27-1c42-4ef0-b849-80693d95231a"/>
-				<textElement>
-					<font size="14" isBold="true"/>
-				</textElement>
-				<text><![CDATA[COLECCIÓN]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="20" width="90" height="30" uuid="37636334-d605-4da7-9fe5-e9a73cc0e618"/>
+				<reportElement x="10" y="30" width="90" height="30" uuid="6aaf3955-9ecb-4ff9-9d89-a88a51b67726"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[NOMBRE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="230" y="20" width="60" height="30" uuid="c1a09b0f-b25e-4ca7-b121-35bd4c8a0f3b"/>
+				<reportElement x="420" y="30" width="150" height="30" uuid="6e04bf2a-e403-46a6-b5c9-9059a21ac447"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NUMERO]]></text>
+				<text><![CDATA[IMAGEN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="20" width="100" height="30" uuid="9c694e67-f46e-4081-8bea-d054076ad39d"/>
+				<reportElement x="310" y="30" width="100" height="30" uuid="e8663877-cf12-4d3e-86e9-c35a7d2cae3d"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[FECHA ADQ.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="20" width="150" height="30" uuid="79652d1d-86c6-46c9-a383-048f8e7235d4"/>
+				<reportElement x="230" y="30" width="70" height="30" uuid="02437546-5522-4f49-b342-449b6dd490d0"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[IMAGEN]]></text>
+				<text><![CDATA[NUMERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="30" width="100" height="30" uuid="6b57b5fb-d474-4a07-a947-d4db78d787fa"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COLECCIÓN]]></text>
 			</staticText>
 		</band>
-	</pageHeader>
+	</columnHeader>
 	<detail>
-		<band height="168" splitType="Stretch">
+		<band height="165" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="10" width="90" height="40" uuid="6ee8809f-bd0e-4795-bdfc-5c1a266a24c0"/>
+				<reportElement x="10" y="10" width="90" height="40" uuid="ca68593a-ba83-4963-9d2b-91c5eb1aaa3d"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="120" y="10" width="100" height="40" uuid="040a924b-9160-4cfb-afe5-c130eccb013d"/>
+				<reportElement x="120" y="10" width="100" height="40" uuid="380f708a-90e2-4cb6-a107-cb1d5d12a9c1"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{collection}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{coleccion}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="235" y="10" width="50" height="30" uuid="c35fc190-d539-4ec8-a541-b7ee6e36e0ff"/>
+				<reportElement x="230" y="10" width="50" height="30" uuid="cf74dbf1-813b-4e86-a4ae-c4585fd363aa"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{number}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="10" width="100" height="30" uuid="7934a579-d45f-44e6-a58c-56a6a9a18f27"/>
+				<reportElement x="310" y="10" width="100" height="30" uuid="12ba7c63-8ce3-4257-a35b-eedb70a3af26"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[(new java.text.SimpleDateFormat("dd/MM/YYYY")).format($F{adquisition_date})]]></textFieldExpression>
 			</textField>
 			<image onErrorType="Blank">
-				<reportElement x="410" y="0" width="150" height="150" uuid="c896326e-438a-4e55-b05f-8cc901fa12a7">
+				<reportElement x="420" y="0" width="150" height="150" uuid="b2042f47-b0f4-4e71-886f-36e3aa1fb175">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
@@ -148,7 +139,7 @@ ORDER BY c.name]]>
 	<pageFooter>
 		<band height="60" splitType="Stretch">
 			<textField>
-				<reportElement x="235" y="30" width="100" height="30" uuid="a724c3d6-ba4f-461d-a9c7-ce7c8067e442"/>
+				<reportElement x="240" y="30" width="100" height="30" uuid="24d24d0a-0825-48fb-93d9-5d9a04ac4d23"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
