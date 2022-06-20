@@ -52,6 +52,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import es.daumienebi.comicmanagement.utils.Constants.ComicSearchFilter;
+import java.awt.SystemColor;
 
 public class ComicManagementUI extends JFrame {
 
@@ -164,7 +165,7 @@ public class ComicManagementUI extends JFrame {
 		scrollPane.setViewportView(comicsTable);
 		
 		searchPanel = new JPanel();
-		searchPanel.setBackground(new Color(205, 92, 92));
+		searchPanel.setBackground(SystemColor.activeCaption);
 		searchPanel.setPreferredSize(new Dimension(0, 120));
 		searchPanel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(searchPanel, BorderLayout.NORTH);

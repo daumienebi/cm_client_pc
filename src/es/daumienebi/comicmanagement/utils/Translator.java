@@ -66,6 +66,7 @@ public class Translator {
 		HomeUI.menuPersonalizedR_collection.setText(bundle.getString("menuPersonalizedR_collection"));
 		HomeUI.menuPersonalizedR_comic.setText(bundle.getString("menuPersonalizedR_comic"));
 		HomeUI.menuOptionRestart.setText(bundle.getString("menuOptionRestart"));
+		HomeUI.UIMessages_confirmationExit = bundle.getString("UIMessages_confirmacionExit");
 	}
 	
 	public static void translateComicDetailsUI(AppLanguage language) {

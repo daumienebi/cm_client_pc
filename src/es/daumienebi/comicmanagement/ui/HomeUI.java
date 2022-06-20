@@ -86,6 +86,8 @@ public class HomeUI {
 	public static JMenu menuHome;
 	public static JMenuItem menuOptionExit;
 	public static JMenuItem menuOptionRestart;
+	public static String UIMessages_confirmationExit = "Seguro que quiere salir de la applicación";
+	
 	
 	private boolean canOpenComicMng = true;
 	private boolean canOpenCollectionMng = true;
@@ -204,7 +206,7 @@ public class HomeUI {
 				//Close the window
 				int option;
 				//JOptionPane.setDefaultLocale(Locale.ENGLISH);
-				option =JOptionPane.showConfirmDialog(frame,"Seguro que quiere salir de la applicación ?","Salir",JOptionPane.INFORMATION_MESSAGE);
+				option =JOptionPane.showConfirmDialog(frame,UIMessages_confirmationExit,"",JOptionPane.INFORMATION_MESSAGE);
 				
 				if(option == JOptionPane.YES_OPTION) {
 					System.exit(0);
