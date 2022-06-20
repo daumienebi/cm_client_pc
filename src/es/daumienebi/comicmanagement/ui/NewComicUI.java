@@ -62,7 +62,10 @@ public class NewComicUI extends JDialog {
 	public static String NewComicUI_newComic = "Comic Nuevo";
 	public static JButton NewComicUI_btnAddComic;
 	public static JButton NewComicUI_btnSaveComic;
-	public static String UIMessage_plsFillFields;
+	public static String UIMessage_plsFillFields = "Por favor, rellene los campos correctamente";
+	public static String UIMessage_recordAdded = "Registro añadido correctamente";
+	public static String UIMessage_recordSaved= "Registro guardado correctamente";
+	public static String UIMessage_errorAddingRecord= "Error guardando el registro";
 	
 	private JButton btnComicPoster;
 	private JPanel dataPanel;
@@ -387,7 +390,7 @@ public class NewComicUI extends JDialog {
 				addComic(comic);
 			}
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"Por favor, rellene los campos correctamente","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),"","Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -395,11 +398,11 @@ public class NewComicUI extends JDialog {
 		//to be called internally by validateComic_Add()
 		boolean added = controller.saveComic(comic);
 		if(added) {
-			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido añadido correctamente",""
-					,JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
 			dispose();
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"Error añadiendo el registro","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
@@ -429,7 +432,7 @@ public class NewComicUI extends JDialog {
 				editComic(comic, name, collectionId, number,date);
 			}
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"Por favor, rellene los campos correctamente","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_plsFillFields,"Error",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -443,11 +446,11 @@ public class NewComicUI extends JDialog {
 		comic.setNumber(number);
 		boolean added = controller.updateComic(comic);
 		if(added) {
-			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido añadido correctamente",""
-					,JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
 			dispose();
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"Error añadiendo el registro","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);
 
 		}
 		

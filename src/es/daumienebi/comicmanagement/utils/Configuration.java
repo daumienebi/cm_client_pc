@@ -8,18 +8,18 @@ import es.daumienebi.comicmanagement.utils.Constants.*;
  * 
  */
 public class Configuration {
-	public static String server = "http://192.168.56.101:8081";
-	public static String comic_image_server = "http://192.168.56.101/comicmanagement/images/comics/";
-	public static String collection_image_server = "http://192.168.56.101/comicmanagement/images/collections/";
-	public static String ftp_server = "http://192.168.56.101";
-	public static String ftp_user = "comicdb";
-	public static String ftp_password = "comicdb";
+	public static String server;
+	public static String comic_image_server;
+	public static String collection_image_server;
+	public static String ftp_server;
+	public static String ftp_user;
+	public static String ftp_password;
 	public static AppLanguage app_language = AppLanguage.Spanish;
 	public static boolean debug_mode = true;
-	public static String db_ip = "192.168.56.101";
-	public static String db_port = "3306";
-	public static String db_name = "comicdb";
-	public static String db_user = "root";
-	public static String db_password = "";
+	public static String db_ip;
+	public static String db_port;
+	public static String db_name ;
+	public static String db_user;
+	public static String db_password;
 	
 }

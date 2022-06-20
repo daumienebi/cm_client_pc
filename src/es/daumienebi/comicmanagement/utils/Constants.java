@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Constants {
 
 	public static Dimension newComicMinimumSize = new Dimension(850,700);
-	public static Dimension configUIMinimunSize = new Dimension(500,900);
+	public static Dimension configUIMinimunSize = new Dimension(700,900);
 	public static Font mainFont = new Font("Comic Sans Ms",1,13);
 	public static Dimension newCollectionMinimumSize = new Dimension(600,550);
 	public static Dimension comicManagementMinimumSize = new Dimension(700,500);

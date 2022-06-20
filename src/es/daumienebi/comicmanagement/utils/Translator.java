@@ -151,5 +151,6 @@ public class Translator {
 		ConfigUI.ConfigUI_user.setText(bundle.getString("ConfigUI_user").toUpperCase());
 		ConfigUI.ConfigUI_configValues = bundle.getString("ConfigUI_configValues").toUpperCase();
 		ConfigUI.ConfigUI_saveError = bundle.getString("ConfigUI_configValues");
+		ConfigUI.ConfigUI_saved = bundle.getString("ConfigUI_saved");
 	}
 }

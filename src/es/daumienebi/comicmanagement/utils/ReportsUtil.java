@@ -4,6 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+
+import javax.swing.JOptionPane;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -77,7 +80,7 @@ public class ReportsUtil{
 				
 		}catch (JRException e) {
 			// TODO: handle exception
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando el informe, por favor revise su conexión a la base de datos");
 		}finally {
 			if(con != null) {
 				DbConnection.closeConnection();
@@ -119,7 +122,7 @@ public class ReportsUtil{
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando el informe, por favor revise su conexión a la base de datos");
 		}catch (JRException e) {
 			//JOptionPane.showMessageDialog(null, "Error viewing the report", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
@@ -161,7 +164,7 @@ public class ReportsUtil{
 			JasperViewer.viewReport(viewer,false);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando el informe, por favor revise su conexión a la base de datos");
 		}catch (JRException e) {
 			e.printStackTrace();
 			//JOptionPane.showMessageDialog(null, "Error viewing the report", "Error", JOptionPane.ERROR_MESSAGE);

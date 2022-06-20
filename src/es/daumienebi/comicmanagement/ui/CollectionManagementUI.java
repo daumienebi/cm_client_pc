@@ -59,10 +59,10 @@ public class CollectionManagementUI extends JFrame {
 	public static JLabel CollectionManagementUI_collection;
 	public static String CollectionManagementUI_windowTitle = "Gestión de colecciones";
 	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
-	public static String UIMessages_error;
-	public static String UIMessages_warning;
-	public static String UIMessages_info;
-	
+	public static String UIMessages_recordDeleted = "Registro eliminado correctamente";
+	public static String UIMessages_confirmacion = "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados.";
+	public static String UIMessages_recordNotFound = "Registro no enconrado";
+	public static String UIMessages_errorDeletingRecord = "Error deleting record";
 	
 	//static values to obtain the selected table item
 	private static int row;
@@ -187,7 +187,7 @@ public class CollectionManagementUI extends JFrame {
 		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
 		            Collection collection = controller.getCollection(id);
 		            if(collection == null) {
-		            	JOptionPane.showMessageDialog(rootPane, "Collection not found","Record not found",JOptionPane.ERROR_MESSAGE);
+		            	JOptionPane.showMessageDialog(rootPane, UIMessages_recordNotFound,"",JOptionPane.ERROR_MESSAGE);
 		            	loadCollections(); //sikee
 		            }else {
 		            	CollectionDetailsUI ui = new CollectionDetailsUI(collection);
@@ -239,7 +239,7 @@ public class CollectionManagementUI extends JFrame {
 			CollectionManagementUI_btnEdit.setVisible(false);
 			loadCollections();
 		}else
-			JOptionPane.showMessageDialog(getContentPane(), "La colección no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
+			JOptionPane.showMessageDialog(getContentPane(), UIMessages_recordNotFound, "Error", JOptionPane.ERROR_MESSAGE);					
 		loadCollections();
 	}
 	
@@ -248,7 +248,7 @@ public class CollectionManagementUI extends JFrame {
 		int response;
 		collection_id = (long)getCollectionId();
 		
-		response = JOptionPane.showConfirmDialog(null, "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados ", "Borrar colleción", JOptionPane.YES_NO_OPTION);
+		response = JOptionPane.showConfirmDialog(null, UIMessages_confirmacion, "", JOptionPane.YES_NO_OPTION);
 		if(response == JOptionPane.YES_OPTION) {
 			boolean deleted = controller.deleteCollection(collection_id);
 			if(deleted) {
@@ -256,8 +256,8 @@ public class CollectionManagementUI extends JFrame {
 						JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
 				loadCollections();
 			}else {
-				JOptionPane.showMessageDialog(getContentPane(), "Error borrando la colección", 
-						"Error deleting the record", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(getContentPane(), UIMessages_errorDeletingRecord, 
+						"Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

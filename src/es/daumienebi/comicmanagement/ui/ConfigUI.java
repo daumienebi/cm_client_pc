@@ -60,6 +60,7 @@ public class ConfigUI extends JDialog {
 	public static JLabel ConfigUI_user;
 	public static String ConfigUI_configValues = "Valores de conexión";
 	public static String ConfigUI_saveError = "Es obligatorio indicar el Servidor principal";
+	public static String ConfigUI_saved = "Valores guardados, se procederá a reiniciar la applicación";
 	
 	private JTextField txtCollectionImgServer;
 	private JTextField txtIp;
@@ -191,6 +192,8 @@ public class ConfigUI extends JDialog {
 							Configuration.comic_image_server = txtComicImgServer.getText().trim();
 							Configuration.collection_image_server = txtCollectionImgServer.getText().trim();
 							controller.saveConfig();
+							JOptionPane.showMessageDialog(null, ConfigUI_saved);
+							dispose();
 			}else {
 				JOptionPane.showMessageDialog(null, ConfigUI_saveError);
 			}
@@ -281,7 +284,7 @@ public class ConfigUI extends JDialog {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(ConfigUI_FtpUser, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addGap(9)
-							.addComponent(txtFtpUser, 527, 527, 527))
+							.addComponent(txtFtpUser, GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(ConfigUI_FtpPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -302,7 +305,7 @@ public class ConfigUI extends JDialog {
 								.addComponent(ConfigUI_password)
 								.addComponent(ConfigUI_nombre)
 								.addComponent(ConfigUI_port, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-							.addGap(41)
+							.addGap(28)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(txtDbName, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
@@ -312,13 +315,13 @@ public class ConfigUI extends JDialog {
 										.addComponent(ConfigUI_SaveSettings, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtDbPort, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
 									.addGap(2))
-								.addComponent(txtIp, GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addComponent(txtDbPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
 										.addComponent(txtDbUser, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
 									.addGap(2))
-								.addComponent(ConfigUI_BaseDeDatos, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(ConfigUI_BaseDeDatos, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtIp, GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
 							.addComponent(ConfigUI_ComicImgServer, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)

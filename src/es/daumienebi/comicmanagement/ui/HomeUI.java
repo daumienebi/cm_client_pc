@@ -69,7 +69,6 @@ public class HomeUI {
 	public static JMenu menuComics;
 	public static JMenuItem menuAddComic;
 	public static JMenuItem menuComicManagement;
-	public static JMenu menuAutors ;
 	public static JMenu menuReports;
 	public static JMenu menuClients;
 	public static JMenu menuSettings;
@@ -191,20 +190,7 @@ public class HomeUI {
 		menuOptionRestart = new JMenuItem("Reiniciar");
 		menuOptionRestart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				try {
-					Thread.sleep(2500);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				HomeUI window = new HomeUI();										
-				window.frame.setResizable(true);
-				//System.out.println(" value before :" + Configuration.use_default_connection);
-				//disableMenus();
-				//System.out.println(" value after :" + Configuration.use_default_connection);
-				window.frame.setVisible(true);
-				
+				restart();
 			}
 		});
 		menuOptionRestart.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-refresh-24.png")));
@@ -240,6 +226,7 @@ public class HomeUI {
 				ui.setLocationRelativeTo(frame);
 				ui.setMinimumSize(Constants.configUIMinimunSize);
 				ui.setVisible(true);
+				restart();
 			}
 		});
 		menuAddConnection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-add-database-24.png")));
@@ -477,6 +464,19 @@ public class HomeUI {
                 // no application registered for PDFs
             }
         }
+	}
+	
+	private void restart() {
+		frame.dispose();
+		try {
+			Thread.sleep(2500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		HomeUI window = new HomeUI();										
+		window.frame.setResizable(true);
+		window.frame.setVisible(true);
 	}
 	
 	private void setBackgroundImage() {

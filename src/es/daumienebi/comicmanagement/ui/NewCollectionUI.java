@@ -37,7 +37,10 @@ public class NewCollectionUI extends JDialog {
 	public static JButton NewCollectionUI_SaveCollection;
 	public static String NewCollectionUI_windowTitle = "Añadir una nueva colección";
 	public static String NewCollectionUI_windowTitleEdit = "Editar la colección";
-
+	public static String UIMessage_plsFillFields = "Por favor, rellene los campos correctamente";
+	public static String UIMessage_recordAdded = "Registro añadido correctamente";
+	public static String UIMessage_recordSaved= "Registro guardado correctamente";
+	public static String UIMessage_errorAddingRecord= "Error guardando el registro";
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtName;
@@ -192,7 +195,7 @@ public class NewCollectionUI extends JDialog {
 				System.out.println(collection.toString());
 			}
 		}else {
-			JOptionPane.showMessageDialog(null, "Porfavor,rellene los campos");
+			JOptionPane.showMessageDialog(null, UIMessage_plsFillFields);
 		}
 	}
 	
@@ -200,11 +203,11 @@ public class NewCollectionUI extends JDialog {
 		//Method to be called internally by validateCollection_Add()
 		boolean added = controller.saveCollection(collection);
 		if(added) {
-			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido añadido correctamente",""
-					,JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
 			dispose();
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"Error añadiendo el registro","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
@@ -222,7 +225,7 @@ public class NewCollectionUI extends JDialog {
 				System.out.println(collection.toString());
 			}
 		}else {
-			JOptionPane.showMessageDialog(null, "Porfavor,rellene los campos");
+			JOptionPane.showMessageDialog(null, UIMessage_plsFillFields);
 		}
 	}
 	
@@ -231,11 +234,11 @@ public class NewCollectionUI extends JDialog {
 		collection.setImage(imageName);
 		boolean added = controller.updateCollection(collection);
 		if(added) {
-			JOptionPane.showMessageDialog(getContentPane(),"El registro ha sido modificado correctamente",""
-					,JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
 			dispose();
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"Error modificando el registro","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);
 
 		}
 	}
