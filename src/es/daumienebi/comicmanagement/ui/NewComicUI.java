@@ -41,6 +41,8 @@ import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.TextFieldValidatorUtil;
 import es.daumienebi.comicmanagement.utils.Translator;
 import es.daumienebi.comicmanagement.utils.Constants.ComicState;
+import es.daumienebi.comicmanagement.utils.UploadImageUtil;
+
 
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -66,6 +68,7 @@ public class NewComicUI extends JDialog {
 	public static String UIMessage_recordAdded = "Registro añadido correctamente";
 	public static String UIMessage_recordSaved= "Registro guardado correctamente";
 	public static String UIMessage_errorAddingRecord= "Error guardando el registro";
+	public static String UIMessage_errorSubirImagen = "Error subiendo la imagen al servidor";
 	
 	private JButton btnComicPoster;
 	private JPanel dataPanel;
@@ -372,9 +375,6 @@ public class NewComicUI extends JDialog {
 		if(selectedDate == null) {
 			selectedDate = LocalDate.now();
 		}
-		//selectedDate = datePicker.getDate();
-		boolean uploaded = false;
-		
 		if(TextFieldValidatorUtil.isNumeric(txtComicNumber.getText().trim())) {
 			number = Integer.parseInt(txtComicNumber.getText().trim());
 		}
@@ -382,9 +382,18 @@ public class NewComicUI extends JDialog {
 		if(!name.isBlank() && number > 0 && selectedCollection != null) {
 			collectionId = Integer.valueOf(selectedCollection.getId().toString());
 			comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,comicState,number);
-			if(!imageName.isBlank()) {
-				comic.setImage(imageName);
-				addComic(comic);
+			//upload the image to the server
+			Object [] uploadResult = new Object[2];
+			if(imgFile != null) {
+				uploadResult = UploadImageUtil.uploadComicImage(imgFile);
+				boolean uploaded = Boolean.parseBoolean(uploadResult[0].toString());
+				imageName = uploadResult[1].toString();
+				if(uploaded) {
+					comic.setImage(imageName);
+					addComic(comic);
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorSubirImagen,"Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}else {
 				comic.setImage("");
 				addComic(comic);
@@ -408,6 +417,7 @@ public class NewComicUI extends JDialog {
 	}
 	
 	private void validateComic_Edit() {
+		boolean uploaded = false;
 		String name = txtName.getText().trim();
 		int collectionId = 0,number = 0;
 		//if(selectedDate == null) {
@@ -415,7 +425,6 @@ public class NewComicUI extends JDialog {
 		//}
 		//selectedDate = datePicker.getDate();
 		Date date = Date.valueOf(datePicker.getDateStringOrEmptyString());
-		boolean uploaded = false;
 		
 		if(TextFieldValidatorUtil.isNumeric(txtComicNumber.getText().trim())) {
 			number = Integer.parseInt(txtComicNumber.getText().trim());
@@ -424,11 +433,18 @@ public class NewComicUI extends JDialog {
 		if(!name.isBlank() && number > 0 && selectedCollection != null && date != null) {
 			collectionId = Integer.valueOf(selectedCollection.getId().toString());
 			//comic = new Comic(name,Date.valueOf(selectedDate),imageName,collectionId,comicState,number); -lmao
-			if(!imageName.isBlank()) {
-				comic.setImage(imageName);
-				editComic(comic, name, collectionId, number,date);
+			if(imgFile != null) {
+				Object [] uploadResult = new Object[2];
+				uploadResult = UploadImageUtil.uploadComicImage(imgFile);
+				uploaded = Boolean.parseBoolean(uploadResult[0].toString());
+				imageName = uploadResult[1].toString();
+				if(uploaded) {
+					editComic(comic, name, collectionId, number,date);
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorSubirImagen,"Error",JOptionPane.ERROR_MESSAGE);
+				}	
 			}else {
-				comic.setImage("");
+				imageName = comic.getImage();
 				editComic(comic, name, collectionId, number,date);
 			}
 		}else {

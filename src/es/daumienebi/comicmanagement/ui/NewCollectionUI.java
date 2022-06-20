@@ -3,8 +3,6 @@ package es.daumienebi.comicmanagement.ui;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.awt.Insets;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -14,17 +12,16 @@ import es.daumienebi.comicmanagement.controllers.NewCollectionUIController;
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Translator;
+import es.daumienebi.comicmanagement.utils.UploadImageUtil;
 
 import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Font;
-import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
@@ -41,6 +38,7 @@ public class NewCollectionUI extends JDialog {
 	public static String UIMessage_recordAdded = "Registro añadido correctamente";
 	public static String UIMessage_recordSaved= "Registro guardado correctamente";
 	public static String UIMessage_errorAddingRecord= "Error guardando el registro";
+	public static String UIMessage_errorSubirImagen = "Error subiendo la imagen al servidor";
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtName;
@@ -184,15 +182,22 @@ public class NewCollectionUI extends JDialog {
 	private void validateCollection_Add() {
 		String name = txtName.getText();
 		collection = new Collection(name,imageName);
+		//upload the image to the server
+		Object [] uploadResult = new Object[2];
 		if(!name.isBlank()) {
-			if(!imageName.isBlank()) {
-				collection.setImage(imageName);
-				addCollection(collection);
-				System.out.println(collection.toString());
+			if(imgFile != null) {
+				uploadResult = UploadImageUtil.uploadCollectionImage(imgFile);
+				boolean uploaded = Boolean.parseBoolean(uploadResult[0].toString());
+				imageName = uploadResult[1].toString();
+				if(uploaded) {
+					collection.setImage(imageName);
+					addCollection(collection);
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorSubirImagen,"Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}else {
 				collection.setImage("");
 				addCollection(collection);
-				System.out.println(collection.toString());
 			}
 		}else {
 			JOptionPane.showMessageDialog(null, UIMessage_plsFillFields);
@@ -214,13 +219,20 @@ public class NewCollectionUI extends JDialog {
 	
 	private void validateCollection_Edit() {
 		String name = txtName.getText();
+		boolean uploaded = false;
 		if(!name.isBlank()) {
-			if(!imageName.isBlank()) {
-				collection.setImage(imageName);
-				editCollection(collection,name);
-				System.out.println(collection.toString());
+			if(imgFile!= null) {
+				Object [] uploadResult = new Object[2];
+				uploadResult = UploadImageUtil.uploadCollectionImage(imgFile);
+				uploaded = Boolean.parseBoolean(uploadResult[0].toString());
+				imageName = uploadResult[1].toString();
+				if(uploaded) {
+					addCollection(collection);
+				}else {
+					JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorSubirImagen,"Error",JOptionPane.ERROR_MESSAGE);
+				}
 			}else {
-				collection.setImage("");
+				imageName = collection.getImage();
 				editCollection(collection,name);
 				System.out.println(collection.toString());
 			}

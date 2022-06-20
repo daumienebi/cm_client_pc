@@ -45,7 +45,7 @@ public class UploadImageUtil {
             //return ftpClient;
         }catch (IOException ex) {
             //System.out.println("Error: " + ex.getMessage());
-            //ex.printStackTrace();
+            ex.printStackTrace();
             JOptionPane.showInternalMessageDialog(null, "Revise la conexión del cliente FTP", "Error", JOptionPane.ERROR_MESSAGE);
         }
         return ftpClient;
@@ -64,6 +64,7 @@ public class UploadImageUtil {
             	return true;
             }
 		} catch (Exception e) {
+			e.printStackTrace();
 			// TODO: handle exception
 		}
     	return false;
@@ -78,22 +79,21 @@ public class UploadImageUtil {
     public static Object[] uploadComicImage(File imgFile) {
     	Object [] result = new Object[2];
     	String ex = "."+getImageExtension(imgFile.getName());
-        String routeInServer = "images/comics/" + uniqueFileName + ex;
+        String routeInServer = "/comics/" + uniqueFileName + ex;
         result [0] = uploadImage(imgFile, routeInServer);
         result [1] = uniqueFileName+ex;//the image name in the server
         return result;
     }
-    
     /**
      * 
      * @param imgFile - The selected image file to be uploaded
      * @return returns an array of objects, the first index [0] indicates if the image has been uploaded successfully(true or false)
      * and the second index [1] contains the file name in the server.
      */
-    public static Object[] uploadMCollectionImage(File imgFile) {
+    public static Object[] uploadCollectionImage(File imgFile) {
     	Object [] result = new Object[2];
     	String ex = "."+getImageExtension(imgFile.getName());
-        String routeInServer = "images/collections/" + uniqueFileName + ex;
+        String routeInServer = "/collections/" + uniqueFileName + ex;
         result [0] = uploadImage(imgFile, routeInServer);
         result [1] = uniqueFileName+ex;//the image name in the server
         return result;   	
@@ -121,7 +121,7 @@ public class UploadImageUtil {
             
 		}catch (IOException ex) {
 		    //System.out.println("Error: " + ex.getMessage());
-		    //ex.printStackTrace();
+		    ex.printStackTrace();
 		}finally {
 		    try {
 		        if (ftpClient.isConnected()) {
@@ -129,7 +129,7 @@ public class UploadImageUtil {
 		            ftpClient.disconnect();
 		        }
 		    } catch (IOException ex) {
-		        //ex.printStackTrace();
+		        ex.printStackTrace();
 		    }
 		}
     	return uploaded;
