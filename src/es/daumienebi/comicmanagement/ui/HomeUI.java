@@ -232,7 +232,7 @@ public class HomeUI {
 		menuConnection.setFont(new Font("Comic Sans MS", Font.PLAIN, 15));
 		menuBar.add(menuConnection);
 		
-		menuAddConnection = new JMenuItem("Añadir conexión");
+		menuAddConnection = new JMenuItem("Configurar valores de conexión");
 		menuAddConnection.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ConfigUI ui = new ConfigUI();

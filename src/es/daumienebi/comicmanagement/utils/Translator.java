@@ -119,4 +119,8 @@ public class Translator {
 	public static void translatePersonalizedReportsUI(AppLanguage language) {
 		setBundle(language);
 	}
+	
+	public static void translateConfigUI(AppLanguage language) {
+		setBundle(language);
+	}
 }

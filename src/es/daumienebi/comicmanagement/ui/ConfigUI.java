@@ -22,20 +22,46 @@ import java.awt.Toolkit;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 
+import org.jfree.util.DefaultConfiguration;
+
+import es.daumienebi.comicmanagement.utils.Configuration;
+import es.daumienebi.comicmanagement.controllers.ConfigUIController;
+
+import javax.swing.JPasswordField;
+
 public class ConfigUI extends JDialog {
 	private JTextField txtApiServer;
 	private JTextField txtFtpServer;
 	private JTextField txtFtpUser;
-	private JTextField txtFtpPass;
 	private JTextField txtComicImgServer;
 
+	//To be translated
+	public static JLabel ConfigUI_Server;
+	public static JLabel ConfigUI_FtpUser;
+	public static JLabel ConfigUI_FtpServer;
+	public static JLabel ConfigUI_FtpServer2;
+	public static JLabel ConfigUI_PrincipalServer;
+	public static JLabel ConfigUI_ComicImgServer;
+	public static JLabel ConfigUI_FtpPassword;
+	public static JLabel ConfigUI_ImageServer;
+	public static JButton ConfigUI_SaveSettings;
+	public static JLabel ConfigUI_port;
+	public static JLabel ConfigUI_nombre;
+	public static JLabel ConfigUI_password;
+	public static JLabel ConfigUI_ip;
+	public static JLabel ConfigUI_BaseDeDatos;
+	public static JLabel ConfigUI_CollectionImgServer;
+	public static JLabel ConfigUI_user;
+	
 	public static String ConfigUI_configValues = "Config Values";
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
+	private JTextField txtCollectionImgServer;
+	private JTextField txtIp;
+	private JTextField txtDbUser;
+	private JTextField txtDbName;
+	private JTextField txtDbPort;
+	private JPasswordField txtFtpPassword;
+	private JPasswordField txtDbPassword;
+	ConfigUIController controller = new ConfigUIController();
 	
 	/**
 	 * Launch the application.
@@ -57,9 +83,16 @@ public class ConfigUI extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
+	
 	public ConfigUI() {
+		Inicialize();
+		fillConfigValues();
+		controller.translate();
+	}
+	
+	void Inicialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ConfigUI.class.getResource("/resources/comic-icon_128.png")));
-		setBounds(100, 100, 500,900);
+		setBounds(100, 100, 700,900);
 		
 		JLabel api_icon = new JLabel("");
 		ImageIcon icon = new ImageIcon(ConfigUI.class.getResource("/resources/api_icon.png"));
@@ -70,8 +103,8 @@ public class ConfigUI extends JDialog {
 		api_icon.setIcon(icon);
 		((JComponent) getContentPane()).setBorder(BorderFactory.createTitledBorder(null, ConfigUI_configValues,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18))); 
 
-		JLabel lblNewLabel_1 = new JLabel("SERVIDOR");
-		lblNewLabel_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		ConfigUI_Server = new JLabel("SERVIDOR");
+		ConfigUI_Server.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		txtApiServer = new JTextField();
 		txtApiServer.setColumns(10);
@@ -85,23 +118,20 @@ public class ConfigUI extends JDialog {
 		
 		ftpIcon.setIcon(icon2);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("SERVIDOR FTP");
-		lblNewLabel_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		ConfigUI_FtpServer2 = new JLabel("SERVIDOR FTP");
+		ConfigUI_FtpServer2.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		txtFtpServer = new JTextField();
 		txtFtpServer.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("USUARIO FTP");
-		lblNewLabel_1_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		ConfigUI_FtpUser = new JLabel("USUARIO FTP");
+		ConfigUI_FtpUser.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		txtFtpUser = new JTextField();
 		txtFtpUser.setColumns(10);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("CONTRASE\u00D1A");
-		lblNewLabel_1_1_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-		
-		txtFtpPass = new JTextField();
-		txtFtpPass.setColumns(10);
+		ConfigUI_FtpPassword = new JLabel("CONTRASE\u00D1A");
+		ConfigUI_FtpPassword.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		JSeparator separator = new JSeparator();
 		
@@ -109,190 +139,191 @@ public class ConfigUI extends JDialog {
 		
 		JSeparator separator_1_1 = new JSeparator();
 		
-		JLabel lblNewLabel = new JLabel("SERVIDOR FTP");
-		lblNewLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
+		ConfigUI_FtpServer = new JLabel("SERVIDOR FTP");
+		ConfigUI_FtpServer.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		
-		JLabel lblApiServer = new JLabel("SERVIDOR PRINCIPAL");
-		lblApiServer.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
+		ConfigUI_PrincipalServer = new JLabel("SERVIDOR PRINCIPAL");
+		ConfigUI_PrincipalServer.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		
-		JLabel lblComicImageServer = new JLabel("SERVIDOR IMAGENES");
-		lblComicImageServer.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
+		ConfigUI_ImageServer = new JLabel("SERVIDOR IMAGENES");
+		ConfigUI_ImageServer.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("COMICS");
-		lblNewLabel_1_1_1_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		ConfigUI_ComicImgServer = new JLabel("COMICS");
+		ConfigUI_ComicImgServer.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		txtComicImgServer = new JTextField();
 		txtComicImgServer.setColumns(10);
 		
-		JButton ConfigUI_SaveSettings = new JButton("Guardar");
+		ConfigUI_SaveSettings = new JButton("Guardar");
 		
 		JCheckBox chkDefault = new JCheckBox("Usar valores por defecto");
 		
 		JSeparator separator_2 = new JSeparator();
 		
-		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("COLECCIONES");
-		lblNewLabel_1_1_1_1_1_1.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
+		ConfigUI_CollectionImgServer = new JLabel("COLECCIONES");
+		ConfigUI_CollectionImgServer.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtCollectionImgServer = new JTextField();
+		txtCollectionImgServer.setColumns(10);
 		
-		JLabel lblBaseDeDatos = new JLabel("BASE DE DATOS (INFORMES)");
-		lblBaseDeDatos.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
+		ConfigUI_BaseDeDatos = new JLabel("BASE DE DATOS (INFORMES)");
+		ConfigUI_BaseDeDatos.setFont(new Font("Comic Sans MS", Font.BOLD, 12));
 		
-		JLabel lblNewLabel_2 = new JLabel("IP");
+		ConfigUI_ip = new JLabel("IP");
+		ConfigUI_ip.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
-		JLabel lblNewLabel_3 = new JLabel("USER");
+		ConfigUI_user = new JLabel("USER");
+		ConfigUI_user.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
-		JLabel lblNewLabel_4 = new JLabel("PASSWORD");
+		ConfigUI_password = new JLabel("PASSWORD");
+		ConfigUI_password.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
-		JLabel lblNewLabel_5 = new JLabel("NOMBRE");
+		ConfigUI_nombre = new JLabel("NOMBRE");
+		ConfigUI_nombre.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		txtIp = new JTextField();
+		txtIp.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		txtDbUser = new JTextField();
+		txtDbUser.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		txtDbName = new JTextField();
+		txtDbName.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		ConfigUI_port = new JLabel("PORT");
+		ConfigUI_port.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
-		JLabel lblNewLabel_5_1 = new JLabel("PORT");
+		txtDbPort = new JTextField();
+		txtDbPort.setColumns(10);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		txtFtpPassword = new JPasswordField();
+		
+		txtDbPassword = new JPasswordField();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(38)
-					.addGap(10)
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(22)
 					.addComponent(api_icon)
-					.addGap(10)
-					.addComponent(lblApiServer, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-					.addGap(157))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(ConfigUI_PrincipalServer, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+					.addGap(387))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
-					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
 					.addGap(10))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addComponent(ConfigUI_Server, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(txtApiServer, GroupLayout.PREFERRED_SIZE, 325, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(40, Short.MAX_VALUE))
+					.addComponent(txtApiServer, GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE)
+					.addGap(40))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(ftpIcon)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(102)
-							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
-						.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
+							.addComponent(ftpIcon)
+							.addGap(18)
+							.addComponent(ConfigUI_FtpServer, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE))
+						.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
 					.addGap(10))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
-					.addComponent(separator_1_1, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+					.addComponent(separator_1_1, GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
 					.addGap(10))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel_1_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(43, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(chkDefault, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(307, Short.MAX_VALUE))
+					.addContainerGap(507, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(ConfigUI_FtpServer2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addGap(9)
+							.addComponent(txtFtpServer, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(ConfigUI_FtpUser, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addGap(9)
+							.addComponent(txtFtpUser, 527, 527, 527))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(ConfigUI_FtpPassword, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(txtFtpPassword, GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)))
+					.addGap(38))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel_2)
-										.addComponent(lblNewLabel_3)
-										.addComponent(lblNewLabel_4)
-										.addComponent(lblNewLabel_5)
-										.addComponent(lblNewLabel_5_1, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
-									.addGap(53)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(textField_4, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-											.addGap(2))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(textField_3, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-											.addGap(2))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(textField_2, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-											.addGap(2))
-										.addComponent(lblBaseDeDatos, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(ConfigUI_SaveSettings, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-												.addComponent(textField_5, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE))
-											.addGap(2))
-										.addComponent(textField_1, GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)))
-								.addComponent(separator_2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 434, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(ConfigUI_CollectionImgServer, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(txtCollectionImgServer, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(ConfigUI_ip)
+								.addComponent(ConfigUI_user)
+								.addComponent(ConfigUI_password)
+								.addComponent(ConfigUI_nombre)
+								.addComponent(ConfigUI_port, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+							.addGap(53)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(txtDbName, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+									.addGap(2))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(ConfigUI_SaveSettings, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtDbPort, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
+									.addGap(2))
+								.addComponent(ConfigUI_BaseDeDatos, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtIp, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addComponent(txtDbPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+										.addComponent(txtDbUser, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
+									.addGap(2))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
-							.addComponent(lblNewLabel_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+							.addComponent(ConfigUI_ComicImgServer, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
 							.addGap(38)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblComicImageServer, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtComicImgServer, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))))
+								.addComponent(ConfigUI_ImageServer, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtComicImgServer, GroupLayout.DEFAULT_SIZE, 525, Short.MAX_VALUE))))
 					.addGap(40))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(9)
-							.addComponent(txtFtpServer))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(9)
-							.addComponent(txtFtpUser))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-							.addGap(9)
-							.addComponent(txtFtpPass, GroupLayout.PREFERRED_SIZE, 327, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(38, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(separator_2, GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(api_icon)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(86)
-							.addComponent(lblApiServer)))
+						.addComponent(ConfigUI_PrincipalServer))
 					.addGap(11)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(6)
-							.addComponent(lblNewLabel_1))
+							.addComponent(ConfigUI_Server))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
 							.addComponent(txtApiServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(8)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(ftpIcon)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(68)
-							.addComponent(lblNewLabel))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(9)
-							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(ConfigUI_FtpServer)
+							.addGap(9)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(12)
-							.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+							.addComponent(ConfigUI_FtpServer2, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(9)
 							.addComponent(txtFtpServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
@@ -300,56 +331,52 @@ public class ConfigUI extends JDialog {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(20)
-							.addComponent(lblNewLabel_1_1_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+							.addComponent(ConfigUI_FtpUser, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(17)
 							.addComponent(txtFtpUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(20)
-							.addComponent(lblNewLabel_1_1_1_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(17)
-							.addComponent(txtFtpPass, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(20)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(ConfigUI_FtpPassword, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtFtpPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(24)
 					.addComponent(separator_1_1, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblComicImageServer)
+					.addComponent(ConfigUI_ImageServer)
 					.addGap(20)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblNewLabel_1_1_1_1_1))
+							.addComponent(ConfigUI_ComicImgServer))
 						.addComponent(txtComicImgServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_1_1_1_1_1_1, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(ConfigUI_CollectionImgServer, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addComponent(txtCollectionImgServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(26)
 					.addComponent(separator_2, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblBaseDeDatos, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(ConfigUI_BaseDeDatos, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+					.addGap(11)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_2))
+						.addComponent(txtIp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ConfigUI_ip))
 					.addGap(29)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_3)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(ConfigUI_user)
+						.addComponent(txtDbUser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(29)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_4))
+						.addComponent(ConfigUI_password)
+						.addComponent(txtDbPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(28)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_5)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(ConfigUI_nombre)
+						.addComponent(txtDbName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(26)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_5_1)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(ConfigUI_port)
+						.addComponent(txtDbPort, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chkDefault)
@@ -357,5 +384,71 @@ public class ConfigUI extends JDialog {
 					.addGap(16))
 		);
 		getContentPane().setLayout(groupLayout);
+	}
+	
+	void disableTxtBoxes() {
+		txtDbPassword.setEnabled(false);
+		txtDbUser.setEnabled(false);
+		txtDbPort.setEnabled(false);
+		txtIp.setEnabled(false);
+		txtDbName.setEnabled(false);
+		txtFtpPassword.setEnabled(false);
+		txtFtpServer.setEnabled(false);
+		txtFtpUser.setEnabled(false);
+		txtComicImgServer.setEnabled(false);
+		txtCollectionImgServer.setEnabled(false);
+	}
+	
+	void enableTxtBoxes() {
+		txtDbPassword.setEnabled(true);
+		txtDbUser.setEnabled(true);
+		txtDbPort.setEnabled(true);
+		txtIp.setEnabled(true);
+		txtDbName.setEnabled(true);
+		txtFtpPassword.setEnabled(true);
+		txtFtpServer.setEnabled(true);
+		txtFtpUser.setEnabled(true);
+		txtComicImgServer.setEnabled(true);
+		txtCollectionImgServer.setEnabled(true);
+	}
+	
+	
+	/*
+	void fillDefaultValues() {
+		txtIp.setText("192.168.56.101");
+		txtDbPort.setText("3306");
+		txtDbUser.setText("root");
+		txtDbPassword.setText("");
+		txtDbName.setText("comicdb");
+		
+		/*
+		txtFtpServer.setText(DefaultConfiguration.ftp_server);
+		txtFtpUser.setText(DefaultConfiguration.ftp_user);
+		txtActorImgServer.setText(DefaultConfiguration.actor_image_server);
+		txtMovieImgServer.setText(DefaultConfiguration.movie_image_server);
+		txtFtpPass.setText(DefaultConfiguration.ftp_password);
+		
+	}
+	*/
+	void fillConfigValues() {
+		txtApiServer.setText(Configuration.server);
+		txtIp.setText(Configuration.db_ip);
+		txtDbPort.setText(Configuration.db_port);
+		txtDbUser.setText(Configuration.db_user);
+		txtDbPassword.setText(Configuration.db_password);
+		txtDbName.setText(Configuration.db_name);
+		txtFtpPassword.setText(Configuration.ftp_password);
+		txtFtpServer.setText(Configuration.ftp_server);
+		txtFtpUser.setText(Configuration.ftp_user);
+		txtComicImgServer.setText(Configuration.comic_image_server);
+		txtCollectionImgServer.setText(Configuration.collection_image_server);
+	}
+	
+	void hideDefaultValues() {
+		txtIp.setText("");
+		txtDbPort.setText("");
+		txtDbUser.setText("");
+		txtDbPassword.setText("");
+		txtDbName.setText("");
 	}
 }

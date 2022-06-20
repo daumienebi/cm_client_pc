@@ -1,9 +1,11 @@
 package es.daumienebi.comicmanagement.ui;
+import es.daumienebi.comicmanagement.controllers.ConfigUIController;
 import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.SplashScreenUtil;
 
 public class SplashScreenUI {
  
+	private static ConfigUIController controller = new ConfigUIController();
 	public static void main(String [] args) {
 		if(Configuration.debug_mode) {
 			DEBUG_MODE();
@@ -32,9 +34,9 @@ public class SplashScreenUI {
 					SplashScreenUtil.lblDetail.setText("Starting app...");
 				}
 				if(i == 50) {
+					controller.loadConfig();
 					SplashScreenUtil.lblDetail.setText("Loading app properties...");
 				}
-				
 				if(i == 80) {
 					SplashScreenUtil.lblDetail.setText("Checking database connection...");
 				} 

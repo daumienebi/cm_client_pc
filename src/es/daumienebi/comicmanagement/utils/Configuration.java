@@ -16,10 +16,10 @@ public class Configuration {
 	public static String ftp_password = "comicdb";
 	public static AppLanguage app_language = AppLanguage.Spanish;
 	public static boolean debug_mode = true;
-	public static String bd_ip = "192.168.56.101";
-	public static String bd_port = "3306";
-	public static String bd_name = "comicdb";
-	public static String bd_user = "root";
-	public static String bd_password = "";
+	public static String db_ip = "192.168.56.101";
+	public static String db_port = "3306";
+	public static String db_name = "comicdb";
+	public static String db_user = "root";
+	public static String db_password = "";
 	
 }
