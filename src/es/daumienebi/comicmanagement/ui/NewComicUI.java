@@ -390,7 +390,7 @@ public class NewComicUI extends JDialog {
 				addComic(comic);
 			}
 		}else {
-			JOptionPane.showMessageDialog(getContentPane(),"","Error",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(getContentPane(),UIMessage_plsFillFields,"",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
@@ -399,7 +399,7 @@ public class NewComicUI extends JDialog {
 		boolean added = controller.saveComic(comic);
 		if(added) {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
-					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-ok-40.png")));
 			dispose();
 		}else {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);
@@ -447,7 +447,7 @@ public class NewComicUI extends JDialog {
 		boolean added = controller.updateComic(comic);
 		if(added) {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
-					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-ok-40.png")));
 			dispose();
 		}else {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);

@@ -59,12 +59,16 @@ public class ComicManagementUI extends JFrame {
 	public static String ComicManagementUI_searchOptions = "Busqueda Comics";
 	public static String ComicManagementUI_windowTitle = "Gestión de comics";
 	public static JLabel ComicManagementUI_name;
-	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
 	public static String UIMessages_error;
 	public static String UIMessages_warning;
 	public static String UIMessages_info;
 	public static JLabel ComicManagementUI_filter;
 	public static JPanel searchPanel;
+	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
+	public static String UIMessages_recordDeleted = "Registro eliminado correctamente";
+	public static String UIMessages_confirmacion = "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados.";
+	public static String UIMessages_recordNotFound = "Registro no encontrado";
+	public static String UIMessages_errorDeletingRecord = "Error eliminando el registro";
 	
 	
 	private JButton ComicManagementUI_btnEdit;
@@ -247,7 +251,7 @@ public class ComicManagementUI extends JFrame {
 		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
 		            Comic comic = controller.getComic(id);
 		            if(comic == null) {
-		            	JOptionPane.showMessageDialog(table, "Comic not found","Data not found",JOptionPane.ERROR_MESSAGE);
+		            	JOptionPane.showMessageDialog(table, UIMessages_recordNotFound,"",JOptionPane.ERROR_MESSAGE);
 		            }else {
 		            	ComicDetailsUI ui = new ComicDetailsUI(comic);
 		            	ui.setLocationRelativeTo(getContentPane());
@@ -301,7 +305,7 @@ public class ComicManagementUI extends JFrame {
 			ComicManagementUI_btnEdit.setVisible(false);
 			loadComicsTable();
 		}else
-			JOptionPane.showMessageDialog(getContentPane(), "El comic no fue encontrado", "Registro no encontrado", JOptionPane.ERROR_MESSAGE);					
+			JOptionPane.showMessageDialog(getContentPane(), UIMessages_recordNotFound, "", JOptionPane.ERROR_MESSAGE);					
 		loadComicsTable();
 	}
 	
@@ -310,16 +314,16 @@ public class ComicManagementUI extends JFrame {
 		int response;
 		comicId = (long)getComicId();
 		
-		response = JOptionPane.showConfirmDialog(null, "Seguro que quieres eliminar el comic?", "Borrar Comic", JOptionPane.YES_NO_OPTION);
+		response = JOptionPane.showConfirmDialog(null, UIMessages_confirmacion, "", JOptionPane.YES_NO_OPTION);
 		if(response == JOptionPane.YES_OPTION) {
 			boolean deleted = controller.deleteComic(comicId);
 			if(deleted) {
-				JOptionPane.showMessageDialog(getContentPane(), "Comic borrado correctamente", "Borrar Registro",
+				JOptionPane.showMessageDialog(getContentPane(), UIMessages_recordDeleted, "",
 						JOptionPane.INFORMATION_MESSAGE, new ImageIcon(getClass().getResource("/resources/icons8-ok-40.png")));
 				loadComicsTable();
 			}else {
-				JOptionPane.showMessageDialog(getContentPane(), "Error borrando el comic", 
-						"Error deleting the record", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(getContentPane(), UIMessages_errorDeletingRecord, 
+						"", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

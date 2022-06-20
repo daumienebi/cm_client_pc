@@ -61,8 +61,8 @@ public class CollectionManagementUI extends JFrame {
 	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
 	public static String UIMessages_recordDeleted = "Registro eliminado correctamente";
 	public static String UIMessages_confirmacion = "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados.";
-	public static String UIMessages_recordNotFound = "Registro no enconrado";
-	public static String UIMessages_errorDeletingRecord = "Error deleting record";
+	public static String UIMessages_recordNotFound = "Registro no encontrado";
+	public static String UIMessages_errorDeletingRecord = "Error eliminando el registro";
 	
 	//static values to obtain the selected table item
 	private static int row;
@@ -96,7 +96,7 @@ public class CollectionManagementUI extends JFrame {
 		panel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		CollectionManagementUI_collection = new JLabel("Collection");
+		CollectionManagementUI_collection = new JLabel("Colección");
 		CollectionManagementUI_collection.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtCollection = new JTextField();
@@ -268,6 +268,8 @@ public class CollectionManagementUI extends JFrame {
 		
 		tableModel.translateColumns();
 		collectionTable.setModel(tableModel);
+		collectionTable.getColumnModel().getColumn(0).setMinWidth(80);
+		collectionTable.getColumnModel().getColumn(0).setMaxWidth(80);
 		collectionTable.getColumnModel().getColumn(2).setMinWidth(150);
 		collectionTable.getColumnModel().getColumn(2).setMaxWidth(200);
 	}

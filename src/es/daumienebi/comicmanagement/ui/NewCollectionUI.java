@@ -204,7 +204,7 @@ public class NewCollectionUI extends JDialog {
 		boolean added = controller.saveCollection(collection);
 		if(added) {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
-					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-ok-40.png")));
 			dispose();
 		}else {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);
@@ -235,7 +235,7 @@ public class NewCollectionUI extends JDialog {
 		boolean added = controller.updateCollection(collection);
 		if(added) {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_recordSaved,""
-					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-plus-math-24.png")));
+					,JOptionPane.INFORMATION_MESSAGE,new ImageIcon(NewComicUI.class.getResource("/resources/icons8-ok-40.png")));
 			dispose();
 		}else {
 			JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorAddingRecord,"Error",JOptionPane.ERROR_MESSAGE);

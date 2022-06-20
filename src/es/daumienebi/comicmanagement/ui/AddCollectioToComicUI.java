@@ -48,7 +48,14 @@ public class AddCollectioToComicUI extends JDialog {
 
 	private JPanel contentPane;
 	
+	//To be translated
 	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
+	public static JLabel CollectionManagementUI_collection;
+	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
+	//public static String UIMessages_recordDeleted = "Registro eliminado correctamente";
+	//public static String UIMessages_confirmacion = "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados.";
+	//public static String UIMessages_recordNotFound = "Registro no encontrado";
+	//public static String UIMessages_errorDeletingRecord = "Error eliminando el registro";
 	public static JButton AddCollectioToComicUI_btnAdd;
 	
 	private JTable collectionTable;
@@ -86,7 +93,7 @@ public class AddCollectioToComicUI extends JDialog {
 		panel.setMinimumSize(new Dimension(100, 100));
 		contentPane.add(panel, BorderLayout.NORTH);
 		
-		JLabel CollectionManagementUI_collection = new JLabel("Colecci\u00F3n");
+		CollectionManagementUI_collection = new JLabel("Colecci\u00F3n");
 		CollectionManagementUI_collection.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtCollection = new JTextField();
@@ -146,9 +153,9 @@ public class AddCollectioToComicUI extends JDialog {
 		collectionTable = new JTable();
 		scrollPane.setViewportView(collectionTable);
 		collectionTable.setRowHeight(100);
-		tableDoubleClick(collectionTable);
+		//tableDoubleClick(collectionTable);
 	}
-	
+	/*
 	private void tableDoubleClick(JTable table) {
 		table.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
@@ -172,7 +179,7 @@ public class AddCollectioToComicUI extends JDialog {
 		});
 		buttomBtnActions(AddCollectioToComicUI_btnAdd);
 	}
-	
+	*/
 	private int getCollectionId() {
 		row = collectionTable.getSelectedRow();
 		column = 0;
@@ -207,7 +214,7 @@ public class AddCollectioToComicUI extends JDialog {
 	
 	private void translate() {
 		if(Translator.bundle != null) {
-			Translator.translateCollectionManagementUI(Configuration.app_language);
+			Translator.translateAddCollectionToComicUI(Configuration.app_language);
 		}
 	}
 	

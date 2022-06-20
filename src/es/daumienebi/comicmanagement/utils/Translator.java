@@ -2,6 +2,7 @@ package es.daumienebi.comicmanagement.utils;
 
 import java.util.ResourceBundle;
 
+import es.daumienebi.comicmanagement.ui.AddCollectioToComicUI;
 import es.daumienebi.comicmanagement.ui.CollectionDetailsUI;
 import es.daumienebi.comicmanagement.ui.CollectionManagementUI;
 import es.daumienebi.comicmanagement.ui.ComicDetailsUI;
@@ -88,7 +89,10 @@ public class Translator {
 		NewComicUI.NewComicUI_newComic =  bundle.getString("NewComicUI_newComic");
 		NewComicUI.NewComicUI_btnAddComic.setText(bundle.getString("NewComicUI_btnAddComic"));
 		NewComicUI.NewComicUI_btnSaveComic.setText(bundle.getString("NewComicUI_btnSaveComic"));
-		//NewComicUI.UIMessage_plsFillFields = 
+		NewComicUI.UIMessage_plsFillFields = bundle.getString("UIMessage_plsFillFields");		
+		NewComicUI.UIMessage_recordAdded = bundle.getString("UIMessage_recordAdded");		
+		NewComicUI.UIMessage_recordSaved = bundle.getString("UIMessage_recordSaved");		
+		NewComicUI.UIMessage_errorAddingRecord = bundle.getString("UIMessage_errorAddingRecord"); 
 	}
 	public static void translateNewCollectionUI(AppLanguage language) {
 		setBundle(language);
@@ -96,6 +100,11 @@ public class Translator {
 		NewCollectionUI.NewCollectionUI_AddCollection.setText(bundle.getString("NewCollectionUI_AddCollection"));
 		NewCollectionUI.NewCollectionUI_SaveCollection.setText(bundle.getString("NewCollectionUI_SaveCollection"));
 		NewCollectionUI.NewCollectionUI_windowTitleEdit = bundle.getString("NewCollectionUI_windowTitleEdit");		
+		NewCollectionUI.UIMessage_plsFillFields = bundle.getString("UIMessage_plsFillFields");		
+		NewCollectionUI.UIMessage_recordAdded = bundle.getString("UIMessage_recordAdded");		
+		NewCollectionUI.UIMessage_recordSaved = bundle.getString("UIMessage_recordSaved");		
+		NewCollectionUI.UIMessage_errorAddingRecord = bundle.getString("UIMessage_errorAddingRecord");		
+
 	}
 	public static void translateComicManagementUI(AppLanguage language) {
 		setBundle(language);
@@ -103,6 +112,11 @@ public class Translator {
 		ComicManagementUI.ComicManagementUI_windowTitle = bundle.getString("ComicManagementUI_windowTitle");
 		ComicManagementUI.ComicManagementUI_name.setText(bundle.getString("ComicManagementUI_name"));
 		ComicManagementUI.ComicManagementUI_filter.setText(bundle.getString("ComicManagementUI_filter"));
+		ComicManagementUI.UIMessages_noItemSelected = bundle.getString("UIMessages_noItemSelected");
+		ComicManagementUI.UIMessages_recordDeleted = bundle.getString("UIMessages_recordDeleted");
+		ComicManagementUI.UIMessages_confirmacion = bundle.getString("UIMessages_confirmacion");
+		ComicManagementUI.UIMessages_recordNotFound = bundle.getString("UIMessages_recordNotFound");
+		ComicManagementUI.UIMessages_errorDeletingRecord = bundle.getString("UIMessages_errorDeletingRecord");
 	}
 	
 	public static void translateCollectionManagementUI(AppLanguage language) {
@@ -110,6 +124,11 @@ public class Translator {
 		CollectionManagementUI.CollectionManagementUI_searchOptions = bundle.getString("CollectionManagementUI_searchOptions");;
 		CollectionManagementUI.CollectionManagementUI_collection.setText(bundle.getString("CollectionManagementUI_collection"));;
 		CollectionManagementUI.CollectionManagementUI_windowTitle = bundle.getString("CollectionManagementUI_windowTitle");;
+		CollectionManagementUI.UIMessages_noItemSelected = bundle.getString("UIMessages_noItemSelected");
+		CollectionManagementUI.UIMessages_recordDeleted = bundle.getString("UIMessages_recordDeleted");
+		CollectionManagementUI.UIMessages_confirmacion = bundle.getString("UIMessages_confirmacion");
+		CollectionManagementUI.UIMessages_recordNotFound = bundle.getString("UIMessages_recordNotFound");
+		CollectionManagementUI.UIMessages_errorDeletingRecord = bundle.getString("UIMessages_errorDeletingRecord");
 	}
 	
 	public static void translateCollectionDetailsUI(AppLanguage language) {
@@ -152,5 +171,15 @@ public class Translator {
 		ConfigUI.ConfigUI_configValues = bundle.getString("ConfigUI_configValues").toUpperCase();
 		ConfigUI.ConfigUI_saveError = bundle.getString("ConfigUI_configValues");
 		ConfigUI.ConfigUI_saved = bundle.getString("ConfigUI_saved");
+	}
+
+	
+	public static void translateAddCollectionToComicUI(AppLanguage language) {
+		setBundle(language);
+		AddCollectioToComicUI.CollectionManagementUI_searchOptions = bundle.getString("CollectionManagementUI_searchOptions");
+		AddCollectioToComicUI.CollectionManagementUI_collection.setText(bundle.getString("CollectionManagementUI_collection"));
+		AddCollectioToComicUI.UIMessages_noItemSelected = bundle.getString("UIMessages_noItemSelected");
+		
+		
 	}
 }
