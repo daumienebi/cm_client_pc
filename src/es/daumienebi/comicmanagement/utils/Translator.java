@@ -6,9 +6,11 @@ import es.daumienebi.comicmanagement.ui.CollectionDetailsUI;
 import es.daumienebi.comicmanagement.ui.CollectionManagementUI;
 import es.daumienebi.comicmanagement.ui.ComicDetailsUI;
 import es.daumienebi.comicmanagement.ui.ComicManagementUI;
+import es.daumienebi.comicmanagement.ui.ConfigUI;
 import es.daumienebi.comicmanagement.ui.HomeUI;
 import es.daumienebi.comicmanagement.ui.NewCollectionUI;
 import es.daumienebi.comicmanagement.ui.NewComicUI;
+import es.daumienebi.comicmanagement.ui.PersonalizedReportsUI;
 import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
 
 /**
@@ -118,9 +120,36 @@ public class Translator {
 	
 	public static void translatePersonalizedReportsUI(AppLanguage language) {
 		setBundle(language);
+		PersonalizedReportsUI.header1 = bundle.getString("header1");
+		PersonalizedReportsUI.header2 = bundle.getString("header2");
+		PersonalizedReportsUI.PersonalizedReportsUI_comicState.setText(bundle.getString("header1"));
+		PersonalizedReportsUI.btnLoadReport1.setText(bundle.getString("btnLoadReport1"));
+		PersonalizedReportsUI.btnLoadReport3.setText(bundle.getString("btnLoadReport3"));
+		PersonalizedReportsUI.PersonalizedReportsUI_comicCount.setText(bundle.getString("PersonalizedReportsUI_comicCount"));
+		PersonalizedReportsUI.UIMessages_error = bundle.getString("UIMessages_error");
+		PersonalizedReportsUI.UIMessages_incorrectDataType = bundle.getString("UIMessages_incorrectDataType");
+		PersonalizedReportsUI.PersonalizedReportsUI_windowTitle = bundle.getString("PersonalizedReportsUI_windowTitle");
 	}
 	
 	public static void translateConfigUI(AppLanguage language) {
 		setBundle(language);
+		ConfigUI.ConfigUI_Server.setText(bundle.getString("ConfigUI_Server").toUpperCase());
+		ConfigUI.ConfigUI_FtpUser.setText(bundle.getString("ConfigUI_FtpUser").toUpperCase());
+		ConfigUI.ConfigUI_FtpServer.setText(bundle.getString("ConfigUI_FtpServer").toUpperCase());
+		ConfigUI.ConfigUI_FtpServer2.setText(bundle.getString("ConfigUI_FtpServer2").toUpperCase());
+		ConfigUI.ConfigUI_PrincipalServer.setText(bundle.getString("ConfigUI_PrincipalServer").toUpperCase());
+		ConfigUI.ConfigUI_ComicImgServer.setText(bundle.getString("ConfigUI_ComicImgServer").toUpperCase());
+		ConfigUI.ConfigUI_FtpPassword.setText(bundle.getString("ConfigUI_FtpPassword").toUpperCase());
+		ConfigUI.ConfigUI_ImageServer.setText(bundle.getString("ConfigUI_ImageServer").toUpperCase());
+		ConfigUI.ConfigUI_SaveSettings.setText(bundle.getString("ConfigUI_SaveSettings").toUpperCase());
+		ConfigUI.ConfigUI_port.setText(bundle.getString("ConfigUI_port").toUpperCase());
+		ConfigUI.ConfigUI_nombre.setText(bundle.getString("ConfigUI_nombre").toUpperCase());
+		ConfigUI.ConfigUI_password.setText(bundle.getString("ConfigUI_password").toUpperCase());
+		ConfigUI.ConfigUI_ip.setText(bundle.getString("ConfigUI_ip").toUpperCase());
+		ConfigUI.ConfigUI_BaseDeDatos.setText(bundle.getString("ConfigUI_BaseDeDatos").toUpperCase());
+		ConfigUI.ConfigUI_CollectionImgServer.setText(bundle.getString("ConfigUI_CollectionImgServer").toUpperCase());
+		ConfigUI.ConfigUI_user.setText(bundle.getString("ConfigUI_user").toUpperCase());
+		ConfigUI.ConfigUI_configValues = bundle.getString("ConfigUI_configValues").toUpperCase();
+		ConfigUI.ConfigUI_saveError = bundle.getString("ConfigUI_configValues");
 	}
 }

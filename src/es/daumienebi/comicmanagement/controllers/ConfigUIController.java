@@ -59,6 +59,7 @@ public class ConfigUIController {
 			}
 			
 			try(OutputStream outputStream = new FileOutputStream(output_file);){
+				prop.setProperty("server",Configuration.server);
 				prop.setProperty("ip",Configuration.db_ip);
 				prop.setProperty("port",Configuration.db_port);
 				prop.setProperty("db_user",Configuration.db_user);
@@ -70,7 +71,6 @@ public class ConfigUIController {
 				prop.setProperty("ftp_password",Configuration.ftp_password);
 				prop.setProperty("ftp_user",Configuration.ftp_user);
 				prop.store(outputStream, null);
-				
 				//store it with the Configuration object			
 		}catch (IOException e) {
 			e.printStackTrace();		
@@ -86,6 +86,7 @@ public class ConfigUIController {
 		//ResourceBundle.clearCache(this.getClass().getClassLoader());
 		ResourceBundle bundle = ResourceBundle.getBundle("app");
 		if(bundle != null) {
+			Configuration.server = bundle.getString("server");
 			Configuration.db_ip = bundle.getString("ip");
 			Configuration.db_name = bundle.getString("db_name");
 			Configuration.db_user = bundle.getString("db_user");

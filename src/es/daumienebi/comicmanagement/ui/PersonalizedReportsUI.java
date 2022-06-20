@@ -26,6 +26,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
+import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
 import es.daumienebi.comicmanagement.utils.Constants.ComicState;
 import es.daumienebi.comicmanagement.utils.ReportsUtil;
 
@@ -33,7 +35,6 @@ import java.awt.SystemColor;
 
 public class PersonalizedReportsUI extends JDialog {
 	private JTextField txtComicCount;
-	private JTextField txtFechaAdq;
 	private static JComboBox cmbState;
 	private String comic_state = ComicState.Nuevo.toString();
 	
@@ -42,17 +43,15 @@ public class PersonalizedReportsUI extends JDialog {
 	
 	
 	//To be translated 
-	public static String header1 = "Actors Report";
-	public static String header2 = "Movies Report";	
+	public static String header1 = "Informe de comics";
+	public static String header2 = "Informe de colecciones";	
 	public static JLabel PersonalizedReportsUI_comicState;
-	public static JLabel PersonalizedReportsUI_fechaAdq;
 	public static JButton btnLoadReport1;
-	public static JButton btnLoadReport2;
 	public static JButton btnLoadReport3;
 	public static JLabel PersonalizedReportsUI_comicCount;
 	public static String UIMessages_error = "Error";
-	public static String UIMessages_incorrectDataType = "Incorrect data type, please introduce a correct value";
-	
+	public static String UIMessages_incorrectDataType = "Valor introducido incorrecto, por favor introduce un valor correcto";
+	public static String PersonalizedReportsUI_windowTitle = "Informes Personalizados";
 	
 	/**
 	 * Launch the application.
@@ -78,10 +77,12 @@ public class PersonalizedReportsUI extends JDialog {
 	public PersonalizedReportsUI() {
 		Inicialize();
 		translate();
+		setTitle(PersonalizedReportsUI_windowTitle);
+		
 	}
 	
 	void Inicialize() {
-		setTitle("Personalized Reports");
+		setTitle(PersonalizedReportsUI_windowTitle);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PersonalizedReportsUI.class.getResource("/resources/logo.png")));
 		setBounds(100, 100, 600, 300);
 		
@@ -90,7 +91,7 @@ public class PersonalizedReportsUI extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(SystemColor.inactiveCaption);
-		tabbedPane.addTab("Informe de colecciones", null, panel, null);
+		tabbedPane.addTab(header2, null, panel, null);
 		tabbedPane.setBackgroundAt(0, Color.LIGHT_GRAY);
 		
 		PersonalizedReportsUI_comicCount = new JLabel("Numero de comics");
@@ -119,65 +120,38 @@ public class PersonalizedReportsUI extends JDialog {
 			}
 		});
 		
-		JLabel lblNewLabel_1 = new JLabel(">");
+		JLabel lblNewLabel_1 = new JLabel(">=");
 		lblNewLabel_1.setForeground(SystemColor.textHighlight);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		
-		PersonalizedReportsUI_fechaAdq = new JLabel("Fecha Adquisition");
-		PersonalizedReportsUI_fechaAdq.setFont(new Font("Comic Sans MS", Font.PLAIN, 13));
-		
-		JLabel lblNewLabel_1_1 = new JLabel("=");
-		lblNewLabel_1_1.setForeground(SystemColor.textHighlight);
-		lblNewLabel_1_1.setBackground(Color.DARK_GRAY);
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		
-		txtFechaAdq = new JTextField();
-		txtFechaAdq.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		txtFechaAdq.setColumns(10);
-		
-		btnLoadReport2 = new JButton("Cargar Informe");
-		btnLoadReport2.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
-		btnLoadReport2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}		
-		});
-		
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setToolTipText("The report shows the list of movies that have the rating greater than the introduced value");
+		String tooltip1 = "";
+		if(Configuration.app_language == AppLanguage.English) {
+			tooltip1 = "Shows the collections that have the total number of comics greater than or equal to the given number";
+		}
+		if(Configuration.app_language == AppLanguage.Galician) {
+			tooltip1 = "Mostra as coleccions que teñen o numero de comics maior ou igual co numero dado";
+		}
+		if(Configuration.app_language == AppLanguage.Spanish) {
+			tooltip1 = "Muestra las colecciónes que tengan el numero de comics mayor o igual que el numero dado";
+		}
+		btnNewButton.setToolTipText(tooltip1);
 		btnNewButton.setIcon(new ImageIcon(PersonalizedReportsUI.class.getResource("/resources/info.png")));
-		
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setToolTipText("Show the list of movies that were premiered in the introduce year");
-		btnNewButton_1.setIcon(new ImageIcon(PersonalizedReportsUI.class.getResource("/resources/info.png")));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addGap(30)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(PersonalizedReportsUI_comicCount, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
-						.addComponent(PersonalizedReportsUI_fechaAdq, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE))
-					.addGap(32)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+					.addComponent(PersonalizedReportsUI_comicCount, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
+					.addGap(50)
+					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 					.addGap(33)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(txtComicCount, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-							.addComponent(btnLoadReport1, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-							.addGap(8))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(txtFechaAdq, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-							.addComponent(btnLoadReport2, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-							.addGap(12))))
+					.addComponent(txtComicCount, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+					.addComponent(btnLoadReport1, GroupLayout.PREFERRED_SIZE, 121, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+					.addGap(8))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -189,32 +163,25 @@ public class PersonalizedReportsUI extends JDialog {
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnLoadReport1, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-							.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-								.addGap(5)
-								.addComponent(txtComicCount))
-							.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-								.addGap(6)
-								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-									.addComponent(PersonalizedReportsUI_comicCount, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)))))
-					.addGap(79)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(PersonalizedReportsUI_fechaAdq, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(5)
+							.addComponent(txtComicCount, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(6)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-									.addComponent(txtFechaAdq, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblNewLabel_1_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnLoadReport2, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))))))
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(PersonalizedReportsUI_comicCount, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))))
+					.addGap(119))
 		);
 		panel.setLayout(gl_panel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(SystemColor.inactiveCaption);
-		tabbedPane.addTab("Informe de comics", null, panel_1, null);
+		if(Configuration.app_language == AppLanguage.English) {
+			header1 = "Comic Reports";
+			header2 = "Collection Reports";
+		}
+		tabbedPane.addTab(header1, null, panel_1, null);
 		
 		PersonalizedReportsUI_comicState = new JLabel("Estado :");
 		PersonalizedReportsUI_comicState.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -232,20 +199,38 @@ public class PersonalizedReportsUI extends JDialog {
 					dispose();
 					ReportsUtil.viewPersonalizedReport1("PersonalizedReport1.jrxml", comic_state,COMIC_IMAGE_SERVER);
 				}else {
-					JOptionPane.showMessageDialog(getContentPane(), "Incorrect data type, please introduce a correct value", "Invalid value", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(getContentPane(), UIMessages_incorrectDataType, UIMessages_error, JOptionPane.ERROR_MESSAGE);
 				}
 				
 			}
 		});
 		
 		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.setToolTipText("Show the list of actors that have participated in the number \\ greater than the number of movies given");
+		String tooltip2 = "";
+		if(Configuration.app_language == AppLanguage.English) {
+			tooltip2 = "Shows the comics that are in the given state";
+		}
+		if(Configuration.app_language == AppLanguage.Galician) {
+			tooltip2 = "Mostra os comics que teñen o estado elexido";
+		}
+		if(Configuration.app_language == AppLanguage.Spanish) {
+			tooltip2 = "Muestra los comics que se encuentran en el estado elegido";
+		}
+		
+		btnNewButton_2.setToolTipText(tooltip2);
 		btnNewButton_2.setIcon(new ImageIcon(PersonalizedReportsUI.class.getResource("/resources/info.png")));
 		
 		cmbState = new JComboBox();
 		cmbState.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				comic_state = cmbState.getSelectedItem().toString();
+				
+				if((ComicState)cmbState.getSelectedItem() == ComicState.SinEstado) {
+					JOptionPane.showMessageDialog(getContentPane(), "Parametro invalido", "Error", JOptionPane.ERROR_MESSAGE);
+					comic_state = ComicState.Nuevo.toString();
+					cmbState.setSelectedItem(ComicState.Nuevo);
+				}else {
+					comic_state = cmbState.getSelectedItem().toString();
+				}
 			}
 		});
 		cmbState.setModel(new DefaultComboBoxModel(ComicState.values()));
@@ -275,8 +260,8 @@ public class PersonalizedReportsUI extends JDialog {
 								.addComponent(cmbState, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnNewButton_2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnLoadReport3, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))))
-					.addGap(129))
-		);
+					.addGap(129)));
+		
 		panel_1.setLayout(gl_panel_1);
 
 	}

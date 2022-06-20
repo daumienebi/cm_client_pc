@@ -3,6 +3,8 @@ package es.daumienebi.comicmanagement.services.impl;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import javax.swing.JOptionPane;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -38,7 +40,7 @@ public class CollectionService implements ICollectionService{
 			System.out.println(counter + " collections found");		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 		}
 		return collection;
 	}
@@ -54,7 +56,7 @@ public class CollectionService implements ICollectionService{
 			});	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 		}
 		return collection;
 	}
@@ -74,7 +76,7 @@ public class CollectionService implements ICollectionService{
 			HttpClientUtil.post(json, url);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 		}
 		return false;
 	}
@@ -87,7 +89,7 @@ public class CollectionService implements ICollectionService{
 			boolean res = HttpClientUtil.delete(url);
 			System.out.println(res);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 			return false;// TODO: handle exception
 		}
 		return true;
@@ -117,7 +119,7 @@ public class CollectionService implements ICollectionService{
 			System.out.println(res);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 			return false;
 		}
 	}

@@ -16,8 +16,9 @@ public class SplashScreenUI {
 	}
 	
 	private static void DEBUG_MODE() {
+		controller.loadConfig();
 		HomeUI mainScreen = new HomeUI();
-		mainScreen.frame.setLocationRelativeTo(mainScreen.frame);					
+		mainScreen.frame.setLocationRelativeTo(mainScreen.frame);
 		mainScreen.frame.setVisible(true);
 	}
 

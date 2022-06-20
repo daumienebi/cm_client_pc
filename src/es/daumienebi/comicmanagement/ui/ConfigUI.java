@@ -1,5 +1,6 @@
 package es.daumienebi.comicmanagement.ui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
 
@@ -11,6 +12,7 @@ import javax.swing.GroupLayout.Alignment;
 
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 import java.awt.Font;
@@ -28,6 +30,10 @@ import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.controllers.ConfigUIController;
 
 import javax.swing.JPasswordField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class ConfigUI extends JDialog {
 	private JTextField txtApiServer;
@@ -52,8 +58,9 @@ public class ConfigUI extends JDialog {
 	public static JLabel ConfigUI_BaseDeDatos;
 	public static JLabel ConfigUI_CollectionImgServer;
 	public static JLabel ConfigUI_user;
+	public static String ConfigUI_configValues = "Valores de conexión";
+	public static String ConfigUI_saveError = "Es obligatorio indicar el Servidor principal";
 	
-	public static String ConfigUI_configValues = "Config Values";
 	private JTextField txtCollectionImgServer;
 	private JTextField txtIp;
 	private JTextField txtDbUser;
@@ -107,6 +114,16 @@ public class ConfigUI extends JDialog {
 		ConfigUI_Server.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		txtApiServer = new JTextField();
+		txtApiServer.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(txtApiServer.getText().length() < 0) {
+					txtApiServer.setBackground(Color.red);
+				}else {
+					txtApiServer.setBackground(Color.white);
+				}
+			}
+		});
 		txtApiServer.setColumns(10);
 		
 		JLabel ftpIcon = new JLabel("");
@@ -155,8 +172,31 @@ public class ConfigUI extends JDialog {
 		txtComicImgServer.setColumns(10);
 		
 		ConfigUI_SaveSettings = new JButton("Guardar");
-		
-		JCheckBox chkDefault = new JCheckBox("Usar valores por defecto");
+		ConfigUI_SaveSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!txtApiServer.getText().isBlank()) {
+							Configuration.server = txtApiServer.getText().trim();
+							Configuration.db_ip = txtIp.getText().trim();
+							Configuration.db_port = txtDbPort.getText().trim();
+							Configuration.db_name = txtDbName.getText().trim();
+							Configuration.db_user = txtDbUser.getText().trim();
+							String bd_pass = new String(txtDbPassword.getPassword());
+							Configuration.db_password = bd_pass;
+							bd_pass = "";
+							Configuration.ftp_user = txtFtpUser.getText().trim();
+							String ftp_pass = new String(txtFtpPassword.getPassword());
+							Configuration.ftp_password = ftp_pass;
+							ftp_pass = "";
+							Configuration.ftp_server = txtFtpServer.getText().trim();
+							Configuration.comic_image_server = txtComicImgServer.getText().trim();
+							Configuration.collection_image_server = txtCollectionImgServer.getText().trim();
+							controller.saveConfig();
+			}else {
+				JOptionPane.showMessageDialog(null, ConfigUI_saveError);
+			}
+				
+			}
+		});
 		
 		JSeparator separator_2 = new JSeparator();
 		
@@ -172,7 +212,7 @@ public class ConfigUI extends JDialog {
 		ConfigUI_ip = new JLabel("IP");
 		ConfigUI_ip.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
-		ConfigUI_user = new JLabel("USER");
+		ConfigUI_user = new JLabel("USUARIO");
 		ConfigUI_user.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		ConfigUI_password = new JLabel("PASSWORD");
@@ -190,7 +230,7 @@ public class ConfigUI extends JDialog {
 		txtDbName = new JTextField();
 		txtDbName.setColumns(10);
 		
-		ConfigUI_port = new JLabel("PORT");
+		ConfigUI_port = new JLabel("PUERTO");
 		ConfigUI_port.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
 		
 		txtDbPort = new JTextField();
@@ -232,10 +272,6 @@ public class ConfigUI extends JDialog {
 					.addComponent(separator_1_1, GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
 					.addGap(10))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(chkDefault, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(507, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -265,9 +301,9 @@ public class ConfigUI extends JDialog {
 								.addComponent(ConfigUI_user)
 								.addComponent(ConfigUI_password)
 								.addComponent(ConfigUI_nombre)
-								.addComponent(ConfigUI_port, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
-							.addGap(53)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(ConfigUI_port, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+							.addGap(41)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(txtDbName, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
 									.addGap(2))
@@ -276,13 +312,13 @@ public class ConfigUI extends JDialog {
 										.addComponent(ConfigUI_SaveSettings, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtDbPort, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
 									.addGap(2))
-								.addComponent(ConfigUI_BaseDeDatos, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtIp, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+								.addComponent(txtIp, GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addComponent(txtDbPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
 										.addComponent(txtDbUser, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
-									.addGap(2))))
+									.addGap(2))
+								.addComponent(ConfigUI_BaseDeDatos, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
 							.addComponent(ConfigUI_ComicImgServer, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
@@ -355,9 +391,9 @@ public class ConfigUI extends JDialog {
 						.addComponent(txtCollectionImgServer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(26)
 					.addComponent(separator_2, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(ConfigUI_BaseDeDatos, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
 					.addGap(11)
+					.addComponent(ConfigUI_BaseDeDatos, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(txtIp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(ConfigUI_ip))
@@ -377,10 +413,8 @@ public class ConfigUI extends JDialog {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(ConfigUI_port)
 						.addComponent(txtDbPort, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(chkDefault)
-						.addComponent(ConfigUI_SaveSettings))
+					.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+					.addComponent(ConfigUI_SaveSettings)
 					.addGap(16))
 		);
 		getContentPane().setLayout(groupLayout);

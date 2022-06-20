@@ -2,6 +2,8 @@ package es.daumienebi.comicmanagement.services.impl;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import javax.swing.JOptionPane;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -24,7 +26,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 public class ComicService implements IComicService {
 	private static String SERVER = Configuration.server;
 	private CollectionService  collectionService = new CollectionService();
-	
+	//private static String
 	
 	@Override
 	public ArrayList<Comic> findAllComics() {
@@ -43,7 +45,7 @@ public class ComicService implements IComicService {
 			System.out.println(counter + " comics found");		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 		}
 		return comics;
 	}
@@ -59,7 +61,7 @@ public class ComicService implements IComicService {
 			});	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 		}
 		return comic;
 	}
@@ -80,7 +82,7 @@ public class ComicService implements IComicService {
 			System.out.println(json);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 			return false;
 		}
 	}
@@ -94,7 +96,7 @@ public class ComicService implements IComicService {
 			System.out.println(res);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 			return false;
 		}
 	}
@@ -112,7 +114,7 @@ public class ComicService implements IComicService {
 			System.out.println(res);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
 			return false;
 		}
 	}
