@@ -22,13 +22,8 @@ import es.daumienebi.comicmanagement.utils.Translator;
 
 public class CollectionDetailsUI extends JDialog {
 	private JTextField txtName;
-	private JTextField txtComicCount;
 	private JLabel lblImg;
 	private CollectionDetailsUIController controller = new CollectionDetailsUIController();
-	
-	
-	//To be translated
-	public static JLabel CollectionDetailsUI_count;
 	public static JLabel CollectionDetailsUI_name;
 	
 	
@@ -63,47 +58,27 @@ public class CollectionDetailsUI extends JDialog {
 		CollectionDetailsUI_name = new JLabel("Nombre");
 		CollectionDetailsUI_name.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
-		CollectionDetailsUI_count = new JLabel("Numero de comics");
-		CollectionDetailsUI_count.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
-		
 		txtName = new JTextField();
 		txtName.setEditable(false);
 		txtName.setColumns(10);
-		
-		txtComicCount = new JTextField();
-		txtComicCount.setEditable(false);
-		txtComicCount.setColumns(10);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(18)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(CollectionDetailsUI_count, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
-						.addComponent(CollectionDetailsUI_name, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-							.addGap(21))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(txtComicCount, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())))
+					.addComponent(CollectionDetailsUI_name, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+					.addGap(60)
+					.addComponent(txtName, GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+					.addGap(21))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(30)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(Alignment.LEADING, gl_panel_1.createSequentialGroup()
-							.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(txtComicCount, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(CollectionDetailsUI_name, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-							.addGap(51)
-							.addComponent(CollectionDetailsUI_count, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(186, Short.MAX_VALUE))
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtName, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+						.addComponent(CollectionDetailsUI_name, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(472, Short.MAX_VALUE))
 		);
 		panel_1.setLayout(gl_panel_1);
 		setValues(collection);
@@ -111,7 +86,6 @@ public class CollectionDetailsUI extends JDialog {
 	
 	void setValues(Collection collection) {
 		txtName.setText(collection.getName());
-		txtComicCount.setText("5");
 		lblImg.setIcon(controller.getCollectionsImage(collection.getImage(),false));
 		
 	}

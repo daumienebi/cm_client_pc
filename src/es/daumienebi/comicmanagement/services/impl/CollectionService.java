@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import es.daumienebi.comicmanagement.models.Collection;
 import es.daumienebi.comicmanagement.services.ICollectionService;
 import es.daumienebi.comicmanagement.utils.Configuration;
+import es.daumienebi.comicmanagement.utils.Constants.AppLanguage;
 import es.daumienebi.comicmanagement.utils.HttpClientUtil;
 
 /**
@@ -25,9 +26,24 @@ import es.daumienebi.comicmanagement.utils.HttpClientUtil;
  */
 public class CollectionService implements ICollectionService{
 	private static String SERVER = Configuration.server;
+	private static String connectionError;
+	
+	private static void setErrorMessage() {
+		
+		switch(Configuration.app_language) {
+			case English : connectionError = "Error performing the request to the server, please check your connection settings and make sure the server is running";
+			break;
+			case Spanish : connectionError = "Error realizando la petición al servidor, por favor revisa los ajustes de conexión y asegurese de que el servidor esta corriendo";
+			break;
+			case Galician : connectionError = "Produciuse un erro ao solicitar o servidor, comprobe a configuración de conexión e asegúrate de que o servidor estea en execución";
+			break;
+			default: connectionError = "Error realizando la petición al servidor, por favor revisa los ajustes de conexión y asegurese de que el servidor esta corriendo";
+		}
+	}
 	
 	@Override
 	public ArrayList<Collection> findAllCollections() {
+		setErrorMessage();
 		String url = SERVER + "/collections";
 		ArrayList<Collection> collection = new ArrayList<Collection>();
 		try {
@@ -40,13 +56,15 @@ public class CollectionService implements ICollectionService{
 			System.out.println(counter + " collections found");		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,connectionError);
 		}
 		return collection;
 	}
 
 	@Override
 	public Collection findCollectionById(Long id) {
+		setErrorMessage();
 		String url = SERVER + "/collections/"+id;
 		Collection collection = new Collection();
 		try {
@@ -56,7 +74,7 @@ public class CollectionService implements ICollectionService{
 			});	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 		}
 		return collection;
 	}
@@ -69,6 +87,7 @@ public class CollectionService implements ICollectionService{
 
 	@Override
 	public boolean saveCollection(Collection collection) {
+		setErrorMessage();
 		String url = SERVER + "/collections";
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -76,20 +95,21 @@ public class CollectionService implements ICollectionService{
 			HttpClientUtil.post(json, url);
 			return true;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 		}
 		return false;
 	}
 
 	@Override
 	public boolean deleteCollection(Long id) {
+		setErrorMessage();
 		String url = SERVER + "/collections/"+id;
 		System.out.println(url);
 		try {
 			boolean res = HttpClientUtil.delete(url);
 			System.out.println(res);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 			return false;// TODO: handle exception
 		}
 		return true;
@@ -108,6 +128,7 @@ public class CollectionService implements ICollectionService{
 
 	@Override
 	public boolean updateCollection(Collection collection) {
+		setErrorMessage();
 		Long id = collection.getId();
 		System.out.println(id);
 		String url = SERVER + "/collections/"+id;
@@ -119,7 +140,7 @@ public class CollectionService implements ICollectionService{
 			System.out.println(res);
 			return true;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 			return false;
 		}
 	}

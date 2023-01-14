@@ -1,4 +1,5 @@
 package es.daumienebi.comicmanagement.utils;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;

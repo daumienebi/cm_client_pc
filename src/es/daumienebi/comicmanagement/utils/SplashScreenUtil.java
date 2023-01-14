@@ -52,7 +52,7 @@ public class SplashScreenUtil extends JFrame {
 	 */
 	public SplashScreenUtil() {
 		setUndecorated(true);
-		//setIconImage(Toolkit.getDefaultToolkit().getImage(SplashScreenUtil.class.getResource("/resources/movie_management.jpg")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SplashScreenUtil.class.getResource("/resources/logo.png")));
 		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,7 +78,7 @@ public class SplashScreenUtil extends JFrame {
 		lblLoading.setBounds(290, 204, 45, 35);
 		contentPane.add(lblLoading);
 		
-		JLabel lblNewLabel_1 = new JLabel("MOVIE MANAGEMENT");
+		JLabel lblNewLabel_1 = new JLabel("COMIC MANAGEMENT");
 		lblNewLabel_1.setBackground(new Color(169, 169, 169));
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);

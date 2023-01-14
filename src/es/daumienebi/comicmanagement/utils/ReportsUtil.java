@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
+
 public class ReportsUtil{
 	private static String REPORT_ROUTE = "";
 	private static String english_folder = "";
@@ -48,7 +49,7 @@ public class ReportsUtil{
 				break;
 				case Galician : REPORT_ROUTE =  "./reports/" + galician_folder;
 				break;
-				default : REPORT_ROUTE =  "./reports/" + galician_folder;
+				default : REPORT_ROUTE =  "./reports/" + english_folder;
 				break;
 		}
 	}
@@ -67,7 +68,7 @@ public class ReportsUtil{
 			//Compile the report
 			System.out.println(REPORT_ROUTE);
 			JasperReport report = JasperCompileManager.compileReport(REPORT_ROUTE + reportName);
-			
+			System.out.println(REPORT_ROUTE + reportName);
 			//define a HashMap to get the parameters for the report
 			HashMap<String,Object> parameters = new HashMap<String,Object>();
 			parameters.put("IMAGE_SERVER", imageServer);
@@ -80,6 +81,7 @@ public class ReportsUtil{
 				
 		}catch (JRException e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null,"Error cargando el informe, por favor revise su conexión a la base de datos");
 		}finally {
 			if(con != null) {
@@ -166,8 +168,9 @@ public class ReportsUtil{
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null,"Error cargando el informe, por favor revise su conexión a la base de datos");
 		}catch (JRException e) {
+			
 			e.printStackTrace();
-			//JOptionPane.showMessageDialog(null, "Error viewing the report", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error viewing the report", "Error", JOptionPane.ERROR_MESSAGE);
 
 			// TODO: handle exception
 		}

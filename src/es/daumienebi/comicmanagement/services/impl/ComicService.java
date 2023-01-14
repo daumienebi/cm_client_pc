@@ -9,12 +9,12 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
 import es.daumienebi.comicmanagement.models.*;
 import es.daumienebi.comicmanagement.services.IComicService;
 import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.HttpClientUtil;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -25,11 +25,24 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  */
 public class ComicService implements IComicService {
 	private static String SERVER = Configuration.server;
-	private CollectionService  collectionService = new CollectionService();
-	//private static String
+	private static String connectionError;
+	
+	private static void setErrorMessage() {
+		
+		switch(Configuration.app_language) {
+			case English : connectionError = "Error performing the request to the server, please check your connection settings and make sure the server is running";
+			break;
+			case Spanish : connectionError = "Error realizando la petición al servidor, por favor revisa los ajustes de conexión y asegurese de que el servidor esta corriendo";
+			break;
+			case Galician : connectionError = "Produciuse un erro ao solicitar o servidor, comprobe a configuración de conexión e asegúrate de que o servidor estea en execución";
+			break;
+			default: connectionError = "Error realizando la petición al servidor, por favor revisa los ajustes de conexión y asegurese de que el servidor esta corriendo";
+		}
+	}
 	
 	@Override
 	public ArrayList<Comic> findAllComics() {
+		setErrorMessage();
 		// TODO Auto-generated method stub
 		String url = SERVER + "/comics";
 		ArrayList<Comic> comics = new ArrayList<Comic>();
@@ -45,13 +58,14 @@ public class ComicService implements IComicService {
 			System.out.println(counter + " comics found");		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 		}
 		return comics;
 	}
 
 	@Override
 	public Comic findComicById(Long id) {
+		setErrorMessage();
 		String url = SERVER + "/comics/"+id;
 		Comic comic = new Comic();
 		try {
@@ -61,7 +75,7 @@ public class ComicService implements IComicService {
 			});	
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 		}
 		return comic;
 	}
@@ -74,6 +88,7 @@ public class ComicService implements IComicService {
 
 	@Override
 	public boolean saveComic(Comic comic) {
+		setErrorMessage();
 		String url = SERVER + "/comics";
 		try {
 			ObjectMapper mapper = new ObjectMapper();
@@ -82,13 +97,14 @@ public class ComicService implements IComicService {
 			System.out.println(json);
 			return true;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 			return false;
 		}
 	}
 
 	@Override
 	public boolean deleteComic(Long id) {
+		setErrorMessage();
 		String url = SERVER + "/comics/"+id;
 		System.out.println(url);
 		try {
@@ -96,13 +112,14 @@ public class ComicService implements IComicService {
 			System.out.println(res);
 			return true;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 			return false;
 		}
 	}
 	
 	@Override
 	public boolean updateComic(Comic comic) {
+		setErrorMessage();
 		Long id = comic.getId();
 		System.out.println(id);
 		String url = SERVER + "/comics/"+id;
@@ -114,7 +131,7 @@ public class ComicService implements IComicService {
 			System.out.println(res);
 			return true;
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null,"Error cargando los datos, por favor revise su conexión");
+			JOptionPane.showMessageDialog(null,connectionError);
 			return false;
 		}
 	}

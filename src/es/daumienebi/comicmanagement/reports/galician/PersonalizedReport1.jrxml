@@ -49,60 +49,67 @@ ORDER BY c.name]]>
 		<band height="81" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="9" width="70" height="71" uuid="0a231bd5-e71d-4241-bdec-369e88473c80"/>
-				<imageExpression><![CDATA["C:/Users/Usuario/Desktop/MyProjects/MyEclipseWorkSpace/ComicManagement/src/resources/comic-icon_128.png"]]></imageExpression>
+				<imageExpression><![CDATA["./src/resources/comic-icon_128.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="140" y="29" width="220" height="30" uuid="bf127ce8-8f3a-4e86-a1fc-ea4c0d3c7895"/>
+				<reportElement x="140" y="29" width="120" height="30" uuid="bf127ce8-8f3a-4e86-a1fc-ea4c0d3c7895"/>
 				<textElement>
 					<font size="20" isBold="true"/>
 				</textElement>
-				<text><![CDATA[COMICS EN ESTADO : ]]></text>
+				<text><![CDATA[COMICS IN]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="370" y="30" width="100" height="30" uuid="b4deb3fd-c7b2-420c-9649-16f311d5d988"/>
+				<reportElement x="260" y="29" width="80" height="30" uuid="b4deb3fd-c7b2-420c-9649-16f311d5d988"/>
 				<textElement>
 					<font size="20" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{COMIC_STATE}.toUpperCase()]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="340" y="30" width="70" height="30" uuid="c8a59e91-20cc-49e6-9411-d8d5a5e0fb60"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STATE]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="60" splitType="Stretch">
 			<staticText>
-				<reportElement x="110" y="20" width="100" height="30" uuid="0c53cc27-1c42-4ef0-b849-80693d95231a"/>
+				<reportElement x="1" y="15" width="90" height="30" uuid="7cb42d72-7e1d-4fdc-b0ff-23574c825553"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[COLECCIÓN]]></text>
+				<text><![CDATA[NAME]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="90" height="30" uuid="37636334-d605-4da7-9fe5-e9a73cc0e618"/>
+				<reportElement x="111" y="15" width="100" height="30" uuid="fc38e68f-abfb-499f-9201-eaf46ae0f5fa"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NOME]]></text>
+				<text><![CDATA[COLLECTION]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="220" y="20" width="70" height="30" uuid="c1a09b0f-b25e-4ca7-b121-35bd4c8a0f3b"/>
+				<reportElement x="221" y="15" width="70" height="30" uuid="f85bb94d-9b7d-4faf-8616-05be469223f8"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[NUMERO]]></text>
+				<text><![CDATA[NUMBER]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="20" width="100" height="30" uuid="9c694e67-f46e-4081-8bea-d054076ad39d"/>
+				<reportElement x="301" y="15" width="100" height="30" uuid="9b2ed65a-4f42-47df-9480-dd0b45ad2b92"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[FECHA ADQ.]]></text>
+				<text><![CDATA[ADQ. DATE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="20" width="150" height="30" uuid="79652d1d-86c6-46c9-a383-048f8e7235d4"/>
+				<reportElement x="411" y="15" width="150" height="30" uuid="c4526bc1-0224-4023-8442-92f15499725e"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[IMAXE]]></text>
+				<text><![CDATA[IMAGE]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -141,7 +148,7 @@ ORDER BY c.name]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "http://192.168.56.101/comicmanagement/images/reports/no_report_image.png")]]></imageExpression>
+				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "$P{IMAGE_SERVER}+no_report_image.png")]]></imageExpression>
 			</image>
 		</band>
 	</detail>
@@ -152,7 +159,7 @@ ORDER BY c.name]]>
 				<textElement>
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Paxina " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Pagina " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

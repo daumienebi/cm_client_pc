@@ -13,6 +13,11 @@ import es.daumienebi.comicmanagement.utils.Configuration;
 import es.daumienebi.comicmanagement.utils.Translator;
 import java.net.URL;
 
+/**
+ * 
+ * @author Daumienebi Sakpa
+ *
+ */
 public class ConfigUIController {
 	private static String PROPERTIES_PATH = "./app.properties";
 	
@@ -60,8 +65,8 @@ public class ConfigUIController {
 			
 			try(OutputStream outputStream = new FileOutputStream(output_file);){
 				prop.setProperty("server",Configuration.server);
-				prop.setProperty("ip",Configuration.db_ip);
-				prop.setProperty("port",Configuration.db_port);
+				prop.setProperty("db_ip",Configuration.db_ip);
+				prop.setProperty("db_port",Configuration.db_port);
 				prop.setProperty("db_user",Configuration.db_user);
 				prop.setProperty("db_password",Configuration.db_password);
 				prop.setProperty("db_name",Configuration.db_name);
@@ -87,7 +92,7 @@ public class ConfigUIController {
 		ResourceBundle bundle = ResourceBundle.getBundle("app");
 		if(bundle != null) {
 			Configuration.server = bundle.getString("server");
-			Configuration.db_ip = bundle.getString("ip");
+			Configuration.db_ip = bundle.getString("db_ip");
 			Configuration.db_name = bundle.getString("db_name");
 			Configuration.db_user = bundle.getString("db_user");
 			Configuration.db_password = bundle.getString("db_password");
@@ -96,7 +101,7 @@ public class ConfigUIController {
 			Configuration.ftp_password = bundle.getString("ftp_password");
 			Configuration.ftp_server = bundle.getString("ftp_server");
 			Configuration.ftp_user = bundle.getString("ftp_user");
-			Configuration.db_port = bundle.getString("port");
+			Configuration.db_port = bundle.getString("db_port");
 		}		
 	}
 	

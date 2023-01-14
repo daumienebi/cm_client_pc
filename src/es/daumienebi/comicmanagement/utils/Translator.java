@@ -105,7 +105,7 @@ public class Translator {
 		NewCollectionUI.UIMessage_recordAdded = bundle.getString("UIMessage_recordAdded");		
 		NewCollectionUI.UIMessage_recordSaved = bundle.getString("UIMessage_recordSaved");		
 		NewCollectionUI.UIMessage_errorAddingRecord = bundle.getString("UIMessage_errorAddingRecord");		
-
+		NewCollectionUI.NewCollectionUI_windowTitle = bundle.getString("NewCollectionUI_windowTitle");
 	}
 	public static void translateComicManagementUI(AppLanguage language) {
 		setBundle(language);
@@ -133,7 +133,7 @@ public class Translator {
 	}
 	
 	public static void translateCollectionDetailsUI(AppLanguage language) {
-		CollectionDetailsUI.CollectionDetailsUI_count.setText(bundle.getString("CollectionDetailsUI_count"));
+		//CollectionDetailsUI.CollectionDetailsUI_count.setText(bundle.getString("CollectionDetailsUI_count"));
 		CollectionDetailsUI.CollectionDetailsUI_name.setText(bundle.getString("CollectionDetailsUI_name"));
 
 	}

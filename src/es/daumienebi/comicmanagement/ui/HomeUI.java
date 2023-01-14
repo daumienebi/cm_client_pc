@@ -23,6 +23,7 @@ import javax.swing.Timer;
 
 import javax.swing.JPanel;
 
+import es.daumienebi.comicmanagement.controllers.ConfigUIController;
 import es.daumienebi.comicmanagement.controllers.HomeUIController;
 import es.daumienebi.comicmanagement.services.impl.ComicService;
 import es.daumienebi.comicmanagement.utils.Configuration;
@@ -45,6 +46,8 @@ import java.awt.Color;
 import java.awt.Desktop;
 
 import javax.swing.UIManager;
+
+import com.ctc.wstx.shaded.msv_core.reader.Controller;
 
 public class HomeUI {
 
@@ -92,33 +95,14 @@ public class HomeUI {
 	private boolean canOpenComicMng = true;
 	private boolean canOpenCollectionMng = true;
 	ComicService comicService = new ComicService();
-	private boolean openHelpWithSystemViewer = false;
 
 	private static String COMIC_IMAGE_SERVER = Configuration.comic_image_server;
 	private static String COLLECTION_IMAGE_SERVER = Configuration.collection_image_server;
 	
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					HomeUI window = new HomeUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
 	public HomeUI() {
 		initialize();
+		
 		try {
 			generateHelp();
 		} catch (MalformedURLException e) {
@@ -134,7 +118,7 @@ public class HomeUI {
 		frame = new JFrame();
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(HomeUI.class.getResource("/resources/logo.png")));
 		frame.setBounds(100, 100, 1100,800);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(frame); //to center the JFrame to the center of the screen
 		setBackgroundImage();
 		frame.setLocationRelativeTo(frame);
@@ -427,8 +411,9 @@ public class HomeUI {
 		menuHelp.add(menuHelpContents);
 	}
 	
-	private void generateHelp() throws MalformedURLException {
-		
+
+	
+	private void generateHelp() throws MalformedURLException {	
 		try 
         {
 			URL helpURL = JavaHelpUtil.getHelpURL();
@@ -438,7 +423,8 @@ public class HomeUI {
             browser = helpset.createHelpBroker();
             
             //Enabling the menuButton to show the help contents
-            browser.enableHelpOnButton(menuHelpContents, "manual", helpset);          
+            browser.enableHelpOnButton(menuHelpContents, "manual", helpset);
+                     
         } 
         catch (HelpSetException ex) 
         {
@@ -469,14 +455,29 @@ public class HomeUI {
 	}
 	
 	private void restart() {
+		
 		frame.dispose();
 		try {
 			Thread.sleep(2500);
+			
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		HomeUI window = new HomeUI();										
+		
+		/*
+		if(Configuration.debug_mode) {
+			SplashScreenUI ui = new SplashScreenUI();
+			ui.debugRestart();
+		}else {
+			SplashScreenUI ui = new SplashScreenUI();
+			ui.normalRestart();
+		}
+		*/
+		
+		HomeUI window = new HomeUI();
+		ConfigUIController configController = new ConfigUIController();
+		configController.loadConfig();
 		window.frame.setResizable(true);
 		window.frame.setVisible(true);
 	}

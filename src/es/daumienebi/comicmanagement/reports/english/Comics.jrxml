@@ -47,7 +47,7 @@ ORDER BY c.name]]>
 		<band height="86" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="9" width="70" height="71" uuid="77b4bfd1-2e12-4599-aa9a-f4ef659ac7b6"/>
-				<imageExpression><![CDATA["C:/Users/Usuario/Desktop/MyProjects/MyEclipseWorkSpace/ComicManagement/src/resources/comic-icon_128.png"]]></imageExpression>
+				<imageExpression><![CDATA["./src/resources/comic-icon_128.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="160" y="29" width="260" height="30" uuid="49f08f97-7ee0-4afe-9d2e-6f18b092d2e1"/>
@@ -132,7 +132,7 @@ ORDER BY c.name]]>
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "http://192.168.56.101/comicmanagement/images/reports/no_report_image.png")]]></imageExpression>
+				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "$P{IMAGE_SERVER}+no_report_image.png")]]></imageExpression>
 			</image>
 		</band>
 	</detail>

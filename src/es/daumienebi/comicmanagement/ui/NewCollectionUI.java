@@ -184,7 +184,7 @@ public class NewCollectionUI extends JDialog {
 		collection = new Collection(name,imageName);
 		//upload the image to the server
 		Object [] uploadResult = new Object[2];
-		if(!name.isBlank()) {
+		if(!name.isEmpty()) {
 			if(imgFile != null) {
 				uploadResult = UploadImageUtil.uploadCollectionImage(imgFile);
 				boolean uploaded = Boolean.parseBoolean(uploadResult[0].toString());
@@ -220,14 +220,14 @@ public class NewCollectionUI extends JDialog {
 	private void validateCollection_Edit() {
 		String name = txtName.getText();
 		boolean uploaded = false;
-		if(!name.isBlank()) {
+		if(!name.isEmpty()) {
 			if(imgFile!= null) {
 				Object [] uploadResult = new Object[2];
 				uploadResult = UploadImageUtil.uploadCollectionImage(imgFile);
 				uploaded = Boolean.parseBoolean(uploadResult[0].toString());
 				imageName = uploadResult[1].toString();
 				if(uploaded) {
-					addCollection(collection);
+					editCollection(collection,name);
 				}else {
 					JOptionPane.showMessageDialog(getContentPane(),UIMessage_errorSubirImagen,"Error",JOptionPane.ERROR_MESSAGE);
 				}

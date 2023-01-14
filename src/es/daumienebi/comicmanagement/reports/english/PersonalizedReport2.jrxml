@@ -38,7 +38,7 @@ ORDER BY comic_count desc]]>
 		<band height="80" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="9" width="70" height="71" uuid="71051cf5-d6fb-4632-b9c2-1e7edcece844"/>
-				<imageExpression><![CDATA["C:/Users/Usuario/Desktop/MyProjects/MyEclipseWorkSpace/ComicManagement/src/resources/comic-icon_128.png"]]></imageExpression>
+				<imageExpression><![CDATA["./src/resources/comic-icon_128.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="103" y="30" width="200" height="30" uuid="62e5f481-7b1c-4d0d-85e1-d8cfe4eaadaf"/>
@@ -94,7 +94,7 @@ ORDER BY comic_count desc]]>
 				<reportElement x="420" y="0" width="100" height="100" uuid="6f5a7748-6fb1-4faa-b20d-6e8294fab05b">
 					<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				</reportElement>
-				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "http://192.168.56.101/comicmanagement/images/reports/no_report_image.png")]]></imageExpression>
+				<imageExpression><![CDATA[($F{image} != null ? $P{IMAGE_SERVER}+$F{image} : "$P{IMAGE_SERVER}+no_report_image.png")]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="40" y="17" width="170" height="43" uuid="946bd57b-1583-48b4-a96e-5d368fea157f"/>

@@ -23,10 +23,12 @@ import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Dimension;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.RowFilter;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 import es.daumienebi.comicmanagement.controllers.ComicManagementUIController;
 import es.daumienebi.comicmanagement.models.Collection;
@@ -77,13 +79,17 @@ public class ComicManagementUI extends JFrame {
 	private JTextField txtBusqueda;
 	private JPanel dataPanel;
 	private JTable comicsTable;
-	private ArrayList<Comic> comics = new ArrayList<Comic>();
+	private TableRowSorter<ComicTableModel> sorter;
+	
+	//private ArrayList<Comic> comics = new ArrayList<Comic>();
+	
 	JComboBox cmbFilter;
 	
 	ComicSearchFilter filter = ComicSearchFilter.Comic;
 	private static int row;
 	private	static int column;
 	ComicManagementUIController controller = new ComicManagementUIController();
+	private ArrayList<Comic> comics = controller.findAllComics();
 	/**
 	 * Launch the application.
 	 */
@@ -160,7 +166,8 @@ public class ComicManagementUI extends JFrame {
 		dataPanel.add(scrollPane, BorderLayout.CENTER);
 		
 		comicsTable = new JTable();
-		comicsTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		//comicsTable.setAutoCreateRowSorter(true);
+		comicsTable.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		comicsTable.setRowHeight(40);
 		scrollPane.setViewportView(comicsTable);
 		
@@ -174,14 +181,35 @@ public class ComicManagementUI extends JFrame {
 		ComicManagementUI_name.setFont(new Font("Comic Sans MS", Font.BOLD, 13));
 		
 		txtBusqueda = new JTextField();
+		txtBusqueda.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtBusqueda.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				if(filter == ComicSearchFilter.Comic) {
-					ComicTableModel tableModel = new ComicTableModel(controller.filterComic(txtBusqueda.getText()));
-					comicsTable.setModel(tableModel);
+					//use the JTable filter instead of getting the data directly from the server onKeyRelease
+					//ComicTableModel tableModel = new ComicTableModel(controller.filterComic(txtBusqueda.getText().trim()));
+					//comicsTable.setModel(tableModel);
+					String filterText = txtBusqueda.getText().trim();
+					if(filterText.length() == 0) {
+						sorter = new TableRowSorter<ComicTableModel>();
+						sorter.setRowFilter(null);
+					}else {
+						ComicTableModel tableModel = new ComicTableModel(comics);
+						sorter = new TableRowSorter<ComicTableModel>(tableModel);
+						sorter.setRowFilter(RowFilter.regexFilter("^(?i)" + filterText,1));
+						comicsTable.setRowSorter(sorter);		
+					}
 				}else {
 					//filter by collection name
+					String filterText = txtBusqueda.getText().trim();
+					if(filterText.length() == 0) {
+						sorter.setRowFilter(null);
+					}else {
+						ComicTableModel tableModel = new ComicTableModel(comics);
+						sorter = new TableRowSorter<ComicTableModel>(tableModel);
+						sorter.setRowFilter(RowFilter.regexFilter("^(?i)" + filterText,3));
+						comicsTable.setRowSorter(sorter);
+					}
 				}
 				
 			}
@@ -205,11 +233,11 @@ public class ComicManagementUI extends JFrame {
 					.addGap(19)
 					.addComponent(ComicManagementUI_name, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 					.addGap(43)
-					.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 412, GroupLayout.PREFERRED_SIZE)
-					.addGap(91)
+					.addComponent(txtBusqueda, GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+					.addGap(63)
 					.addComponent(ComicManagementUI_filter, GroupLayout.PREFERRED_SIZE, 47, GroupLayout.PREFERRED_SIZE)
-					.addGap(32)
-					.addComponent(cmbFilter, 0, 104, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(cmbFilter, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_searchPanel.setVerticalGroup(
 			gl_searchPanel.createParallelGroup(Alignment.LEADING)
@@ -218,9 +246,9 @@ public class ComicManagementUI extends JFrame {
 					.addGroup(gl_searchPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(ComicManagementUI_name, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addComponent(txtBusqueda, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addComponent(ComicManagementUI_filter)
-						.addComponent(cmbFilter, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(75, Short.MAX_VALUE))
+						.addComponent(cmbFilter, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(ComicManagementUI_filter))
+					.addContainerGap(67, Short.MAX_VALUE))
 		);
 		searchPanel.setLayout(gl_searchPanel);
 		searchPanel.setBorder(BorderFactory.createTitledBorder(null, ComicManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
