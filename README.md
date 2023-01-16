@@ -48,8 +48,8 @@ same functionality.
    If by any chance anyone decides to clone this project for modification or any other use, you are free to do absolutely whatever you want with it,
    Goodluck ! 😶 
    
-   Tip : change the debug_mode value to "false" in the Configuration.java file (src/es/daumienebi/comicmanagement/utils/Configuration.java) if you are modifying the project to avoid waitng for the Loading screen everytime you complie the project
-   then set it back to "true" before generating the jar file to view the shitty loading screen.
+   Tip : change the debug_mode value to "true" in the Configuration.java file (src/es/daumienebi/comicmanagement/utils/Configuration.java) if you are modifying the project to avoid waitng for the Loading screen everytime you complie the project
+   then set it back to "false" before generating the jar file to view the shitty loading screen later on.
    ![config](https://user-images.githubusercontent.com/90214727/212730875-0cd6430c-2309-4a8d-ad93-72a21be0ade9.PNG)
  
  ## Todo :

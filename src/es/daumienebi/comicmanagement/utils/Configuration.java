@@ -15,8 +15,8 @@ public class Configuration {
 	public static String ftp_user;
 	public static String ftp_password;
 	public static AppLanguage app_language = AppLanguage.English;
-	//The "debug_mode" should be set to false to skip the loading.
-	//It must be set to true after code modification before generating the jars
+	//The [debug_mode] should be set to true to skip the loading screen.
+	//It must be set to false after code modification before generating the jars to enable the loading screen.
 	public static boolean debug_mode = false;
 	public static String db_ip;	
 	public static String db_port; //3306
