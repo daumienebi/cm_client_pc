@@ -1,4 +1,4 @@
-# Comic Management Desktop App
+# Comic Management Desktop Client
 
 Comic management cliente (Desktop version) made with Java Swing. This project was a final school project to create a desktop app that communicates with a backend,
 (Springboot in this case) to perform basic CRUD operations and being able to generate few simple reports created with JasperReports.
@@ -6,6 +6,7 @@ I personally love Java Swing even though it's outdated so i decided to modify fe
 the Markdown language a bit.
 
 ## Entities
+
 - Comic (Each comic must belong to a collection)
 - Collection (Each collection can have 0 or N comics)
 
@@ -25,10 +26,10 @@ same functionality.
   ![structure](https://user-images.githubusercontent.com/90214727/212724442-3b5410e0-87b4-4ff6-a274-4152550b1498.PNG)   
   The app.properties values can be configured for the app (Connection > Configure connection values) o directly editing the file.
 
-- Server
+- Backend
 
    A very simple Springboot backend is used to serve the client, the project can be downloaded here : [comic_management_server.zip](https://github.com/daumienebi/cm_client_pc/files/10427656/comic_management_server.zip)
-  After getting the project you only need to configure the application.properties file in the *Springboot project* to fill in your database values and
+  After getting the project you only need to configure the application.properties file in the **Springboot project** to fill in your database values and
   any necessary values like this then run the project :    
   ![Captura](https://user-images.githubusercontent.com/90214727/212725897-d78e41c7-07d5-43af-9c21-086057c927a1.PNG)   
   Api Endpoints :
@@ -45,6 +46,7 @@ same functionality.
   TODO : Create a file on how to configure the app in English.
   
  ## Modification
+ 
    If by any chance anyone decides to clone this project for modification or any other use, you are free to do absolutely whatever you want with it,
    Goodluck ! 😶 
    
@@ -53,4 +55,5 @@ same functionality.
    ![config](https://user-images.githubusercontent.com/90214727/212730875-0cd6430c-2309-4a8d-ad93-72a21be0ade9.PNG)
  
  ## Todo :
+ 
    - File on how to configure the project in English too.
