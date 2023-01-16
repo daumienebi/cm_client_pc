@@ -45,7 +45,7 @@ public class AddCollectioToComicUI extends JDialog {
 	private JPanel contentPane;
 	
 	//To be translated
-	public static String CollectionManagementUI_searchOptions = "Busqueda Colecci�n";
+	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
 	public static JLabel CollectionManagementUI_collection;
 	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
 	//public static String UIMessages_recordDeleted = "Registro eliminado correctamente";
