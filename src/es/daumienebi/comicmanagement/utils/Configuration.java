@@ -8,16 +8,16 @@ import es.daumienebi.comicmanagement.utils.Constants.*;
  * 
  */
 public class Configuration {
-	public static String server = "http://192.168.8.144:8081"; //was not picking this line from the properties file for some reason
+	public static String server = "http://192.168.8.144:8081";
 	public static String comic_image_server;
 	public static String collection_image_server;
 	public static String ftp_server;
 	public static String ftp_user;
 	public static String ftp_password;
-	public static AppLanguage app_language = AppLanguage.Spanish;
+	public static AppLanguage app_language = AppLanguage.English;
 	//The "debug_mode" should be set to false to skip the loading.
 	//It must be set to true after code modification before generating the jars
-	public static boolean debug_mode = true;
+	public static boolean debug_mode = false;
 	public static String db_ip;	
 	public static String db_port; //3306
 	public static String db_name; //comicdb

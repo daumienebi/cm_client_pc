@@ -24,7 +24,7 @@ public class JavaHelpUtil {
 		if(Configuration.debug_mode) {
 			helpURL = JavaHelpUtil.class.getResource("../help/help.hs");
 		}else {
-			helpURL = new URL("jar:file:ComicManagement.jar!/es/daumienebi/comicmanagement/help/help.hs");
+			helpURL = new URL("jar:file:ComicManagement.jar!/es/daumienebi/comicmanagement/help/spanish/help.hs");
 		}
 		/*
 		if(Configuration.debug_mode) {
