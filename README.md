@@ -19,18 +19,25 @@ same functionality.
   - Filezilla (To manage the FTP server used to upload the images of each comic o collection)
   - Apache (to simulate a web server that will be used to retrieve the stored images)
  
-- Desktop Client :![Captura](https://user-images.githubusercontent.com/90214727/212717192-e5c19f99-89e0-454b-b72c-4118f3451af1.PNG)
+- Desktop Client :
+
+  ![Captura](https://user-images.githubusercontent.com/90214727/212780225-1e88385d-c0ff-4452-b84f-06a4b4753cc3.PNG)
+
+
   It can be found in the release section.
-  The Client jar file (ComicManagement.jar) must be in a Folder with the Reports folder(where the reports for each language can be found), app.properties file to configure user values but a shortcut can be
+  The Client jar file (ComicManagement.jar) must be in a Folder with the Reports folder(where the reports for each language can be found), app.properties 
+  file to configure user values but a shortcut can be
   created for the jar file.
   ![structure](https://user-images.githubusercontent.com/90214727/212724442-3b5410e0-87b4-4ff6-a274-4152550b1498.PNG)   
   The app.properties values can be configured for the app (Connection > Configure connection values) o directly editing the file.
 
 - Backend
 
-   A very simple Springboot backend is used to serve the client, the project can be downloaded here : [comic_management_server.zip](https://github.com/daumienebi/cm_client_pc/files/10427656/comic_management_server.zip)
+   A very simple Springboot backend is used to serve the client, the project can be downloaded here : 
+   [comic_management_server.zip](https://github.com/daumienebi/cm_client_pc/files/10427656/comic_management_server.zip).  
   After getting the project you only need to configure the application.properties file in the **Springboot project** to fill in your database values and
-  any necessary values like this then run the project :    
+  any necessary values like this then run the project :
+  
   ![Captura](https://user-images.githubusercontent.com/90214727/212725897-d78e41c7-07d5-43af-9c21-086057c927a1.PNG)   
   Api Endpoints :
   - /comics
@@ -52,7 +59,8 @@ same functionality.
    
    Tip : change the debug_mode value to "true" in the Configuration.java file (src/es/daumienebi/comicmanagement/utils/Configuration.java) if you are modifying the project to avoid waitng for the Loading screen everytime you complie the project
    then set it back to "false" before generating the jar file to view the shitty loading screen later on.
-   ![config](https://user-images.githubusercontent.com/90214727/212730875-0cd6430c-2309-4a8d-ad93-72a21be0ade9.PNG)
+   
+   ![Captura](https://user-images.githubusercontent.com/90214727/212779303-5c848f69-b61a-4f9d-89b7-6994a1e1fb21.PNG)
  
  ## Todo :
  
