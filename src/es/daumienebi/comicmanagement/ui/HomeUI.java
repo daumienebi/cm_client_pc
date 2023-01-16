@@ -212,7 +212,6 @@ public class HomeUI {
 				ui.setLocationRelativeTo(frame);
 				ui.setMinimumSize(Constants.configUIMinimunSize);
 				ui.setVisible(true);
-				restart();
 			}
 		});
 		menuAddConnection.setIcon(new ImageIcon(HomeUI.class.getResource("/resources/icons8-add-database-24.png")));
@@ -466,16 +465,6 @@ public class HomeUI {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		/*
-		if(Configuration.debug_mode) {
-			SplashScreenUI ui = new SplashScreenUI();
-			ui.debugRestart();
-		}else {
-			SplashScreenUI ui = new SplashScreenUI();
-			ui.normalRestart();
-		}
-		*/
 		
 		HomeUI window = new HomeUI();
 		ConfigUIController configController = new ConfigUIController();

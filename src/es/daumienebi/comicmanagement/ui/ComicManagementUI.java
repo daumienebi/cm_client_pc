@@ -185,31 +185,31 @@ public class ComicManagementUI extends JFrame {
 		txtBusqueda.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(filter == ComicSearchFilter.Comic) {
-					//use the JTable filter instead of getting the data directly from the server onKeyRelease
-					//ComicTableModel tableModel = new ComicTableModel(controller.filterComic(txtBusqueda.getText().trim()));
-					//comicsTable.setModel(tableModel);
-					String filterText = txtBusqueda.getText().trim();
-					if(filterText.length() == 0) {
-						sorter = new TableRowSorter<ComicTableModel>();
-						sorter.setRowFilter(null);
+				try {
+					Thread.sleep(100);
+					ComicTableModel tableModel = new ComicTableModel(controller.filterComic(txtBusqueda.getText().trim()));
+					if(filter == ComicSearchFilter.Comic) {
+						comicsTable.setModel(tableModel);
+						//Hide the ID column
+						comicsTable.getColumnModel().getColumn(0).setMinWidth(0);
+						comicsTable.getColumnModel().getColumn(0).setMaxWidth(0);
+						comicsTable.getColumnModel().getColumn(0).setWidth(0);
 					}else {
-						ComicTableModel tableModel = new ComicTableModel(comics);
-						sorter = new TableRowSorter<ComicTableModel>(tableModel);
-						sorter.setRowFilter(RowFilter.regexFilter("^(?i)" + filterText,1));
-						comicsTable.setRowSorter(sorter);		
+						//filter by collection name
+						String filterText = txtBusqueda.getText().trim();
+						ComicTableModel collectionSearchTableModel = new ComicTableModel(comics);
+						if(filterText.length() == 0) {
+							sorter.setRowFilter(null);
+						}else {
+							//ComicTableModel tableModel = new ComicTableModel(comics);
+							sorter = new TableRowSorter<ComicTableModel>(collectionSearchTableModel);
+							sorter.setRowFilter(RowFilter.regexFilter("^(?i)" + filterText,3));
+							comicsTable.setRowSorter(sorter);
+						}
 					}
-				}else {
-					//filter by collection name
-					String filterText = txtBusqueda.getText().trim();
-					if(filterText.length() == 0) {
-						sorter.setRowFilter(null);
-					}else {
-						ComicTableModel tableModel = new ComicTableModel(comics);
-						sorter = new TableRowSorter<ComicTableModel>(tableModel);
-						sorter.setRowFilter(RowFilter.regexFilter("^(?i)" + filterText,3));
-						comicsTable.setRowSorter(sorter);
-					}
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 				
 			}
@@ -258,8 +258,8 @@ public class ComicManagementUI extends JFrame {
 	}
 	
 	private void setBorder() {
-		searchPanel.setBorder(BorderFactory.createTitledBorder(null, ComicManagementUI_searchOptions,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
-
+		searchPanel.setBorder(BorderFactory.createTitledBorder(null, ComicManagementUI_searchOptions,
+				TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18)));
 	}
 	
 	private void loadComicsTable() {
@@ -267,7 +267,8 @@ public class ComicManagementUI extends JFrame {
 		ComicTableModel tableModel = new ComicTableModel(comics);
 		tableModel.translateColumns();
 		comicsTable.setModel(tableModel);
-		//table.removeColumn(table.getColumnModel().getColumn(0));
+		//Hide the ID column
+		comicsTable.removeColumn(comicsTable.getColumnModel().getColumn(0));
 	}
 
 	private void tableDoubleClick(JTable table) {
@@ -279,6 +280,7 @@ public class ComicManagementUI extends JFrame {
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		            Long id = Long.valueOf(table.getModel().getValueAt(row, 0).toString());
 		            Comic comic = controller.getComic(id);
+		            System.out.println("ID :" + id);
 		            if(comic == null) {
 		            	JOptionPane.showMessageDialog(table, UIMessages_recordNotFound,"",JOptionPane.ERROR_MESSAGE);
 		            }else {

@@ -105,6 +105,10 @@ public class CollectionManagementUI extends JFrame {
 			public void keyReleased(KeyEvent e) {
 				CollectionTableModel tableModel = new CollectionTableModel(controller.fliterCollection(txtCollection.getText()));
 				collectionTable.setModel(tableModel);
+				//Hide the ID column
+				collectionTable.getColumnModel().getColumn(0).setMinWidth(0);
+				collectionTable.getColumnModel().getColumn(0).setMaxWidth(0);
+				collectionTable.getColumnModel().getColumn(0).setWidth(0);
 			}
 		});
 		txtCollection.setMinimumSize(new Dimension(100, 100));
@@ -268,8 +272,11 @@ public class CollectionManagementUI extends JFrame {
 		
 		tableModel.translateColumns();
 		collectionTable.setModel(tableModel);
-		collectionTable.getColumnModel().getColumn(0).setMinWidth(80);
-		collectionTable.getColumnModel().getColumn(0).setMaxWidth(80);
+		//Hide the ID column
+		collectionTable.getColumnModel().getColumn(0).setMinWidth(0);
+		collectionTable.getColumnModel().getColumn(0).setMaxWidth(0);
+		collectionTable.getColumnModel().getColumn(0).setWidth(0);
+		
 		collectionTable.getColumnModel().getColumn(2).setMinWidth(150);
 		collectionTable.getColumnModel().getColumn(2).setMaxWidth(200);
 	}

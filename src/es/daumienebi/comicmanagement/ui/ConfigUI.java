@@ -59,7 +59,7 @@ public class ConfigUI extends JDialog {
 	public static JLabel ConfigUI_user;
 	public static String ConfigUI_configValues = "Valores de conexión";
 	public static String ConfigUI_saveError = "Es obligatorio indicar el Servidor principal";
-	public static String ConfigUI_saved = "Valores guardados, se procederá a reiniciar la applicación";
+	public static String ConfigUI_saved = "Valores guardados,reinicia la aplicación para efectuar los cambios";
 	
 	private JTextField txtCollectionImgServer;
 	private JTextField txtIp;
@@ -105,10 +105,12 @@ public class ConfigUI extends JDialog {
 		ImageIcon icon = new ImageIcon(ConfigUI.class.getResource("/resources/api_icon.png"));
 		Image img = icon.getImage();			
 		//scale the image
-		Image imgNuevo = img.getScaledInstance(100,100,  java.awt.Image.SCALE_SMOOTH );
+		Image imgNuevo = img.getScaledInstance(100,100,java.awt.Image.SCALE_SMOOTH );
 		icon =new ImageIcon(imgNuevo);
 		api_icon.setIcon(icon);
-		((JComponent) getContentPane()).setBorder(BorderFactory.createTitledBorder(null, ConfigUI_configValues,TitledBorder.DEFAULT_JUSTIFICATION,TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18))); 
+		((JComponent) getContentPane()).setBorder(BorderFactory.createTitledBorder(null,
+				ConfigUI_configValues,TitledBorder.DEFAULT_JUSTIFICATION,
+				TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe Print", 1, 18))); 
 
 		ConfigUI_Server = new JLabel("SERVIDOR");
 		ConfigUI_Server.setFont(new Font("Comic Sans MS", Font.PLAIN, 11));
@@ -443,24 +445,6 @@ public class ConfigUI extends JDialog {
 		txtCollectionImgServer.setEnabled(true);
 	}
 	
-	
-	/*
-	void fillDefaultValues() {
-		txtIp.setText("192.168.56.101");
-		txtDbPort.setText("3306");
-		txtDbUser.setText("root");
-		txtDbPassword.setText("");
-		txtDbName.setText("comicdb");
-		
-		/*
-		txtFtpServer.setText(DefaultConfiguration.ftp_server);
-		txtFtpUser.setText(DefaultConfiguration.ftp_user);
-		txtActorImgServer.setText(DefaultConfiguration.actor_image_server);
-		txtMovieImgServer.setText(DefaultConfiguration.movie_image_server);
-		txtFtpPass.setText(DefaultConfiguration.ftp_password);
-		
-	}
-	*/
 	void fillConfigValues() {
 		txtApiServer.setText(Configuration.server);
 		txtIp.setText(Configuration.db_ip);
