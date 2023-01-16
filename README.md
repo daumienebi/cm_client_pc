@@ -35,8 +35,8 @@ same functionality.
 
    A very simple Springboot backend is used to serve the client, the project can be downloaded here : 
    [comic_management_server.zip](https://github.com/daumienebi/cm_client_pc/files/10427656/comic_management_server.zip).  
-  After getting the project you only need to configure the application.properties file in the **Springboot project** to fill in your database values and
-  any necessary values like this then run the project :
+  After downloading the project, you only need to configure the **application.properties** file in the **Springboot project** to fill in your database values and
+  any necessary values and then run the project :
   
   ![Captura](https://user-images.githubusercontent.com/90214727/212725897-d78e41c7-07d5-43af-9c21-086057c927a1.PNG)   
   Api Endpoints :
