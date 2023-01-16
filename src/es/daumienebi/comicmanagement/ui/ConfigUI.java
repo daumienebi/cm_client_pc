@@ -57,9 +57,9 @@ public class ConfigUI extends JDialog {
 	public static JLabel ConfigUI_BaseDeDatos;
 	public static JLabel ConfigUI_CollectionImgServer;
 	public static JLabel ConfigUI_user;
-	public static String ConfigUI_configValues = "Valores de conexión";
+	public static String ConfigUI_configValues = "Valores de conexiï¿½n";
 	public static String ConfigUI_saveError = "Es obligatorio indicar el Servidor principal";
-	public static String ConfigUI_saved = "Valores guardados,reinicia la aplicación para efectuar los cambios";
+	public static String ConfigUI_saved = "Valores guardados,reinicia la aplicaciï¿½n para efectuar los cambios";
 	
 	private JTextField txtCollectionImgServer;
 	private JTextField txtIp;

@@ -45,11 +45,11 @@ public class AddCollectioToComicUI extends JDialog {
 	private JPanel contentPane;
 	
 	//To be translated
-	public static String CollectionManagementUI_searchOptions = "Busqueda Colección";
+	public static String CollectionManagementUI_searchOptions = "Busqueda Colecciï¿½n";
 	public static JLabel CollectionManagementUI_collection;
 	public static String UIMessages_noItemSelected = "No hay elemento seleccionado";
 	//public static String UIMessages_recordDeleted = "Registro eliminado correctamente";
-	//public static String UIMessages_confirmacion = "Seguro que quieres borrar la colleción ? Se borrarán todos los comics relacionados.";
+	//public static String UIMessages_confirmacion = "Seguro que quieres borrar la colleciï¿½n ? Se borrarï¿½n todos los comics relacionados.";
 	//public static String UIMessages_recordNotFound = "Registro no encontrado";
 	//public static String UIMessages_errorDeletingRecord = "Error eliminando el registro";
 	public static JButton AddCollectioToComicUI_btnAdd;
