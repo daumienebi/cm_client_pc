@@ -1,40 +1,38 @@
 package es.daumienebi.comicmanagement.utils;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
-
 
 public class TextFieldValidatorUtil {
 
 	public static boolean isValidDate(int day, int month, int year) {
 		//checks if the date format is correct
-		boolean valida = false;		
+		boolean valid = false;		
 		try {
 			LocalDate.of(year, month, day);
-			valida = true;
+			valid = true;
 		} catch (DateTimeException ex) {
-			valida = false;
+			valid = false;
 		}
-		return valida;		
+		return valid;		
 	}
 	
-	public static boolean isNumeric(String valor) {
+	public static boolean isNumeric(String value) {
 		//checks if a given value is numeric
-		boolean numerico;		
+		boolean numeric;		
 		try {
-			int num = Integer.parseInt(valor);
-			numerico = true;
+			int num = Integer.parseInt(value);
+			numeric = true;
 		}catch(NumberFormatException ex) {
-			numerico = false;
+			numeric = false;
 		}		
-		return numerico;
+		return numeric;
 	}
 	
-	public static boolean isDouble(String valor) {
+	public static boolean isDouble(String value) {
 		//checks if a given value is numeric
 		boolean doublee;		
 		try {
-			double num = Double.parseDouble(valor);
+			double num = Double.parseDouble(value);
 			doublee = true;
 		}catch(NumberFormatException ex) {
 			doublee = false;

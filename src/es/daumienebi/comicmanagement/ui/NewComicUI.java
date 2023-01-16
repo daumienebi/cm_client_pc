@@ -88,25 +88,6 @@ public class NewComicUI extends JDialog {
 	
 	//Controller
 	private NewComicUIController controller = new NewComicUIController();
-	
-	/**
-	 * Launch the application.
-	 */
-	
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					NewComicUI dialog = new NewComicUI();
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public NewComicUI() {
 		Inicialize();
@@ -287,8 +268,8 @@ public class NewComicUI extends JDialog {
 				ui.setModal(true);
 				ui.setLocationRelativeTo(null);
 				ui.setVisible(true);
-				selectedCollection = ui.getSelectedCollection();
-				if(selectedCollection != null) {
+				if(ui.getSelectedCollection() != null) {
+					selectedCollection = ui.getSelectedCollection();
 					txtCollection.setText(selectedCollection.getName());
 				}
 				

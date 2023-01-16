@@ -43,8 +43,8 @@ public class ComicService implements IComicService {
 	@Override
 	public ArrayList<Comic> findAllComics() {
 		setErrorMessage();
-		// TODO Auto-generated method stub
 		String url = SERVER + "/comics";
+		System.out.println(url);
 		ArrayList<Comic> comics = new ArrayList<Comic>();
 		try {
 			HttpEntity entity = HttpClientUtil.get(url);

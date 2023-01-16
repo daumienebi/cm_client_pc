@@ -14,7 +14,7 @@ import org.apache.http.impl.client.HttpClients;
  * 
  * @author Daumienebi Sakpa
  *
- *This class will be used from different parts of the app so its better to have it here
+ *This class will be used from different parts of the app so its better to have it separately
  */
 public class HttpClientUtil {
 
@@ -41,7 +41,7 @@ public class HttpClientUtil {
 		
 		CloseableHttpResponse response = httpClient.execute(post);
 		if(response.getStatusLine().getStatusCode() != 200) {
-			System.out.println("Error Adding the entity");
+			System.out.println("Error adding the entity");
 		}
 		response.close();//important shit
 	}
@@ -51,7 +51,7 @@ public class HttpClientUtil {
 		HttpDelete delete = new HttpDelete(url);
 		CloseableHttpResponse response =  httpClient.execute(delete);
 		if(response.getStatusLine().getStatusCode() != 200) {
-			System.out.println("Error Deleting the entity");
+			System.out.println("Error deleting the entity");
 			return false;
 		}
 		response.close();

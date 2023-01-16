@@ -72,7 +72,7 @@ public class ConfigUIController {
 				prop.setProperty("db_name",Configuration.db_name);
 				prop.setProperty("ftp_server",Configuration.ftp_server);
 				prop.setProperty("comic_image_server",Configuration.comic_image_server);
-				prop.setProperty("movie_image_server",Configuration.collection_image_server);
+				prop.setProperty("collection_image_server",Configuration.collection_image_server);
 				prop.setProperty("ftp_password",Configuration.ftp_password);
 				prop.setProperty("ftp_user",Configuration.ftp_user);
 				prop.store(outputStream, null);

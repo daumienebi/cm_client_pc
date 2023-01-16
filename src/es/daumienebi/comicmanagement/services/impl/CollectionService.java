@@ -45,6 +45,7 @@ public class CollectionService implements ICollectionService{
 	public ArrayList<Collection> findAllCollections() {
 		setErrorMessage();
 		String url = SERVER + "/collections";
+		System.out.println(url);
 		ArrayList<Collection> collection = new ArrayList<Collection>();
 		try {
 			HttpEntity entity = HttpClientUtil.get(url);

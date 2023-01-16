@@ -253,7 +253,8 @@ public class HomeUI {
 			            }
 			       });
 				}else {
-					JOptionPane.showMessageDialog(null, "La ventana de gestión de colecciones ya se encuentra abierta","Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La ventana de gestión de colecciones ya se encuentra abierta",
+							"Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
 				}	
 			}
 		});
@@ -296,7 +297,8 @@ public class HomeUI {
 			            }
 			          });
 				}else {
-					JOptionPane.showMessageDialog(null, "La ventana de gestión de comics ya se encuentra abierta","Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "La ventana de gestión de comics ya se encuentra abierta",
+							"Pestaña abierta", JOptionPane.INFORMATION_MESSAGE);
 				}
 				//canOpenComigMng = false;
 			}
