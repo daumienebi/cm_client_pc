@@ -2,3 +2,5 @@
 /target/
 .settings
 .metadata
+/nbproject/private/
+/build/
